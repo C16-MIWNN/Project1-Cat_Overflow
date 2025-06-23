@@ -1,0 +1,33 @@
+Cooking recipes project
+
+Base idea:
+A recipe website where you an add, edit, delete and look at recipes.
+
+
+
+On the main page you can look at list of recipes with a picture and description or add new recipes.
+
+When you select a recipe, you are redirected to the recipe detail page, which will show an overview of the following items:
+- recipe name
+- description
+- picture (of food)
+- ingredients 
+- preparation method
+- preparation time
+- portions (example: servings, food items)
+- cooking method (example: grill, roast, bake, boil)
+- meal (breakfast, lunch, diner)
+- dish (example: bread, fish, soup, pasta)
+- kitchen (country of origin)
+- edit recipe button
+- delete recipe button
+
+
+
+Questions for first meeting:
+- What are the minimal requirements for the application?
+- Should the users be able to log in?
+- What are the authorisation rules for the users? (edit, remove recipe)
+- How many users should be allowed?
+- If multiple users, should recipes have the option to be private.
+- How often would you like an update?
