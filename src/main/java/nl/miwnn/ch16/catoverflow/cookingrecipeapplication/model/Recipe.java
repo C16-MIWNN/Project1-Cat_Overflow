@@ -19,14 +19,17 @@ public class Recipe {
     private String description;
     private Integer portionQuantity;
     private String portionUnit;
+    private Integer totalCookingTime;
 
-    public Recipe(Integer recipeId, String title, String summary, String description, Integer portionQuantity, String portionUnit) {
+    public Recipe(Integer recipeId, String title, String summary, String description,
+                  Integer portionQuantity, String portionUnit, Integer totalCookingTime) {
         this.recipeId = recipeId;
         this.title = title;
         this.summary = summary;
         this.description = description;
         this.portionQuantity = portionQuantity;
         this.portionUnit = portionUnit;
+        this.totalCookingTime = totalCookingTime;
     }
 
     public Recipe() {
@@ -79,6 +82,14 @@ public class Recipe {
 
     public void setPortionUnit(String portionUnit) {
         this.portionUnit = portionUnit;
+    }
+
+    public Integer getTotalCookingTime() {
+        return totalCookingTime;
+    }
+
+    public void setTotalCookingTime(Integer totalCookingTime) {
+        this.totalCookingTime = totalCookingTime;
     }
 }
 
