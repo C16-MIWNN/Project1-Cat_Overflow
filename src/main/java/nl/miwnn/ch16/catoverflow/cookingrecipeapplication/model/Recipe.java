@@ -11,6 +11,7 @@ import java.util.List;
 /**
  * @author Robyn Blignaut, Bas Folkers
  */
+
 @Entity
 public class Recipe {
     @Id @GeneratedValue
