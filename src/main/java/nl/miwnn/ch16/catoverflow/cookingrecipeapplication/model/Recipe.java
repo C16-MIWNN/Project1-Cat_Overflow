@@ -1,8 +1,9 @@
 package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Robyn Blignaut, Bas Folkers
@@ -12,14 +13,23 @@ import jakarta.persistence.Id;
 @Entity
 public class Recipe {
     @Id @GeneratedValue
-    private Integer recipeId;
+    private int recipeId;
 
     private String title;
     private String summary;
     private String description;
-    private Integer portionQuantity;
+    private int portionQuantity;
     private String portionUnit;
-    private Integer totalCookingTime;
+    private int totalCookingTime;
+
+    @OneToOne
+    private Image image;
+
+    @OneToMany
+    private List<Instruction> instructions = new ArrayList<>();
+
+    @OneToMany
+    private List<Ingredient> ingredients = new ArrayList<>();
 
     public Recipe(Integer recipeId, String title, String summary, String description,
                   Integer portionQuantity, String portionUnit, Integer totalCookingTime) {

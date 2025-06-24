@@ -1,8 +1,6 @@
 package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 /**
  * @author Robyn Blignaut, Bas Folkers
@@ -12,9 +10,15 @@ import jakarta.persistence.Id;
 @Entity
 public class Instruction {
     @Id @GeneratedValue
-    public Integer instructionId;
+    private int instructionId;
 
-    public String description;
+    private String description;
+
+    @ManyToOne
+    private Recipe recipe;
+
+    @OneToOne
+    private Image image;
 
     public Instruction(Integer instructionId, String description) {
         this.instructionId = instructionId;
