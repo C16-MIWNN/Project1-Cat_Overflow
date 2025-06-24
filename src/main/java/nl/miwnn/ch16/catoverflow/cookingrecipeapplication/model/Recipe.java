@@ -3,28 +3,82 @@ package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Robyn Blignaut, Bas Folkers
+ * The concept of a recipe for which the library can have a copy
  */
 
 @Entity
 public class Recipe {
     @Id @GeneratedValue
-    private Long recipeId;
+    private Integer recipeId;
 
-    private String name;
+    private String title;
+    private String summary;
     private String description;
-    private String ingredients;
-    private String preparationMethod;
-    private int preparationTime;
-    private int portions;
-    private String cookingMethod;
-    private String meal;
-    private String dish;
-    private String kitchen;
+    private Integer portionQuantity;
+    private String portionUnit;
+
+    public Recipe(Integer recipeId, String title, String summary, String description, Integer portionQuantity, String portionUnit) {
+        this.recipeId = recipeId;
+        this.title = title;
+        this.summary = summary;
+        this.description = description;
+        this.portionQuantity = portionQuantity;
+        this.portionUnit = portionUnit;
+    }
+
+    public Recipe() {
+
+    }
+
+    public Integer getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(Integer idRecipe) {
+        this.recipeId = idRecipe;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getPortionQuantity() {
+        return portionQuantity;
+    }
+
+    public void setPortionQuantity(Integer portionQuantity) {
+        this.portionQuantity = portionQuantity;
+    }
+
+    public String getPortionUnit() {
+        return portionUnit;
+    }
+
+    public void setPortionUnit(String portionUnit) {
+        this.portionUnit = portionUnit;
+    }
 }
+
