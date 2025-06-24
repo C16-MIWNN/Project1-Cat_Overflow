@@ -29,7 +29,7 @@ public class Recipe {
     private List<Instruction> instructions = new ArrayList<>();
 
     @OneToMany
-    private List<Ingredient> ingredients = new ArrayList<>();
+    private List<IngredientRecipe> ingredients = new ArrayList<>();
 
     public Recipe(Integer recipeId, String title, String summary, String description,
                   Integer portionQuantity, String portionUnit, Integer totalCookingTime) {

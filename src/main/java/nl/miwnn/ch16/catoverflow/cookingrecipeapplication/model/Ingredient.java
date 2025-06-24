@@ -21,7 +21,7 @@ public class Ingredient {
     private String notes;
 
     @ManyToOne
-    private Recipe recipe;
+    private IngredientRecipe ingredientRecipe;
 
     public Ingredient(Integer ingredientId, String ingredient, Integer quantity, String unit, String notes) {
         this.ingredientId = ingredientId;
