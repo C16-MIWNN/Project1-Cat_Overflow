@@ -44,4 +44,24 @@ public class Instruction {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public void setInstructionId(int instructionId) {
+        this.instructionId = instructionId;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
 }

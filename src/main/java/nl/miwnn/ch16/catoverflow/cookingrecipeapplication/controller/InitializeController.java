@@ -2,6 +2,7 @@ package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.controller;
 
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model.*;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.IngredientRecipeRepository;
+import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.InstructionRepository;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.RecipeRepository;
 import org.springframework.stereotype.Controller;
 
@@ -17,10 +18,12 @@ import java.util.List;
 public class InitializeController {
     private final RecipeRepository recipeRepository;
     private final IngredientRecipeRepository ingredientRecipeRepository;
+    private final InstructionRepository instructionRepository;
 
-    public InitializeController(RecipeRepository recipeRepository, IngredientRecipeRepository ingredientRecipeRepository) {
+    public InitializeController(RecipeRepository recipeRepository, IngredientRecipeRepository ingredientRecipeRepository, InstructionRepository instructionRepository) {
         this.recipeRepository = recipeRepository;
         this.ingredientRecipeRepository = ingredientRecipeRepository;
+        this.instructionRepository = instructionRepository;
     }
 
 //    private void intializeDB() {
@@ -75,5 +78,21 @@ public class InitializeController {
 
         ingredientRecipeRepository.save(ingredientRecipe);
         return ingredientRecipe;
+    }
+
+    private Instruction makeInstruction(
+            Recipe recipe,
+            Image image,
+            String description) {
+
+        Instruction instruction = new Instruction();
+
+        instruction.setRecipe(recipe);
+        instruction.setImage(image);
+        instruction.setDescription(description);
+
+        instructionRepository.save(instruction);
+
+        return instruction;
     }
 }
