@@ -7,7 +7,7 @@ import jakarta.persistence.ManyToOne;
 
 /**
  * @author Robyn Blignaut, Bas Folkers
- * The concept of an ingredient for which the library can have a copy
+ * The concept of an ingredient for which a recipe can have one or multiple copies
  */
 
 @Entity

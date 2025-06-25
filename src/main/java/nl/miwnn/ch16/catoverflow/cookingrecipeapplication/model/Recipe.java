@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @author Robyn Blignaut, Bas Folkers
- * The concept of a recipe for which the library can have a copy
+ * The concept of a recipe for which consists of multiple entities.
  */
 
 @Entity
@@ -46,7 +46,7 @@ public class Recipe {
 
     }
 
-    public Integer getRecipeId() {
+    public int getRecipeId() {
         return recipeId;
     }
 
@@ -78,7 +78,7 @@ public class Recipe {
         this.description = description;
     }
 
-    public Integer getPortionQuantity() {
+    public int getPortionQuantity() {
         return portionQuantity;
     }
 
@@ -94,7 +94,7 @@ public class Recipe {
         this.portionUnit = portionUnit;
     }
 
-    public Integer getTotalCookingTime() {
+    public int getTotalCookingTime() {
         return totalCookingTime;
     }
 

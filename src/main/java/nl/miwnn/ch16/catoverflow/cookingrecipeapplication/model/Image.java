@@ -5,7 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 /**
- * @author Robyn Blignaut
+ * @author Robyn Blignaut, Bas Folkers
+ * A concept of an image which belongs to a recipe and can add multiple or a single image.
  */
 
 @Entity

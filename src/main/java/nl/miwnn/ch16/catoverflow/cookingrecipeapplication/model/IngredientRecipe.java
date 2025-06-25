@@ -6,7 +6,7 @@ import jakarta.persistence.ManyToOne;
 
 /**
   * @author Robyn Blignaut, Bas Folkers
-  * The concept of what you can do with an Ingredient
+  * The concept of an ingredient that belongs to a recipe and how many/much of it you need for that recipe.
  */
 
 @Entity

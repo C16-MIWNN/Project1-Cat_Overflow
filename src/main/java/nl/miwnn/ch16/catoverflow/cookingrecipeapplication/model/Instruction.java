@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 /**
  * @author Robyn Blignaut, Bas Folkers
- * The concept of an instruction for which the library can have a copy
+ * The concept of an instruction for which a recipe can have one or multiple copies
  */
 
 @Entity
