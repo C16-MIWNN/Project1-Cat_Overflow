@@ -12,6 +12,7 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class IngredientRecipe {
 
+
     @Id @ManyToOne
     private Ingredient ingredient;
 

@@ -14,5 +14,5 @@ public class Image {
     @Id @GeneratedValue
     private int recipeId;
 
-    private String image;
+    private String imageName;
 }

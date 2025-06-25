@@ -32,3 +32,6 @@ Questions for first meeting:
 - How many users should be allowed?
 - If multiple users, should recipes have the option to be private.
 - How often would you like an update?
+
+
+Voor nu img urls gebruiken voor images, uiteindelijk wil je de images laten zien met blobs en oproepen uit de database
