@@ -15,21 +15,16 @@ public class Ingredient {
     @Id @GeneratedValue
     private int ingredientId;
 
-    private String ingredient;
-    private int quantity;
-    private String unit;
-    private String notes;
+    private String ingredientName;
+
+    public Ingredient(int ingredientId, String ingredientName, IngredientRecipe ingredientRecipe) {
+        this.ingredientId = ingredientId;
+        this.ingredientName = ingredientName;
+        this.ingredientRecipe = ingredientRecipe;
+    }
 
     @ManyToOne
     private IngredientRecipe ingredientRecipe;
-
-    public Ingredient(Integer ingredientId, String ingredient, Integer quantity, String unit, String notes) {
-        this.ingredientId = ingredientId;
-        this.ingredient = ingredient;
-        this.quantity = quantity;
-        this.unit = unit;
-        this.notes = notes;
-    }
 
     public Ingredient() {
 
@@ -43,35 +38,12 @@ public class Ingredient {
         this.ingredientId = idIngredient;
     }
 
-    public String getIngredient() {
-        return ingredient;
+    public String getIngredientName() {
+        return ingredientName;
     }
 
-    public void setIngredient(String ingredient) {
-        this.ingredient = ingredient;
+    public void setIngredientName(String ingredient) {
+        this.ingredientName = ingredient;
     }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
 }

@@ -1,9 +1,7 @@
 package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.controller;
 
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model.*;
-import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.IngredientRecipeRepository;
-import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.InstructionRepository;
-import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.RecipeRepository;
+import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.*;
 import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;
@@ -19,16 +17,27 @@ public class InitializeController {
     private final RecipeRepository recipeRepository;
     private final IngredientRecipeRepository ingredientRecipeRepository;
     private final InstructionRepository instructionRepository;
+    private final ImageRepository imageRepository;
+    private final IngredientRepository ingredientRepository;
 
-    public InitializeController(RecipeRepository recipeRepository, IngredientRecipeRepository ingredientRecipeRepository, InstructionRepository instructionRepository) {
+    public InitializeController(RecipeRepository recipeRepository, IngredientRecipeRepository ingredientRecipeRepository, InstructionRepository instructionRepository, ImageRepository imageRepository, IngredientRepository ingredientRepository) {
         this.recipeRepository = recipeRepository;
         this.ingredientRecipeRepository = ingredientRecipeRepository;
         this.instructionRepository = instructionRepository;
+        this.imageRepository = imageRepository;
+        this.ingredientRepository = ingredientRepository;
     }
 
-//    private void intializeDB() {
-//
-//    }
+    private void intializeDB() {
+        Image image = makeImage("example_data/images/placeholderPastaImage.jpg");
+        Ingredient ingredientPasta = makeIngredient("Pasta");
+        Ingredient ingredientTomaat = makeIngredient("Tomaat");
+        Instruction instruction = makeInstruction(image, "A description of the most magnificent pasts on earth");
+        IngredientRecipe ingredientRecipePasta = makeIngredientRecipes(ingredientPasta, 1, "Hand", "Pasta naar eigen keuze");
+        IngredientRecipe ingredientRecipeTomaat = makeIngredientRecipes(ingredientTomaat, 600, "Stuks", "Mag ook minder zijn dan 600");
+        Recipe recipePastaTomaat = makeRecipe("Pasta with tomatoes", "Best Pasta in the world", "You know, amazing pasta",
+                1, "Big unit", 600, image, new ArrayList<>(ingredientRecipePasta, ingredientRecipeTomaat), new ArrayList<>(instruction));
+    }
 
     private Recipe makeRecipe(
             String title,
@@ -62,7 +71,6 @@ public class InitializeController {
     }
 
     private IngredientRecipe makeIngredientRecipes(
-            Recipe recipe,
             Ingredient ingredient,
             int quantity,
             String unit,
@@ -70,7 +78,6 @@ public class InitializeController {
 
         IngredientRecipe ingredientRecipe = new IngredientRecipe();
 
-        ingredientRecipe.setRecipe(recipe);
         ingredientRecipe.setIngredient(ingredient);
         ingredientRecipe.setQuantity(quantity);
         ingredientRecipe.setUnit(unit);
@@ -81,18 +88,36 @@ public class InitializeController {
     }
 
     private Instruction makeInstruction(
-            Recipe recipe,
             Image image,
             String description) {
 
         Instruction instruction = new Instruction();
 
-        instruction.setRecipe(recipe);
         instruction.setImage(image);
         instruction.setDescription(description);
 
         instructionRepository.save(instruction);
 
         return instruction;
+    }
+
+    private Image makeImage(String imageName) {
+        Image image = new Image();
+
+        image.setImageName(imageName);
+
+        imageRepository.save(image);
+
+        return image;
+    }
+
+    private Ingredient makeIngredient(String ingredientName) {
+        Ingredient ingredient = new Ingredient();
+
+        ingredient.setIngredientName(ingredientName);
+
+        ingredientRepository.save(ingredient);
+
+        return ingredient;
     }
 }
