@@ -17,14 +17,14 @@ public class Ingredient {
 
     private String ingredientName;
 
-    public Ingredient(int ingredientId, String ingredientName, IngredientRecipe ingredientRecipe) {
+    public Ingredient(int ingredientId, String ingredientName) {
         this.ingredientId = ingredientId;
         this.ingredientName = ingredientName;
-        this.ingredientRecipe = ingredientRecipe;
+//        this.ingredientRecipe = ingredientRecipe;
     }
 
-    @ManyToOne
-    private IngredientRecipe ingredientRecipe;
+//    @ManyToOne
+//    private IngredientRecipe ingredientRecipe;
 
     public Ingredient() {
 

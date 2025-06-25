@@ -2,9 +2,10 @@ package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.controller;
 
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model.*;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.*;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Controller;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,14 +30,22 @@ public class InitializeController {
         this.ingredientRepository = ingredientRepository;
     }
 
-    private void intializeDB() {
+    @EventListener
+    private void seed(ContextRefreshedEvent ignoredEvent) {
+        if (recipeRepository.count() == 0) {
+            initializeDB();
+        }
+    }
+
+    private void initializeDB() {
         Image image = makeImage("example_data/images/placeholderPastaImage.jpg");
+        Image image2 = makeImage("example_data/images/placeholderPastaImage.jpg");
 
         Ingredient ingredientPasta = makeIngredient("Pasta");
         Ingredient ingredientTomato = makeIngredient("Tomato");
 
         Instruction instruction1 = makeInstruction(image, "Boil water");
-        Instruction instruction2 = makeInstruction(image, "Add pasta");
+        Instruction instruction2 = makeInstruction(image2, "Add pasta");
         Instruction instruction3 = makeInstruction(image, "Cook for 10 minutes");
 
         List<Instruction> instructionList = List.of(instruction1, instruction2, instruction3);
@@ -54,9 +63,11 @@ public class InitializeController {
                 1,
                 "Big unit",
                 600,
-                image,
+                image2,
                 ingredientRecipeList,
-                instructionList);
+                instructionList
+        );
+
     }
 
     private Recipe makeRecipe(
@@ -93,14 +104,14 @@ public class InitializeController {
     private IngredientRecipe makeIngredientRecipes(
             Ingredient ingredient,
             int quantity,
-            String unit,
+            String ingredientUnit,
             String notes) {
 
         IngredientRecipe ingredientRecipe = new IngredientRecipe();
 
         ingredientRecipe.setIngredient(ingredient);
         ingredientRecipe.setQuantity(quantity);
-        ingredientRecipe.setUnit(unit);
+        ingredientRecipe.setIngredientUnit(ingredientUnit);
         ingredientRecipe.setNotes(notes);
 
         ingredientRecipeRepository.save(ingredientRecipe);
@@ -113,7 +124,7 @@ public class InitializeController {
 
         Instruction instruction = new Instruction();
 
-        instruction.setImage(image);
+//        instruction.setImage(image);
         instruction.setDescription(description);
 
         instructionRepository.save(instruction);

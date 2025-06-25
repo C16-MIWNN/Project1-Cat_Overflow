@@ -12,16 +12,16 @@ import jakarta.persistence.Id;
 @Entity
 public class Image {
     @Id @GeneratedValue
-    private int recipeId;
+    private int imageId;
 
     private String imageName;
 
-    public int getRecipeId() {
-        return recipeId;
+    public int getImageId() {
+        return imageId;
     }
 
-    public void setRecipeId(int recipeId) {
-        this.recipeId = recipeId;
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 
     public String getImageName() {
