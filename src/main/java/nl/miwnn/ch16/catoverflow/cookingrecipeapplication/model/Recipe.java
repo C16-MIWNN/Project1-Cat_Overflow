@@ -50,8 +50,8 @@ public class Recipe {
         return recipeId;
     }
 
-    public void setRecipeId(Integer idRecipe) {
-        this.recipeId = idRecipe;
+    public void setRecipeId(int recipeId) {
+        this.recipeId = recipeId;
     }
 
     public String getTitle() {
@@ -82,7 +82,7 @@ public class Recipe {
         return portionQuantity;
     }
 
-    public void setPortionQuantity(Integer portionQuantity) {
+    public void setPortionQuantity(int portionQuantity) {
         this.portionQuantity = portionQuantity;
     }
 
@@ -98,8 +98,32 @@ public class Recipe {
         return totalCookingTime;
     }
 
-    public void setTotalCookingTime(Integer totalCookingTime) {
+    public void setTotalCookingTime(int totalCookingTime) {
         this.totalCookingTime = totalCookingTime;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public List<Instruction> getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(List<Instruction> instructions) {
+        this.instructions = instructions;
+    }
+
+    public List<IngredientRecipe> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<IngredientRecipe> ingredients) {
+        this.ingredients = ingredients;
     }
 }
 

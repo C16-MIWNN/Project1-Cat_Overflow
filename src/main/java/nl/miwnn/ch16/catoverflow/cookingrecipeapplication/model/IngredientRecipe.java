@@ -1,8 +1,6 @@
 package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 /**
   * @author Robyn Blignaut, Bas Folkers
@@ -12,14 +10,66 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class IngredientRecipe {
 
+    @EmbeddedId
+    private IngredientRecipePk id = new IngredientRecipePk();
 
-    @Id @ManyToOne
+    @ManyToOne
+    @MapsId("ingredientId")
     private Ingredient ingredient;
 
-    @Id @ManyToOne
+    @ManyToOne
+    @MapsId("recipeId")
     private Recipe recipe;
 
     private int quantity;
-    private String Unit;
+    private String unit;
     private String notes;
+
+    public IngredientRecipePk getId() {
+        return id;
+    }
+
+    public void setId(IngredientRecipePk id) {
+        this.id = id;
+    }
+
+    public Ingredient getIngredient() {
+        return ingredient;
+    }
+
+    public void setIngredient(Ingredient ingredient) {
+        this.ingredient = ingredient;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        unit = unit;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
 }
