@@ -4,6 +4,7 @@ import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model.*;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.*;
 import org.springframework.stereotype.Controller;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,13 +31,32 @@ public class InitializeController {
 
     private void intializeDB() {
         Image image = makeImage("example_data/images/placeholderPastaImage.jpg");
+
         Ingredient ingredientPasta = makeIngredient("Pasta");
-        Ingredient ingredientTomaat = makeIngredient("Tomaat");
-        Instruction instruction = makeInstruction(image, "A description of the most magnificent pasts on earth");
-        IngredientRecipe ingredientRecipePasta = makeIngredientRecipes(ingredientPasta, 1, "Hand", "Pasta naar eigen keuze");
-        IngredientRecipe ingredientRecipeTomaat = makeIngredientRecipes(ingredientTomaat, 600, "Stuks", "Mag ook minder zijn dan 600");
-        Recipe recipePastaTomaat = makeRecipe("Pasta with tomatoes", "Best Pasta in the world", "You know, amazing pasta",
-                1, "Big unit", 600, image, new ArrayList<>(ingredientRecipePasta, ingredientRecipeTomaat), new ArrayList<>(instruction));
+        Ingredient ingredientTomato = makeIngredient("Tomato");
+
+        Instruction instruction1 = makeInstruction(image, "Boil water");
+        Instruction instruction2 = makeInstruction(image, "Add pasta");
+        Instruction instruction3 = makeInstruction(image, "Cook for 10 minutes");
+
+        List<Instruction> instructionList = List.of(instruction1, instruction2, instruction3);
+
+        IngredientRecipe ingredientRecipePasta = makeIngredientRecipes(ingredientPasta, 1, "Hand",
+                "Type of pasta of your choice");
+        IngredientRecipe ingredientRecipeTomaat = makeIngredientRecipes(ingredientTomato, 600, "Pieces",
+                "Could add less");
+
+        List<IngredientRecipe> ingredientRecipeList = List.of(ingredientRecipePasta, ingredientRecipeTomaat);
+
+        makeRecipe("Pasta with tomatoes",
+                "Best Pasta in the world",
+                "You know, amazing pasta",
+                1,
+                "Big unit",
+                600,
+                image,
+                ingredientRecipeList,
+                instructionList);
     }
 
     private Recipe makeRecipe(

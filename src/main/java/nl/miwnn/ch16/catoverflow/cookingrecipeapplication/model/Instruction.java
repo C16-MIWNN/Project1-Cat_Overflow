@@ -20,7 +20,7 @@ public class Instruction {
     @OneToOne
     private Image image;
 
-    public Instruction(Integer instructionId, String description) {
+    public Instruction(int instructionId, String description) {
         this.instructionId = instructionId;
         this.description = description;
     }
