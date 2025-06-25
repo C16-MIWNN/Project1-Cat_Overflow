@@ -10,27 +10,25 @@ import jakarta.persistence.*;
 @Entity
 public class IngredientRecipe {
 
-    @EmbeddedId
-    private IngredientRecipePk id = new IngredientRecipePk();
+    @Id @GeneratedValue
+    private Long ingredientRecipeId;
 
     @ManyToOne
-    @MapsId("ingredientId")
     private Ingredient ingredient;
 
     @ManyToOne
-    @MapsId("recipeId")
     private Recipe recipe;
 
     private int quantity;
     private String unit;
     private String notes;
 
-    public IngredientRecipePk getId() {
-        return id;
+    public Long getIngredientRecipeId() {
+        return ingredientRecipeId;
     }
 
-    public void setId(IngredientRecipePk id) {
-        this.id = id;
+    public void setIngredientRecipeId(Long ingredientRecipeId) {
+        this.ingredientRecipeId = ingredientRecipeId;
     }
 
     public Ingredient getIngredient() {

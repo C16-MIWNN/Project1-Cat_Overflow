@@ -5,7 +5,6 @@ import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.Ingredien
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.RecipeRepository;
 import org.springframework.stereotype.Controller;
 
-import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,18 +16,16 @@ import java.util.List;
 @Controller
 public class InitializeController {
     private final RecipeRepository recipeRepository;
+    private final IngredientRecipeRepository ingredientRecipeRepository;
 
-    public InitializeController(RecipeRepository recipeRepository) {
+    public InitializeController(RecipeRepository recipeRepository, IngredientRecipeRepository ingredientRecipeRepository) {
         this.recipeRepository = recipeRepository;
+        this.ingredientRecipeRepository = ingredientRecipeRepository;
     }
 
-    private void intializeDB() {
-//        Author brandon = makeAuthor("Brandon Sanderson");
+//    private void intializeDB() {
 //
-//        Book hobbit = makeBook("The Hobbit", tolkien);
-//        makeCopies(hobbit, 3);
-
-    }
+//    }
 
     private Recipe makeRecipe(
             String title,
@@ -76,13 +73,7 @@ public class InitializeController {
         ingredientRecipe.setUnit(unit);
         ingredientRecipe.setNotes(notes);
 
-        IngredientRecipeRepository.save();
+        ingredientRecipeRepository.save(ingredientRecipe);
         return ingredientRecipe;
     }
-
-//    private void makeCopies(Book book, int numberOfCopies) {
-//        for (int i = 0; i < numberOfCopies; i++) {
-//            makeCopy(book, i % 2 == 0); // uneven numbered copies are not availableAdd commentMore actions
-//        }
-//    }
 }
