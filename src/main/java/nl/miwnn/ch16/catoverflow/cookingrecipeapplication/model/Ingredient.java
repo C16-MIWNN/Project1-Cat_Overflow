@@ -17,19 +17,6 @@ public class Ingredient {
 
     private String ingredientName;
 
-    public Ingredient(int ingredientId, String ingredientName, IngredientRecipe ingredientRecipe) {
-        this.ingredientId = ingredientId;
-        this.ingredientName = ingredientName;
-        this.ingredientRecipe = ingredientRecipe;
-    }
-
-    @ManyToOne
-    private IngredientRecipe ingredientRecipe;
-
-    public Ingredient() {
-
-    }
-
     public Integer getIngredientId() {
         return ingredientId;
     }

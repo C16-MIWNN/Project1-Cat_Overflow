@@ -1,11 +1,18 @@
 package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.controller;
 
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model.*;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.*;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
 
 /**
  * @author Robyn Blignaut & Bas Folkers
@@ -20,6 +27,9 @@ public class InitializeController {
     private final ImageRepository imageRepository;
     private final IngredientRepository ingredientRepository;
 
+    private final Map<String, Ingredient> ingredientCache = new HashMap<>();
+    private final Map<String, IngredientRecipe> ingredientRecipeCache = new HashMap<>();
+
     public InitializeController(RecipeRepository recipeRepository, IngredientRecipeRepository ingredientRecipeRepository, InstructionRepository instructionRepository, ImageRepository imageRepository, IngredientRepository ingredientRepository) {
         this.recipeRepository = recipeRepository;
         this.ingredientRecipeRepository = ingredientRecipeRepository;
@@ -28,96 +38,83 @@ public class InitializeController {
         this.ingredientRepository = ingredientRepository;
     }
 
-    private void intializeDB() {
-        Image image = makeImage("example_data/images/placeholderPastaImage.jpg");
-        Ingredient ingredientPasta = makeIngredient("Pasta");
-        Ingredient ingredientTomaat = makeIngredient("Tomaat");
-        Instruction instruction = makeInstruction(image, "A description of the most magnificent pasts on earth");
-        IngredientRecipe ingredientRecipePasta = makeIngredientRecipes(ingredientPasta, 1, "Hand", "Pasta naar eigen keuze");
-        IngredientRecipe ingredientRecipeTomaat = makeIngredientRecipes(ingredientTomaat, 600, "Stuks", "Mag ook minder zijn dan 600");
-        Recipe recipePastaTomaat = makeRecipe("Pasta with tomatoes", "Best Pasta in the world", "You know, amazing pasta",
-                1, "Big unit", 600, image, new ArrayList<>(ingredientRecipePasta, ingredientRecipeTomaat), new ArrayList<>(instruction));
+    @EventListener
+    private void seed(ContextRefreshedEvent ignoredEvent) {
+        if (recipeRepository.count() == 0) {
+            initializeDB();
+        }
     }
 
-    private Recipe makeRecipe(
-            String title,
-            String summary,
-            String description,
-            int portionQuantity,
-            String portionUnit,
-            int totalCookingTime,
-            Image image,
-            List<IngredientRecipe> ingredientRecipeList,
-            List<Instruction> instructionList) {
-
-        Recipe recipe = new Recipe();
-
-        recipe.setTitle(title);
-        recipe.setSummary(summary);
-        recipe.setDescription(description);
-        recipe.setPortionQuantity(portionQuantity);
-        recipe.setPortionUnit(portionUnit);
-        recipe.setTotalCookingTime(totalCookingTime);
-        recipe.setImage(image);
-
-        List<IngredientRecipe> IngredientRecipes = new ArrayList<>(ingredientRecipeList);
-        recipe.setIngredients(IngredientRecipes);
-
-        List<Instruction> instructions = new ArrayList<>(instructionList);
-        recipe.setInstructions(instructions);
-
-        recipeRepository.save(recipe);
-        return recipe;
+    private void initializeDB() {
+        try {
+            loadIngredient();
+            loadIngredientRecipes();
+            loadRecipe();
+        } catch (IOException | CsvValidationException csvValidationException) {
+            throw new RuntimeException("Failed to initialize database from CSV files", csvValidationException);
+        }
     }
 
-    private IngredientRecipe makeIngredientRecipes(
-            Ingredient ingredient,
-            int quantity,
-            String unit,
-            String notes) {
+    private void loadRecipe() throws IOException, CsvValidationException {
+        try (CSVReader reader = new CSVReader(new InputStreamReader(
+                new ClassPathResource("/example_data/recipe.csv").getInputStream()))) {
 
-        IngredientRecipe ingredientRecipe = new IngredientRecipe();
+            reader.skip(1);
 
-        ingredientRecipe.setIngredient(ingredient);
-        ingredientRecipe.setQuantity(quantity);
-        ingredientRecipe.setUnit(unit);
-        ingredientRecipe.setNotes(notes);
+            for (String[] recipeLine : reader) {
+                Recipe recipe = new Recipe();
 
-        ingredientRecipeRepository.save(ingredientRecipe);
-        return ingredientRecipe;
+                recipe.setTitle(recipeLine[0]);
+                recipe.setSummary(recipeLine[1]);
+                recipe.setDescription(recipeLine[2]);
+                recipe.setPortionQuantity(Integer.parseInt(recipeLine[3]));
+                recipe.setPortionUnit(recipeLine[4]);
+                recipe.setTotalCookingTime(Integer.parseInt(recipeLine[5]));
+
+                List<IngredientRecipe> ingredientRecipes = new ArrayList<>();
+                String[] ingredientRecipeIds = recipeLine[7].split(",");
+                for (String ingredientRecipeId : ingredientRecipeIds) {
+                    ingredientRecipes.add(ingredientRecipeCache.get(ingredientRecipeId.trim()));
+                }
+            }
+        }
+
     }
 
-    private Instruction makeInstruction(
-            Image image,
-            String description) {
+    private void loadIngredientRecipes() throws IOException, CsvValidationException {
+        try (CSVReader reader = new CSVReader(new InputStreamReader(
+                new ClassPathResource("example_data/ingredientRecipe.csv").getInputStream()))) {
 
-        Instruction instruction = new Instruction();
+            reader.skip(1);
 
-        instruction.setImage(image);
-        instruction.setDescription(description);
+            for (String[] ingredientRecipeLine : reader) {
+                IngredientRecipe ingredientRecipe = new IngredientRecipe();
 
-        instructionRepository.save(instruction);
+                ingredientRecipe.setIngredient(IngredientRepository.findByIngredientName(ingredientRecipeLine[0]));
+                ingredientRecipe.setQuantity(Integer.parseInt(ingredientRecipeLine[1]));
+                ingredientRecipe.setUnit(ingredientRecipeLine[2]);
+                ingredientRecipe.setNotes(ingredientRecipeLine[3]);
 
-        return instruction;
+                ingredientRecipeRepository.save(ingredientRecipe);
+                ingredientRecipeCache.put(ingredientRecipe.ge, ingredientRecipe);
+            }
+        }
     }
 
-    private Image makeImage(String imageName) {
-        Image image = new Image();
+    private void loadIngredient() throws IOException, CsvValidationException {
+        try (CSVReader reader = new CSVReader(new InputStreamReader(
+                new ClassPathResource("example_data/ingredient.csv").getInputStream()))) {
 
-        image.setImageName(imageName);
+            reader.skip(1);
 
-        imageRepository.save(image);
+            for (String[] ingredientLine : reader) {
+                Ingredient ingredient = new Ingredient();
 
-        return image;
-    }
+                ingredient.setIngredientName(ingredientLine[0]);
 
-    private Ingredient makeIngredient(String ingredientName) {
-        Ingredient ingredient = new Ingredient();
-
-        ingredient.setIngredientName(ingredientName);
-
-        ingredientRepository.save(ingredient);
-
-        return ingredient;
+                ingredientRepository.save(ingredient);
+                ingredientCache.put(ingredient.getIngredientName(), ingredient);
+            }
+        }
     }
 }
