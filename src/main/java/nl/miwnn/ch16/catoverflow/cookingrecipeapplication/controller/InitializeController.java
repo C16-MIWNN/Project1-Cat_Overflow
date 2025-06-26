@@ -29,6 +29,7 @@ public class InitializeController {
 
     private final Map<String, Ingredient> ingredientCache = new HashMap<>();
     private final Map<String, IngredientRecipe> ingredientRecipeCache = new HashMap<>();
+    private final Map<String, Recipe> recipeCache = new HashMap<>();
 
     public InitializeController(RecipeRepository recipeRepository, IngredientRecipeRepository ingredientRecipeRepository, InstructionRepository instructionRepository, ImageRepository imageRepository, IngredientRepository ingredientRepository) {
         this.recipeRepository = recipeRepository;
@@ -76,6 +77,9 @@ public class InitializeController {
                 for (String ingredientRecipeId : ingredientRecipeIds) {
                     ingredientRecipes.add(ingredientRecipeCache.get(ingredientRecipeId.trim()));
                 }
+
+                recipeRepository.save(recipe);
+                recipeCache.put(recipe.getTitle(), recipe);
             }
         }
 
