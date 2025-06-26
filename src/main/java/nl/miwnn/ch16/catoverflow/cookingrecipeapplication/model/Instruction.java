@@ -14,13 +14,13 @@ public class Instruction {
 
     private String description;
 
-    @ManyToOne
-    private Recipe recipe;
+//    @ManyToOne
+//    private Recipe recipe;
 
-    @OneToOne
-    private Image image;
+//    @OneToOne
+//    private Image image;
 
-    public Instruction(Integer instructionId, String description) {
+    public Instruction(int instructionId, String description) {
         this.instructionId = instructionId;
         this.description = description;
     }
@@ -49,19 +49,19 @@ public class Instruction {
         this.instructionId = instructionId;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
-    }
+//    public Recipe getRecipe() {
+//        return recipe;
+//    }
+//
+//    public void setRecipe(Recipe recipe) {
+//        this.recipe = recipe;
+//    }
 
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
-    }
+//    public Image getImage() {
+//        return image;
+//    }
+//
+//    public void setImage(Image image) {
+//        this.image = image;
+//    }
 }

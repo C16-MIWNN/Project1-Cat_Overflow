@@ -16,11 +16,11 @@ public class IngredientRecipe {
     @ManyToOne
     private Ingredient ingredient;
 
-    @ManyToOne
-    private Recipe recipe;
+//    @ManyToOne
+//    private Recipe recipe;
 
     private int quantity;
-    private String unit;
+    private String ingredientUnit;
     private String notes;
 
     public Long getIngredientRecipeId() {
@@ -39,13 +39,13 @@ public class IngredientRecipe {
         this.ingredient = ingredient;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
-    }
+//    public Recipe getRecipe() {
+//        return recipe;
+//    }
+//
+//    public void setRecipe(Recipe recipe) {
+//        this.recipe = recipe;
+//    }
 
     public int getQuantity() {
         return quantity;
@@ -55,12 +55,12 @@ public class IngredientRecipe {
         this.quantity = quantity;
     }
 
-    public String getUnit() {
-        return unit;
+    public String getIngredientUnit() {
+        return ingredientUnit;
     }
 
-    public void setUnit(String unit) {
-        unit = unit;
+    public void setIngredientUnit(String ingredientUnit) {
+        this.ingredientUnit = ingredientUnit;
     }
 
     public String getNotes() {
