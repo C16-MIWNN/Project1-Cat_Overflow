@@ -4,6 +4,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model.*;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.*;
+import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.service.CookingRecipeService;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.io.ClassPathResource;
@@ -25,6 +26,7 @@ public class InitializeController {
     private final InstructionRepository instructionRepository;
     private final ImageRepository imageRepository;
     private final IngredientRepository ingredientRepository;
+    private final CookingRecipeService cookingRecipeService;
 
     private final Map<String, Ingredient> ingredientCache = new HashMap<>();
     private final Map<String, IngredientRecipe> ingredientRecipeCache = new HashMap<>();
@@ -34,12 +36,14 @@ public class InitializeController {
                                 IngredientRecipeRepository ingredientRecipeRepository,
                                 InstructionRepository instructionRepository,
                                 ImageRepository imageRepository,
-                                IngredientRepository ingredientRepository) {
+                                IngredientRepository ingredientRepository,
+                                CookingRecipeService cookingRecipeService) {
         this.recipeRepository = recipeRepository;
         this.ingredientRecipeRepository = ingredientRecipeRepository;
         this.instructionRepository = instructionRepository;
         this.imageRepository = imageRepository;
         this.ingredientRepository = ingredientRepository;
+        this.cookingRecipeService = cookingRecipeService;
     }
 
     @EventListener
@@ -51,6 +55,11 @@ public class InitializeController {
 
     private void initializeDB() {
         try {
+            CookingRecipeUser cookingRecipeUser = new CookingRecipeUser();
+            cookingRecipeUser.setUsername("Test");
+            cookingRecipeUser.setPassword("TestPW");
+            cookingRecipeService.saveUser(cookingRecipeUser);
+
             loadIngredient();
             loadIngredientRecipes();
             loadInstruction();

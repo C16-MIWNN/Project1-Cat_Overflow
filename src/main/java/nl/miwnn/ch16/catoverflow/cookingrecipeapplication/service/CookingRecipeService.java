@@ -5,6 +5,7 @@ import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.CookingRe
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,9 +15,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class CookingRecipeService implements UserDetailsService {
     private final CookingRecipeUserRepository cookingRecipeUserRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public CookingRecipeService(CookingRecipeUserRepository cookingRecipeUserRepository) {
+    public CookingRecipeService(CookingRecipeUserRepository cookingRecipeUserRepository,
+                                PasswordEncoder passwordEncoder) {
         this.cookingRecipeUserRepository = cookingRecipeUserRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -26,6 +30,7 @@ public class CookingRecipeService implements UserDetailsService {
     }
 
     public void saveUser(CookingRecipeUser cookingRecipeUser) {
+        cookingRecipeUser.setPassword(passwordEncoder.encode(cookingRecipeUser.getPassword()));
         cookingRecipeUserRepository.save(cookingRecipeUser);
     }
 }
