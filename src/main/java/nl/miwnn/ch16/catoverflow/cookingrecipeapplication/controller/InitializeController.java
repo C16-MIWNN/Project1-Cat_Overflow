@@ -88,15 +88,19 @@ public class InitializeController {
             reader.skip(1);
 
             for (String[] ingredientRecipeLine : reader) {
-                IngredientRecipe ingredientRecipe = new IngredientRecipe();
+                String ingredientName = ingredientRecipeLine[0];
 
-                ingredientRecipe.setIngredient(IngredientRepository.findByIngredientName(ingredientRecipeLine[0]));
+                Ingredient ingredient = ingredientRepository.findByIngredientName(ingredientName).orElseThrow(() ->
+                new RuntimeException("Ingredient not found" + ingredientName));
+
+                IngredientRecipe ingredientRecipe = new IngredientRecipe();
+                ingredientRecipe.setIngredient(ingredient);
                 ingredientRecipe.setQuantity(Integer.parseInt(ingredientRecipeLine[1]));
-                ingredientRecipe.setUnit(ingredientRecipeLine[2]);
+                ingredientRecipe.setIngredientUnit(ingredientRecipeLine[2]);
                 ingredientRecipe.setNotes(ingredientRecipeLine[3]);
 
                 ingredientRecipeRepository.save(ingredientRecipe);
-                ingredientRecipeCache.put(ingredientRecipe.ge, ingredientRecipe);
+                ingredientRecipeCache.put(ingredientName, ingredientRecipe);
             }
         }
     }
