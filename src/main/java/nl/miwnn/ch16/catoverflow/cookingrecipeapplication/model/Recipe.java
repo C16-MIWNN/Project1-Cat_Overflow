@@ -25,14 +25,22 @@ public class Recipe {
     @OneToOne
     private Image image;
 
-    @OneToMany
-    private List<Instruction> instructions = new ArrayList<>();
-
-    @OneToMany
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<IngredientRecipe> ingredients = new ArrayList<>();
 
-    public Recipe(Integer recipeId, String title, String summary, String description,
-                  Integer portionQuantity, String portionUnit, Integer totalCookingTime) {
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Instruction> instructions = new ArrayList<>();
+
+    public Recipe(int recipeId,
+                  String title,
+                  String summary,
+                  String description,
+                  int portionQuantity,
+                  String portionUnit,
+                  int totalCookingTime,
+                  Image image,
+                  List<IngredientRecipe> ingredients,
+                  List<Instruction> instructions) {
         this.recipeId = recipeId;
         this.title = title;
         this.summary = summary;
@@ -40,10 +48,12 @@ public class Recipe {
         this.portionQuantity = portionQuantity;
         this.portionUnit = portionUnit;
         this.totalCookingTime = totalCookingTime;
+        this.image = image;
+        this.ingredients = ingredients;
+        this.instructions = instructions;
     }
 
     public Recipe() {
-
     }
 
     public int getRecipeId() {
@@ -110,20 +120,20 @@ public class Recipe {
         this.image = image;
     }
 
-    public List<Instruction> getInstructions() {
-        return instructions;
-    }
-
-    public void setInstructions(List<Instruction> instructions) {
-        this.instructions = instructions;
-    }
-
     public List<IngredientRecipe> getIngredients() {
         return ingredients;
     }
 
     public void setIngredients(List<IngredientRecipe> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public List<Instruction> getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(List<Instruction> instructions) {
+        this.instructions = instructions;
     }
 }
 

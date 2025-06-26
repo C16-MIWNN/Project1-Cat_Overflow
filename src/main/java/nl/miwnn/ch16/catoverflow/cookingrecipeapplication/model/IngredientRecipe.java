@@ -16,8 +16,8 @@ public class IngredientRecipe {
     @ManyToOne
     private Ingredient ingredient;
 
-//    @ManyToOne
-//    private Recipe recipe;
+    @ManyToOne
+    private Recipe recipe;
 
     private int quantity;
     private String ingredientUnit;
@@ -39,13 +39,13 @@ public class IngredientRecipe {
         this.ingredient = ingredient;
     }
 
-//    public Recipe getRecipe() {
-//        return recipe;
-//    }
-//
-//    public void setRecipe(Recipe recipe) {
-//        this.recipe = recipe;
-//    }
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
 
     public int getQuantity() {
         return quantity;
