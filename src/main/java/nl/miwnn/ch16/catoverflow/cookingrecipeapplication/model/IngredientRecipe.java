@@ -16,6 +16,9 @@ public class IngredientRecipe {
     @ManyToOne
     private Ingredient ingredient;
 
+    @ManyToOne
+    private Recipe recipe;
+
     private int quantity;
     private String ingredientUnit;
     private String notes;
@@ -34,6 +37,14 @@ public class IngredientRecipe {
 
     public void setIngredient(Ingredient ingredient) {
         this.ingredient = ingredient;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
 
     public int getQuantity() {

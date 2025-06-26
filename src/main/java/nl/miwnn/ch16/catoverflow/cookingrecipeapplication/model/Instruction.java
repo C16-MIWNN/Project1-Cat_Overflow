@@ -14,8 +14,9 @@ public class Instruction {
 
     private String description;
 
-//    @OneToOne
-//    private Image image;
+    @ManyToOne
+    @JoinColumn(name = "recipe_id")
+    private Recipe recipe;
 
     public Instruction(int instructionId, String description) {
         this.instructionId = instructionId;
@@ -39,5 +40,13 @@ public class Instruction {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
 }

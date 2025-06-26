@@ -29,7 +29,7 @@ public class InitializeController {
 
     private final Map<String, Ingredient> ingredientCache = new HashMap<>();
     private final Map<String, IngredientRecipe> ingredientRecipeCache = new HashMap<>();
-    private final Map<String, Recipe> recipeCache = new HashMap<>();
+//    private final Map<String, Recipe> recipeCache = new HashMap<>();
     private final Map<String, Instruction> instructionCache = new HashMap<>();
 
     public InitializeController(RecipeRepository recipeRepository, IngredientRecipeRepository ingredientRecipeRepository, InstructionRepository instructionRepository, ImageRepository imageRepository, IngredientRepository ingredientRepository) {
@@ -77,19 +77,32 @@ public class InitializeController {
                 List<IngredientRecipe> ingredientRecipes = new ArrayList<>();
                 String[] ingredientRecipeIds = recipeLine[7].split(",");
                 for (String ingredientRecipeId : ingredientRecipeIds) {
-                    ingredientRecipes.add(ingredientRecipeCache.get(ingredientRecipeId.trim()));
+                    IngredientRecipe ingredientRecipe = ingredientRecipeCache.get(ingredientRecipeId.trim());
+
+                    if (ingredientRecipe == null) {
+                        throw new RuntimeException("IngredientRecipe not found in cache for ID: " + ingredientRecipeId.trim());
+                    }
+
+                    ingredientRecipe.setRecipe(recipe);
+                    ingredientRecipes.add(ingredientRecipe);
                 }
                 recipe.setIngredients(ingredientRecipes);
 
                 List<Instruction> instructions = new ArrayList<>();
                 String[] instructionIds = recipeLine[8].split(",");
                 for (String instructionId : instructionIds) {
-                    instructions.add(instructionCache.get(instructionId.trim()));
+                    Instruction instruction = instructionCache.get(instructionId.trim());
+
+                    if (instruction == null) {
+                        throw new RuntimeException("Instruction not found in cache for ID: " + instructionId.trim());
+                    }
+
+                    instruction.setRecipe(recipe);
+                    instructions.add(instruction);
                 }
                 recipe.setInstructions(instructions);
 
                 recipeRepository.save(recipe);
-                recipeCache.put(recipe.getTitle(), recipe);
             }
         }
     }
@@ -101,10 +114,14 @@ public class InitializeController {
             reader.skip(1);
 
             for (String[] ingredientRecipeLine : reader) {
-                String ingredientName = ingredientRecipeLine[0];
+                Long ingredientId = Long.valueOf((ingredientRecipeLine[0]));
 
-                Ingredient ingredient = ingredientRepository.findByIngredientName(ingredientName).orElseThrow(() ->
-                new RuntimeException("Ingredient not found" + ingredientName));
+                Optional<Ingredient> ingredients = ingredientRepository.findByIngredientId(ingredientId);
+
+                if (ingredients.isEmpty()) {
+                    throw new RuntimeException("Ingredient not found: " + ingredientId);
+                }
+                Ingredient ingredient = ingredients.get();
 
                 IngredientRecipe ingredientRecipe = new IngredientRecipe();
                 ingredientRecipe.setIngredient(ingredient);
@@ -112,8 +129,7 @@ public class InitializeController {
                 ingredientRecipe.setIngredientUnit(ingredientRecipeLine[2]);
                 ingredientRecipe.setNotes(ingredientRecipeLine[3]);
 
-                ingredientRecipeRepository.save(ingredientRecipe);
-                ingredientRecipeCache.put(ingredientName, ingredientRecipe);
+                ingredientRecipeCache.put(ingredientRecipeLine[0], ingredientRecipe);
             }
         }
     }
@@ -146,8 +162,7 @@ public class InitializeController {
 
                 instruction.setDescription(instructionLine[0]);
 
-                instructionRepository.save(instruction);
-                instructionCache.put(instruction.getDescription(), instruction);
+                instructionCache.put(instructionLine[1], instruction);
             }
         }
     }

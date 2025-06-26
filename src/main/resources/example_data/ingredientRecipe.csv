@@ -1,4 +1,4 @@
-ingredient,quantity,unit,notes
-Tomato,200,gram,cherry
-Tomato,400,slices,cubes
-Potato,1,piece,peeled
+ingredientId,quantity,unit,notes
+1,200,gram,cherry
+1,400,slices,cubes
+2,1,piece,peeled
