@@ -25,6 +25,10 @@ public class CookingRecipeSecurityConfig {
                         .requestMatchers("/webjars/**", "/css/**").permitAll()
                 )
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+                .formLogin(login -> login
+                        .defaultSuccessUrl("/recipe/overview", true)
+                        .permitAll()
+                )
                 .logout((logout) -> logout.logoutSuccessUrl("/"));
 
         return httpSecurity.build();
