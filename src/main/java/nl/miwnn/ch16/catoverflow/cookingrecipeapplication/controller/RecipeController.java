@@ -4,7 +4,6 @@ import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.RecipeRep
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author Robyn Blignaut, Bas Folkers
@@ -25,6 +24,4 @@ public class RecipeController {
         datamodel.addAttribute("allRecipes", recipeRepository.findAll());
         return "recipeOverview";
     }
-
-
 }

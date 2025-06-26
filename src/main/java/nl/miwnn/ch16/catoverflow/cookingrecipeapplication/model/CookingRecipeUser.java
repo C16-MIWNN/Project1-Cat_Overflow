@@ -27,7 +27,6 @@ public class CookingRecipeUser implements UserDetails {
 
     private String password;
 
-
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -52,7 +51,6 @@ public class CookingRecipeUser implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
-
 
     public long getUserId() {
         return userId;

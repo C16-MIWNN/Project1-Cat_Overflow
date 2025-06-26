@@ -15,6 +15,4 @@ public class IngredientRecipeController {
     public IngredientRecipeController(IngredientRecipeRepository ingredientRecipeRepository) {
         this.ingredientRecipeRepository = ingredientRecipeRepository;
     }
-
-
 }

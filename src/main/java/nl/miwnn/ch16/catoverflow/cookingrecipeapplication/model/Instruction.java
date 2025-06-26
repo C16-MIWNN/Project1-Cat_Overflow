@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 
 @Entity
 public class Instruction {
+
     @Id @GeneratedValue
     private int instructionId;
 

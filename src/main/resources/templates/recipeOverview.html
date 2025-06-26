@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org">
+
 <head th:replace="~{fragments/general :: baseheader(~{:: title})}">
     <title>Recipe Overview</title>
 </head>
-<body>
 
+<body>
 <div th:replace="~{fragments/general :: navbar}"></div>
 
 <div class="container">
@@ -27,8 +28,7 @@
             <td th:text="${recipe.portionQuantity}"></td>
             <td th:text="${recipe.portionUnit}"></td>
             <td th:text="${recipe.totalCookingTime}"></td>
-            <td><img th:src="@{/images/{img}(img=${recipe.image})}" alt="Recipe image" class="img-thumbnail" style="max-width: 100px;"/> </td>
-<!--            <td><img th:src="${recipe.image}" alt="Recipe image" class="img-thumbnail" style="max-width: 100px;"/></td>-->
+            <td><img th:src="${recipe.image}" alt="Recipe image" class="img-thumbnail" style="max-width: 100px;"/></td>
         </tr>
     </table>
 
@@ -36,6 +36,6 @@
 
 <div th:replace="~{fragments/general :: footer}"></div>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>
-
 </body>
+
 </html>

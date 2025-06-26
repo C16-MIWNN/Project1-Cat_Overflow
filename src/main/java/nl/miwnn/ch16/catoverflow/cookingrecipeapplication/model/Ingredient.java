@@ -3,7 +3,6 @@ package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 
 /**
  * @author Robyn Blignaut, Bas Folkers
@@ -12,6 +11,7 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Ingredient {
+
     @Id @GeneratedValue
     private int ingredientId;
 
@@ -32,5 +32,4 @@ public class Ingredient {
     public void setIngredientName(String ingredient) {
         this.ingredientName = ingredient;
     }
-
 }

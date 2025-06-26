@@ -1,7 +1,6 @@
 package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model;
 
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +11,7 @@ import java.util.List;
 
 @Entity
 public class Recipe {
+
     @Id @GeneratedValue
     private int recipeId;
 

@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Image {
+
     @Id @GeneratedValue
     private int imageId;
 

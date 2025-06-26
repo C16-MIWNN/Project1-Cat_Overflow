@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-
 /**
  * @author Robyn Blignaut & Bas Folkers
  * Set some intitial data in the database for (manual) testing purposes.
@@ -29,10 +28,13 @@ public class InitializeController {
 
     private final Map<String, Ingredient> ingredientCache = new HashMap<>();
     private final Map<String, IngredientRecipe> ingredientRecipeCache = new HashMap<>();
-//    private final Map<String, Recipe> recipeCache = new HashMap<>();
     private final Map<String, Instruction> instructionCache = new HashMap<>();
 
-    public InitializeController(RecipeRepository recipeRepository, IngredientRecipeRepository ingredientRecipeRepository, InstructionRepository instructionRepository, ImageRepository imageRepository, IngredientRepository ingredientRepository) {
+    public InitializeController(RecipeRepository recipeRepository,
+                                IngredientRecipeRepository ingredientRecipeRepository,
+                                InstructionRepository instructionRepository,
+                                ImageRepository imageRepository,
+                                IngredientRepository ingredientRepository) {
         this.recipeRepository = recipeRepository;
         this.ingredientRecipeRepository = ingredientRecipeRepository;
         this.instructionRepository = instructionRepository;
@@ -80,7 +82,8 @@ public class InitializeController {
                     IngredientRecipe ingredientRecipe = ingredientRecipeCache.get(ingredientRecipeId.trim());
 
                     if (ingredientRecipe == null) {
-                        throw new RuntimeException("IngredientRecipe not found in cache for ID: " + ingredientRecipeId.trim());
+                        throw new RuntimeException("IngredientRecipe not found in cache for ID: " +
+                                ingredientRecipeId.trim());
                     }
 
                     ingredientRecipe.setRecipe(recipe);
@@ -94,7 +97,8 @@ public class InitializeController {
                     Instruction instruction = instructionCache.get(instructionId.trim());
 
                     if (instruction == null) {
-                        throw new RuntimeException("Instruction not found in cache for ID: " + instructionId.trim());
+                        throw new RuntimeException("Instruction not found in cache for ID: " +
+                                instructionId.trim());
                     }
 
                     instruction.setRecipe(recipe);
@@ -119,7 +123,8 @@ public class InitializeController {
                 Optional<Ingredient> ingredients = ingredientRepository.findByIngredientId(ingredientId);
 
                 if (ingredients.isEmpty()) {
-                    throw new RuntimeException("Ingredient not found: " + ingredientId);
+                    throw new RuntimeException("Ingredient not found: " +
+                            ingredientId);
                 }
                 Ingredient ingredient = ingredients.get();
 
