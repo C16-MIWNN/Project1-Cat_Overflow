@@ -14,9 +14,6 @@ public class Instruction {
 
     private String description;
 
-//    @ManyToOne
-//    private Recipe recipe;
-
 //    @OneToOne
 //    private Image image;
 
@@ -26,15 +23,14 @@ public class Instruction {
     }
 
     public Instruction() {
-
     }
 
-    public Integer getInstructionId() {
+    public int getInstructionId() {
         return instructionId;
     }
 
-    public void setInstructionId(Integer idInstruction) {
-        this.instructionId = idInstruction;
+    public void setInstructionId(int instructionId) {
+        this.instructionId = instructionId;
     }
 
     public String getDescription() {
@@ -44,24 +40,4 @@ public class Instruction {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public void setInstructionId(int instructionId) {
-        this.instructionId = instructionId;
-    }
-
-//    public Recipe getRecipe() {
-//        return recipe;
-//    }
-//
-//    public void setRecipe(Recipe recipe) {
-//        this.recipe = recipe;
-//    }
-
-//    public Image getImage() {
-//        return image;
-//    }
-//
-//    public void setImage(Image image) {
-//        this.image = image;
-//    }
 }

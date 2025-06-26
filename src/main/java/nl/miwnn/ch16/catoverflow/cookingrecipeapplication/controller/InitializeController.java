@@ -30,6 +30,7 @@ public class InitializeController {
     private final Map<String, Ingredient> ingredientCache = new HashMap<>();
     private final Map<String, IngredientRecipe> ingredientRecipeCache = new HashMap<>();
     private final Map<String, Recipe> recipeCache = new HashMap<>();
+    private final Map<String, Instruction> instructionCache = new HashMap<>();
 
     public InitializeController(RecipeRepository recipeRepository, IngredientRecipeRepository ingredientRecipeRepository, InstructionRepository instructionRepository, ImageRepository imageRepository, IngredientRepository ingredientRepository) {
         this.recipeRepository = recipeRepository;
@@ -50,6 +51,7 @@ public class InitializeController {
         try {
             loadIngredient();
             loadIngredientRecipes();
+            loadInstruction();
             loadRecipe();
         } catch (IOException | CsvValidationException csvValidationException) {
             throw new RuntimeException("Failed to initialize database from CSV files", csvValidationException);
@@ -77,12 +79,19 @@ public class InitializeController {
                 for (String ingredientRecipeId : ingredientRecipeIds) {
                     ingredientRecipes.add(ingredientRecipeCache.get(ingredientRecipeId.trim()));
                 }
+                recipe.setIngredients(ingredientRecipes);
+
+                List<Instruction> instructions = new ArrayList<>();
+                String[] instructionIds = recipeLine[8].split(",");
+                for (String instructionId : instructionIds) {
+                    instructions.add(instructionCache.get(instructionId.trim()));
+                }
+                recipe.setInstructions(instructions);
 
                 recipeRepository.save(recipe);
                 recipeCache.put(recipe.getTitle(), recipe);
             }
         }
-
     }
 
     private void loadIngredientRecipes() throws IOException, CsvValidationException {
@@ -122,6 +131,23 @@ public class InitializeController {
 
                 ingredientRepository.save(ingredient);
                 ingredientCache.put(ingredient.getIngredientName(), ingredient);
+            }
+        }
+    }
+
+    private void loadInstruction() throws IOException, CsvValidationException {
+        try (CSVReader reader = new CSVReader(new InputStreamReader(
+                new ClassPathResource("example_data/instruction.csv").getInputStream()))) {
+
+            reader.skip(1);
+
+            for (String[] instructionLine : reader) {
+                Instruction instruction = new Instruction();
+
+                instruction.setDescription(instructionLine[0]);
+
+                instructionRepository.save(instruction);
+                instructionCache.put(instruction.getDescription(), instruction);
             }
         }
     }
