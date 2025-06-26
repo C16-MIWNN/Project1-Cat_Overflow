@@ -1,15 +1,41 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <title>recipeOverview.html</title>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org">
+<head th:replace="~{fragments/general :: baseheader(~{:: title})}">
+    <title>Recipe Overview</title>
 </head>
 <body>
 
-<div class="container">
+<div th:replace="~{fragments/general :: navbar}"></div>
 
-    <h1>Overview of all recipes</h1>
+<div class="container">
+    <h1 class="pageTitle">Overview of all recipes</h1>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Summary</th>
+            <th>Description</th>
+            <th>Portion quantity</th>
+            <th>Portion Unit</th>
+            <th>Total cooking time (Mins)</th>
+            <th>Food item</th>
+        </tr>
+        <tr th:each="recipe : ${allRecipes}">
+            <td th:text="${recipe.title}"></td>
+            <td th:text="${recipe.summary}"></td>
+            <td th:text="${recipe.description}"></td>
+            <td th:text="${recipe.portionQuantity}"></td>
+            <td th:text="${recipe.portionUnit}"></td>
+            <td th:text="${recipe.totalCookingTime}"></td>
+            <td><img th:src="@{/images/{img}(img=${recipe.image})}" alt="Recipe image" class="img-thumbnail" style="max-width: 100px;"/> </td>
+<!--            <td><img th:src="${recipe.image}" alt="Recipe image" class="img-thumbnail" style="max-width: 100px;"/></td>-->
+        </tr>
+    </table>
 
 </div>
+
+<div th:replace="~{fragments/general :: footer}"></div>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
 
 </body>
 </html>
