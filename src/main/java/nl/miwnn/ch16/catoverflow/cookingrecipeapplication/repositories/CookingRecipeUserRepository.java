@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface CookingRecipeUserRepository extends JpaRepository<CookingRecipeUser, Long> {
     Optional<CookingRecipeUser> findByUsername(String username);
+
+    boolean existsByUsername(String username);
 }
