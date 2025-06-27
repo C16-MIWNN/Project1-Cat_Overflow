@@ -23,7 +23,8 @@ public class CookingRecipeSecurityConfig {
                 .authorizeHttpRequests((request) -> request
                         .requestMatchers("/", "/recipe/overview").permitAll()
                         .requestMatchers("/user/overview").permitAll()
-                        .requestMatchers("/webjars/**", "/css/**").permitAll()
+                        .requestMatchers("/webjars/**", "/css/**", "/images/**").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
                 .formLogin(login -> login
