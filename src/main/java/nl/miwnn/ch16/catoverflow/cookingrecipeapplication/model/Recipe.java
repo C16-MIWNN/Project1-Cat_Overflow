@@ -13,7 +13,7 @@ import java.util.List;
 public class Recipe {
 
     @Id @GeneratedValue
-    private int recipeId;
+    private Long recipeId;
 
     private String title;
     private String summary;
@@ -31,7 +31,7 @@ public class Recipe {
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Instruction> instructions = new ArrayList<>();
 
-    public Recipe(int recipeId,
+    public Recipe(Long recipeId,
                   String title,
                   String summary,
                   String description,
@@ -56,11 +56,11 @@ public class Recipe {
     public Recipe() {
     }
 
-    public int getRecipeId() {
+    public Long getRecipeId() {
         return recipeId;
     }
 
-    public void setRecipeId(int recipeId) {
+    public void setRecipeId(Long recipeId) {
         this.recipeId = recipeId;
     }
 
