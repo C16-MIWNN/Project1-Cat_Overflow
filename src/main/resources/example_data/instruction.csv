@@ -1,4 +1,11 @@
-description,Id
-Boil the potato for 5 days.,1
-Eat the Tomato slices as a snack.,2
-Blend the Tomato cubes to a smooth mixture.,3
+description,Id,imageId
+Gather the ingredients.,1,1
+Preheat the oven to 350°F. ,2,2
+"Add the chopped onion and garlic and cook over moderate heat, ",3,3
+Add the flour and stir to coat the meat with it.,4,4
+"Add the wine, bay leaves, and thyme; season with salt and pepper.",5,5
+"Meanwhile, in a saucepan, ",6,6
+Drain the pancetta and slice it 1/2-inch thick,7,7
+In a large skillet,8,8
+Bring to a boil,9,9
+To serve,10,10
