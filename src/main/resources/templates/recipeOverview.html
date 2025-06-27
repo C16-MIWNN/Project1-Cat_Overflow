@@ -6,36 +6,24 @@
 </head>
 
 <body>
-<div th:replace="~{fragments/general :: navbar}"></div>
+    <div th:replace="~{fragments/general :: navbar}"></div>
 
-<div class="container">
-    <h1 class="pageTitle"></h1>
+    <div class="container">
+        <div th:object="${recipe}">
+            <h1>All recipes</h1>
+            <div class="row row-cols-1 row-cols-md-6 g-4" style="width: 98%">
+                <div th:each="recipe : ${allRecipes}">
+                    <a th:href="@{/recipe/detail/{recipeId}(recipeId = ${recipe.recipeId})}" class="col">
+<!--                    <div><img height="116px" th:src="${recipe.getImage()}"></img></div>-->
+                        <div th:text="${recipe.getTitle()}"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Summary</th>
-            <th>Description</th>
-            <th>Portion quantity</th>
-            <th>Portion Unit</th>
-            <th>Total cooking time (Mins)</th>
-            <th>Food item</th>
-        </tr>
-        <tr th:each="recipe : ${allRecipes}">
-            <td th:text="${recipe.title}"></td>
-            <td th:text="${recipe.summary}"></td>
-            <td th:text="${recipe.description}"></td>
-            <td th:text="${recipe.portionQuantity}"></td>
-            <td th:text="${recipe.portionUnit}"></td>
-            <td th:text="${recipe.totalCookingTime}"></td>
-            <td><img th:src="${recipe.image}" alt="Recipe image" class="img-thumbnail" style="max-width: 100px;"/></td>
-        </tr>
-    </table>
-
-</div>
-
-<div th:replace="~{fragments/general :: footer}"></div>
-<div th:replace="~{fragments/general :: bottomScripts}"></div>
+    <div th:replace="~{fragments/general :: footer}"></div>
+    <div th:replace="~{fragments/general :: bottomScripts}"></div>
 </body>
 
 </html>

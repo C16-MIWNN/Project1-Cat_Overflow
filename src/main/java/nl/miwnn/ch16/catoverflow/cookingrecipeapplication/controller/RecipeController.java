@@ -1,6 +1,8 @@
 package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.controller;
 
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model.Recipe;
+import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.IngredientRecipeRepository;
+import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.InstructionRepository;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.RecipeRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +23,13 @@ import java.util.Optional;
 public class RecipeController {
 
     private final RecipeRepository recipeRepository;
+    private final IngredientRecipeRepository ingredientRecipeRepository;
+    private final InstructionRepository instructionRepository;
 
-    public RecipeController(RecipeRepository recipeRepository) {
+    public RecipeController(RecipeRepository recipeRepository, IngredientRecipeRepository ingredientRecipeRepository, InstructionRepository instructionRepository) {
         this.recipeRepository = recipeRepository;
+        this.ingredientRecipeRepository = ingredientRecipeRepository;
+        this.instructionRepository = instructionRepository;
     }
 
     private String setupRecipeOverview(Model datamodel, Recipe formRecipe, boolean formModalHidden) {
@@ -38,13 +44,17 @@ public class RecipeController {
         datamodel.addAttribute("recipe", recipeToShow);
         datamodel.addAttribute("formRecipe", formRecipe);
         datamodel.addAttribute("formModalHidden", formModalHidden);
+        datamodel.addAttribute("allIngredientRecipes", recipeToShow.getIngredients());
+        datamodel.addAttribute("allInstructions", recipeToShow.getInstructions());
 
-        return "recipeDetails";
+        return "recipeDetail";
     }
 
     @GetMapping({"/", "/recipe/overview"})
     private String showRecipeOverview(Model datamodel) {
         datamodel.addAttribute("allRecipes", recipeRepository.findAll());
+        datamodel.addAttribute("allIngredientRecipes", ingredientRecipeRepository.findAll());
+        datamodel.addAttribute("allInstructions", instructionRepository.findAll());
 
         return "recipeOverview";
     }

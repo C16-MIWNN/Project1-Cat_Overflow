@@ -8,8 +8,46 @@
 <body>
 <div th:replace="~{fragments/general :: navbar}"></div>
 
-<div class="container">
+<div class="container text-center" th:object="${recipe}">
+<!--  <img th:src="'/images/Examples/' + ${recipe.image}">-->
+  <img src="/images/Examples/Recipe_01_Step_10.png">
+  <p th:text="*{description}"></p>
+  <h1 th:text="*{title}"></h1>
+  <p th:text="*{summary}"></p>
+  <div style="background-color: green">
+    <div>
+      <div class="row">
+        <p class="col">Portion</p>
+        <p class="col"></p>
+        <p class="col">Total Cooking Time</p>
+      </div>
+      <div class="row">
+        <div class="col row">
+          <p class="col" th:text="${recipe.portionQuantity}"></p>
+          <p class="col" th:text="${recipe.portionUnit}"></p>
+        </div>
 
+        <p class="col" th:text="${recipe.totalCookingTime}"></p>
+      </div>
+    </div>
+  </div>
+  <div>
+    <h2>INGREDIENTS</h2>
+    <div th:each="ingredientRecipe : ${allIngredientRecipes}">
+      <div class="row">
+        <p class="col" th:text="${ingredientRecipe.quantity}"></p>
+        <p class="col" th:text="${ingredientRecipe.ingredientUnit}"></p>
+        <p class="col" th:text="${ingredientRecipe.notes}"></p>
+        <p class="col" th:text="${ingredientRecipe.ingredient.ingredientName}"></p>
+      </div>
+    </div>
+
+    <h2>STEPS</h2>
+    <div th:each="instruction : ${allInstructions}">
+      <p th:text="${#lists.size(allInstructions)}"></p>
+    </div>
+
+  </div>
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>

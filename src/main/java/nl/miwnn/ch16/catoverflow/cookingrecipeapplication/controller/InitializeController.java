@@ -31,6 +31,7 @@ public class InitializeController {
     private final Map<String, Ingredient> ingredientCache = new HashMap<>();
     private final Map<String, IngredientRecipe> ingredientRecipeCache = new HashMap<>();
     private final Map<String, Instruction> instructionCache = new HashMap<>();
+    private final Map<String, Image> imageCache = new HashMap<>();
 
     public InitializeController(RecipeRepository recipeRepository,
                                 IngredientRecipeRepository ingredientRecipeRepository,
@@ -60,6 +61,7 @@ public class InitializeController {
             cookingRecipeUser.setPassword("TestPW");
             cookingRecipeService.saveUser(cookingRecipeUser);
 
+            loadImage();
             loadIngredient();
             loadIngredientRecipes();
             loadInstruction();
@@ -84,6 +86,9 @@ public class InitializeController {
                 recipe.setPortionQuantity(Integer.parseInt(recipeLine[3]));
                 recipe.setPortionUnit(recipeLine[4]);
                 recipe.setTotalCookingTime(Integer.parseInt(recipeLine[5]));
+
+                Image imageRecipe = imageRepository.findByImageId(Integer.parseInt(recipeLine[6]));
+                recipe.setImage(imageRecipe);
 
                 List<IngredientRecipe> ingredientRecipes = new ArrayList<>();
                 String[] ingredientRecipeIds = recipeLine[7].split(",");
@@ -177,6 +182,22 @@ public class InitializeController {
                 instruction.setDescription(instructionLine[0]);
 
                 instructionCache.put(instructionLine[1], instruction);
+            }
+        }
+    }
+
+    private void loadImage() throws IOException, CsvValidationException {
+        try (CSVReader reader = new CSVReader(new InputStreamReader(
+                new ClassPathResource("example_data/image.csv").getInputStream()))) {
+
+            reader.skip(1);
+
+            for (String[] imageLine : reader) {
+                Image image = new Image();
+
+                image.setImageName(imageLine[1]);
+
+                imageCache.put(imageLine[0], image);
             }
         }
     }
