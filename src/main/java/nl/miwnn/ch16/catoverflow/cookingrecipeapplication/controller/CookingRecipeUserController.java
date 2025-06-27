@@ -25,7 +25,7 @@ public class CookingRecipeUserController {
     }
 
     @GetMapping("/overview")
-    public String showUserOverview(Model datamodel) {
+    private String showUserOverview(Model datamodel) {
         datamodel.addAttribute("allUsers", cookingRecipeService.getAllUsers());
         datamodel.addAttribute("formUser", new NewCookingRecipeUserDTO());
         datamodel.addAttribute("formModalHidden", true);
@@ -34,7 +34,7 @@ public class CookingRecipeUserController {
     }
 
     @PostMapping("/save")
-    public String saveOrUpdateUser(@ModelAttribute("formUser")
+    private String saveOrUpdateUser(@ModelAttribute("formUser")
                                         NewCookingRecipeUserDTO userDtoToBeSaved,
                                         BindingResult result,
                                         Model datamodel) {

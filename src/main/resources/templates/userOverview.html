@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head th:replace="~{fragments/general :: baseheader(~{:: title})}">
     <title>userOverview.html</title>
 </head>
@@ -23,6 +23,6 @@
 <div th:replace="~{fragments/general :: footer}"></div>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>
 
-<div th:replace="~{fragments/libraryuser :: userFormModal(${formUser}, ${#fields})}"></div>
+<div th:replace="~{fragments/cookingRecipeUser :: userFormModal(${formUser}, ${#fields})}"></div>
 </body>
 </html>
