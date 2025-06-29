@@ -26,7 +26,10 @@ public class RecipeController {
     private final IngredientRecipeRepository ingredientRecipeRepository;
     private final InstructionRepository instructionRepository;
 
-    public RecipeController(RecipeRepository recipeRepository, IngredientRecipeRepository ingredientRecipeRepository, InstructionRepository instructionRepository) {
+    public RecipeController(
+            RecipeRepository recipeRepository,
+            IngredientRecipeRepository ingredientRecipeRepository,
+            InstructionRepository instructionRepository) {
         this.recipeRepository = recipeRepository;
         this.ingredientRecipeRepository = ingredientRecipeRepository;
         this.instructionRepository = instructionRepository;
@@ -78,7 +81,10 @@ public class RecipeController {
     }
 
     @PostMapping("/recipe/save")
-    private String saveOrUpdateRecipe(@ModelAttribute("formRecipe") Recipe recipeToBeSaved, BindingResult bindingResult, Model datamodel) {
+    private String saveOrUpdateRecipe(
+            @ModelAttribute("formRecipe") Recipe recipeToBeSaved,
+            BindingResult bindingResult,
+            Model datamodel) {
 
         if (bindingResult.hasErrors() && recipeToBeSaved.getRecipeId() != null) {
             Recipe originalRecipeDetails = recipeRepository.findById(recipeToBeSaved.getRecipeId()).orElse(new Recipe());

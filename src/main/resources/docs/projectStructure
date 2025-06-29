@@ -35,3 +35,26 @@ Questions for first meeting:
 
 
 Voor nu img urls gebruiken voor images, uiteindelijk wil je de images laten zien met blobs en oproepen uit de database
+
+
+
+//-------NEW-------// 29/06/25
+
+Important to finish for client feedback:
+
+- HTML: Visuals need to be added. New Recipe form/modal needs to be made.
+
+- Recipe Controller: Save and Delete need to be tested.
+
+
+Nice to haves:
+
+- Database: Description as TEXT.
+
+- Image: How to add as blob to database? How to upload image?
+
+- Model: Preset Units need to be made for measuring the ingredients.
+    (grams, milliliter, cup, 1/2 cup, 1/4 cup, teaspoon, tablespoon, fluid ounce, ounce, pint, quart, gallon,
+    pound, dash, pinch, handful, glug, splash, liter, kilogram)
+
+
