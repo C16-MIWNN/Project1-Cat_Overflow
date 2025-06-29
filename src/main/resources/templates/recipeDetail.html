@@ -44,7 +44,7 @@
 
     <h2>STEPS</h2>
     <div th:each="instruction : ${allInstructions}">
-      <p th:text="${#lists.size(allInstructions)}"></p>
+      <p th:text="${instruction.description}"></p>
     </div>
 
   </div>

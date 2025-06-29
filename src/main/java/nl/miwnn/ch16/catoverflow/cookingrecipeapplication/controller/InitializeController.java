@@ -106,8 +106,7 @@ public class InitializeController {
                 recipe.setIngredients(ingredientRecipes);
 
                 List<Instruction> instructions = new ArrayList<>();
-                String[] instructionIds = recipeLine[8].split(",");
-                for (String instructionId : instructionIds) {
+                for (String instructionId : recipeLine[8].split(",")) {
                     Instruction instruction = instructionCache.get(instructionId.trim());
 
                     if (instruction == null) {
@@ -160,6 +159,7 @@ public class InitializeController {
             reader.skip(1);
 
             for (String[] ingredientLine : reader) {
+
                 Ingredient ingredient = new Ingredient();
 
                 ingredient.setIngredientName(ingredientLine[0]);
@@ -177,11 +177,12 @@ public class InitializeController {
             reader.skip(1);
 
             for (String[] instructionLine : reader) {
-                Instruction instruction = new Instruction();
+                int instructionId = Integer.parseInt((instructionLine[1]));
 
+                Instruction instruction = new Instruction();
                 instruction.setDescription(instructionLine[0]);
 
-                instructionCache.put(instructionLine[1], instruction);
+                instructionCache.put(String.valueOf(instructionId), instruction);
             }
         }
     }
@@ -197,6 +198,7 @@ public class InitializeController {
 
                 image.setImageName(imageLine[1]);
 
+                imageRepository.save(image);
                 imageCache.put(imageLine[0], image);
             }
         }
