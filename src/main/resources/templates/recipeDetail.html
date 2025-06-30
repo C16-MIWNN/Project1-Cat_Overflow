@@ -43,6 +43,7 @@
 
     <h2>STEPS</h2>
     <div th:each="instruction : ${allInstructions}">
+      <img style="height: 250px" th:src="'/images/Examples/' + ${instruction.image.getImageName()}">
       <p th:text="${instruction.description}"></p>
     </div>
 
