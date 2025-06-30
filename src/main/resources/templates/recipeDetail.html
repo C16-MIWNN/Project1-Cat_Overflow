@@ -9,8 +9,7 @@
 <div th:replace="~{fragments/general :: navbar}"></div>
 
 <div class="container text-center" th:object="${recipe}">
-<!--  <img th:src="'/images/Examples/' + ${recipe.image}">-->
-  <img src="/images/Examples/Recipe_01_Step_10.png">
+  <img th:src="'/images/Examples/' + ${recipe.image.getImageName()}">
   <p th:text="*{description}"></p>
   <h1 th:text="*{title}"></h1>
   <p th:text="*{summary}"></p>

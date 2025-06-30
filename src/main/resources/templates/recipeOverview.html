@@ -14,7 +14,7 @@
             <div class="row row-cols-1 row-cols-md-6 g-4" style="width: 98%">
                 <div th:each="recipe : ${allRecipes}">
                     <a th:href="@{/recipe/detail/{recipeId}(recipeId = ${recipe.recipeId})}" class="col">
-<!--                    <div><img height="116px" th:src="${recipe.getImage()}"></img></div>-->
+                        <img height="116px" th:src="'/images/Examples/' + ${recipe.image.getImageName()}">
                         <div th:text="${recipe.getTitle()}"></div>
                     </a>
                 </div>
