@@ -182,6 +182,9 @@ public class InitializeController {
                 Instruction instruction = new Instruction();
                 instruction.setDescription(instructionLine[0]);
 
+                Image imageInstruction = imageRepository.findByImageId(Integer.parseInt(instructionLine[2]));
+                instruction.setImage(imageInstruction);
+
                 instructionCache.put(String.valueOf(instructionId), instruction);
             }
         }
