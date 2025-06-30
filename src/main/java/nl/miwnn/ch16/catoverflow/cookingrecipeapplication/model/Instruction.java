@@ -13,7 +13,11 @@ public class Instruction {
     @Id @GeneratedValue
     private int instructionId;
 
+    @Column(columnDefinition = "TEXT")
     private String description;
+
+    @OneToOne
+    private Image image;
 
     @ManyToOne
     @JoinColumn(name = "recipe_id")
@@ -41,6 +45,14 @@ public class Instruction {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public Recipe getRecipe() {
