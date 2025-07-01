@@ -179,8 +179,10 @@
     z-index: 3;
 }
 
+
+
 body {
-    background-color: #9EB950;
+    background-color: floralwhite;
     color: #363632;
 }
 
@@ -243,6 +245,8 @@ img {
     font-weight: bolder;
     color: #F2A756;
 }
+
+
 
 .add-user-btn {
     background-color: #2f3d4c;
