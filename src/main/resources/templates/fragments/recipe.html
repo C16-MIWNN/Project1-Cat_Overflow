@@ -14,6 +14,9 @@
         <a th:href="@{/recipe/detail/{recipeId}(recipeId = ${recipe.recipeId})}" class="stretched-link"></a>
 
         <div class="overlay-text">
+            <div class="recipe-creator">
+                <span class="recipe-creator" th:text='User'></span>
+            </div>
             <div class="card-header-title">
                 <span class="card-title" th:text="${recipe.title}"></span>
             </div>
