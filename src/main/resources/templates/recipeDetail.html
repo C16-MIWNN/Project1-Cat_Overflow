@@ -6,7 +6,7 @@
 </head>
 
 <body>
-<div th:replace="~{fragments/general :: navbar}"></div>
+<div th:replace="~{fragments/general :: navbar('Recipe Detail Page')}"></div>
 
 <div class="container text-center" th:object="${recipe}">
   <img th:src="'/images/Examples/' + ${recipe.image.getImageName()}">

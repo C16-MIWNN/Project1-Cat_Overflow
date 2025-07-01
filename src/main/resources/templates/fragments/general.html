@@ -14,25 +14,33 @@
 </head>
 
 <body>
-<div th:fragment="navbar">
-    <ul class="nav nav-tabs shadow">
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/recipe/overview}">The Stack</a>
+<header th:fragment="navbar(pageTitle)" class="navbar-background">
+    <ul class="nav nav-item">
+        <li class="icon-link">
+            <a class="nav-link nav-link-icon" th:href="@{/recipe/overview}">
+            <img th:src="@{/images/company_images/push_to_plate_icon.png}"
+                 alt="Logo" width="40" height="40" class="d-inline-block"></a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/recipe/overview}">Recipes</a>
+        <li class="nav-home">
+            <a class="nav-link nav-link-company" th:href="@{/recipe/overview}">Push to Plate</a>
         </li>
-        <li class="nav-item" sec:authorize="isAuthenticated()">
-            <a class="nav-link" th:href="@{/user/overview}">Users</a>
+        <li class="nav-recipe">
+            <a class="nav-link nav-link-recipe" th:href="@{/recipe/overview}">Recipes</a>
         </li>
-        <li class="nav-item" sec:authorize="isAnonymous()">
-            <a class="nav-link" th:href="@{/login}">Login</a>
+        <li class="nav-user" sec:authorize="isAuthenticated()">
+            <a class="nav-link nav-link-user" th:href="@{/user/overview}">Users</a>
         </li>
-        <li class="nav-item" sec:authorize="isAuthenticated()">
-            <a class="nav-link" th:href="@{/logout}">Logout <span sec:authentication="name"></span></a>
+        <li class="nav-login" sec:authorize="isAnonymous()">
+            <a class="nav-link nav-link-login" th:href="@{/login}">Login</a>
+        </li>
+        <li class="nav-logout" sec:authorize="isAuthenticated()">
+            <a class="nav-link nav-link-logout" th:href="@{/logout}">Logout <span sec:authentication="name"></span></a>
         </li>
     </ul>
-</div>
+    <div class="nav-allRecipesTitle">
+        <h1 th:text="${pageTitle}"></h1>
+    </div>
+</header>
 
 <div th:fragment="footer">
     <br/><footer><p class="text-center text text-muted shadow"> Copyright Cat Overflow &copy;2025</p></footer>
