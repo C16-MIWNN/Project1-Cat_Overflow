@@ -6,7 +6,7 @@
 </head>
 
 <body>
-<div th:replace="~{fragments/general :: navbar}"></div>
+<div th:replace="~{fragments/general :: navbar('Recipe Detail Page')}"></div>
 
 <main th:object="${recipe}">
   <div class="wrapper">
@@ -101,11 +101,8 @@
   <!--    <div th:each="instruction : ${allInstructions}">-->
   <!--      <img style="height: 250px" th:src="'/images/Examples/' + ${instruction.image.getImageName()}">-->
   <!--      <p th:text="${instruction.description}"></p>-->
-  </div>
+<!--  </div>-->
 </main>
-
-  </div>
-</div>
 
 <div th:replace="~{fragments/general :: footer}"></div>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>
