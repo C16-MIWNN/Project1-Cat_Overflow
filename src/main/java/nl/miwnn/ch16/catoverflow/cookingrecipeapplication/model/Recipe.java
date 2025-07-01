@@ -16,8 +16,13 @@ public class Recipe {
     private Long recipeId;
 
     private String title;
+
+    @Column(columnDefinition = "TEXT")
     private String summary;
+
+    @Column(columnDefinition = "TEXT")
     private String description;
+
     private int portionQuantity;
     private String portionUnit;
     private int totalCookingTime;
