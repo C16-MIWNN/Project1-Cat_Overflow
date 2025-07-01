@@ -110,6 +110,77 @@
     gap: 1rem;
 }
 
+
+
+.recipe-card {
+    margin-top: 100px;
+    position: relative;
+    height: 400px;
+    width: 275px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.5s ease
+}
+
+.recipe-card:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(108, 170, 73, 0.8);
+}
+
+.recipe-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.overlay-text {
+    position: absolute;
+    top: 250px; left: 0; right: 0; bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    z-index: 2;
+    box-sizing: border-box;
+}
+
+.card-title {
+    font-family: 'Merriweather', serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    justify-content: left;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 5px rgba(0,0,0,0.7);
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border: none;
+}
+
+.card-text-time, .card-text-portion {
+    font-family: 'Merriweather', serif;
+    font-size: 1.1rem;
+    color: white;
+    text-shadow: 0 0 3px rgba(0,0,0,0.7);
+}
+
+.stretched-link {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 3;
+}
+
+
+
 body {
     background-color: #FEFDF1;
     color:  #363632;

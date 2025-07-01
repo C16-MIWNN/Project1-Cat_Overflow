@@ -1,6 +1,7 @@
 package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.controller;
 
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model.Recipe;
+import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.ImageRepository;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.IngredientRecipeRepository;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.InstructionRepository;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.RecipeRepository;
@@ -25,14 +26,16 @@ public class RecipeController {
     private final RecipeRepository recipeRepository;
     private final IngredientRecipeRepository ingredientRecipeRepository;
     private final InstructionRepository instructionRepository;
+    private final ImageRepository imageRepository;
 
     public RecipeController(
             RecipeRepository recipeRepository,
             IngredientRecipeRepository ingredientRecipeRepository,
-            InstructionRepository instructionRepository) {
+            InstructionRepository instructionRepository, ImageRepository imageRepository) {
         this.recipeRepository = recipeRepository;
         this.ingredientRecipeRepository = ingredientRecipeRepository;
         this.instructionRepository = instructionRepository;
+        this.imageRepository = imageRepository;
     }
 
     private String setupRecipeOverview(Model datamodel, Recipe formRecipe, boolean formModalHidden) {

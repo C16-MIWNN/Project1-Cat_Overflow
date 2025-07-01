@@ -1,29 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 
 <head th:replace="~{fragments/general :: baseheader(~{:: title})}">
     <title>Recipe Overview</title>
 </head>
 
 <body>
-    <div th:replace="~{fragments/general :: navbar('All Recipes')}"></div>
+<div th:replace="~{fragments/general :: navbar('All Recipes')}"></div>
 
-    <div class="container">
-        <div th:object="${recipe}">
-            <h1>All recipes</h1>
-            <div class="row row-cols-1 row-cols-md-6 g-4" style="width: 98%">
-                <div th:each="recipe : ${allRecipes}">
-                    <a th:href="@{/recipe/detail/{recipeId}(recipeId = ${recipe.recipeId})}" class="col">
-                        <img height="116px" th:src="'/images/Examples/' + ${recipe.image.getImageName()}">
-                        <div th:text="${recipe.getTitle()}"></div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="">
 
-    <div th:replace="~{fragments/general :: footer}"></div>
-    <div th:replace="~{fragments/general :: bottomScripts}"></div>
+</div>
+<div class="container">
+    <div th:replace="~{fragments/recipe :: recipeCards(${allRecipes})}"></div>
+</div>
+
+<div th:replace="~{fragments/general :: footer}"></div>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
 </body>
 
 </html>

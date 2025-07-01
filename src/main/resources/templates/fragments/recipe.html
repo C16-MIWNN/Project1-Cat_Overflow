@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<body>
+
+<div th:fragment="recipeCards(recipes)" class="row row-cols-1 row-cols-md-6 g-4">
+    <div th:each="recipe : ${recipes}" th:insert="~{:: recipeCard(recipe)}"></div>
+</div>
+
+<div th:fragment="recipeCard(recipe)" class="col">
+    <div class="card recipe-card"
+         th:style="'background-image: url(/images/Examples/' + ${recipe.image.imageName} + ');'">
+
+        <a th:href="@{/recipe/detail/{recipeId}(recipeId = ${recipe.recipeId})}" class="stretched-link"></a>
+
+        <div class="overlay-text">
+            <div class="card-header-title">
+                <span class="card-title" th:text="${recipe.title}"></span>
+            </div>
+
+            <div class="card-footer">
+                <span class="card-text-time" th:text="${recipe.totalCookingTime} + ' mins'"></span>
+                <span class="card-text-portion" th:text="${recipe.portionQuantity} + ' servings'"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
