@@ -8,44 +8,101 @@
 <body>
 <div th:replace="~{fragments/general :: navbar}"></div>
 
-<div class="container text-center" th:object="${recipe}">
-  <img th:src="'/images/Examples/' + ${recipe.image.getImageName()}">
-  <p th:text="*{description}"></p>
-  <h1 th:text="*{title}"></h1>
-  <p th:text="*{summary}"></p>
-  <div style="background-color: #A4AF32">
-    <div>
-      <div class="row">
-        <p class="col">Portion</p>
-        <p class="col"></p>
-        <p class="col">Total Cooking Time</p>
-      </div>
-      <div class="row">
-        <div class="col row">
-          <p class="col" th:text="${recipe.portionQuantity}"></p>
-          <p class="col" th:text="${recipe.portionUnit}"></p>
-        </div>
+<main th:object="${recipe}">
+  <div class="wrapper">
+    <div class="two-column-layout">
+      <img class="rounded" th:src="'/images/Examples/' + ${recipe.image.getImageName()}">
 
-        <p class="col" th:text="${recipe.totalCookingTime}"></p>
-      </div>
+      <div class="rounded recipe-detail-box" >
+        <h2 class="text-center" style="color: #883531; text-transform: uppercase; font-weight: bolder" th:text="*{title}"></h2>
+        <p class="text-center" th:text="*{summary}"></p>
+
+        <div class="three-column-layout" style="padding: 0 60px; margin-block-end: 0">
+
+          <div class="two-column-layout" style="gap: 8px; grid-template-columns: 1fr 2fr; text-wrap: nowrap">
+            <div class="icon-bg text-center">
+              <i class="bi bi-globe icon-img"></i>
+            </div>
+            <div>
+              <p style="margin-bottom: 0">
+                Cuisine
+              </p>
+              <p class="header-bolder-accent">
+                French
+              </p>
+            </div>
+          </div>
+
+          <div class="two-column-layout" style="gap: 8px; grid-template-columns: 1fr 2fr">
+            <div class="icon-bg text-center">
+              <i class="bi-person-fill icon-img"></i>
+            </div>
+            <div>
+              <p style="margin-bottom: 0">
+                Servings
+              </p>
+              <p class="header-bolder-accent text-nowrap">
+                4 People
+              </p>
+            </div>
+          </div>
+
+          <div class="two-column-layout" style="gap: 8px; grid-template-columns: 1fr 2fr;">
+            <div class="icon-bg text-center">
+              <i class="bi-clock-fill icon-img"></i>
+            </div>
+            <div>
+              <p class="text-nowrap" style="margin-bottom: 0">
+                Cook Time
+              </p>
+              <p class="header-bolder-accent text-nowrap">
+                160 Minutes
+              </p>
+            </div>
+          </div>
+
+        </div>
+        <p th:text="*{description}"></p>
+        <p class="text-center align-bottom">Uploaded by username</p>
+        </div>
     </div>
   </div>
-  <div>
-    <h2>INGREDIENTS</h2>
-    <div th:each="ingredientRecipe : ${allIngredientRecipes}">
-      <div class="row">
-        <p class="col" th:text="${ingredientRecipe.quantity}"></p>
-        <p class="col" th:text="${ingredientRecipe.ingredientUnit}"></p>
-        <p class="col" th:text="${ingredientRecipe.notes}"></p>
-        <p class="col" th:text="${ingredientRecipe.ingredient.ingredientName}"></p>
-      </div>
-    </div>
 
-    <h2>STEPS</h2>
-    <div th:each="instruction : ${allInstructions}">
-      <img style="height: 250px" th:src="'/images/Examples/' + ${instruction.image.getImageName()}">
-      <p th:text="${instruction.description}"></p>
-    </div>
+
+  <!--  <div style="background-color: #A4AF32">-->
+  <!--    <div>-->
+  <!--      <div class="row">-->
+  <!--        <p class="col">Portion</p>-->
+  <!--        <p class="col"></p>-->
+  <!--        <p class="col">Total Cooking Time</p>-->
+  <!--      </div>-->
+  <!--      <div class="row">-->
+  <!--        <div class="col row">-->
+  <!--          <p class="col" th:text="${recipe.portionQuantity}"></p>-->
+  <!--          <p class="col" th:text="${recipe.portionUnit}"></p>-->
+  <!--        </div>-->
+
+  <!--        <p class="col" th:text="${recipe.totalCookingTime}"></p>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <!--  <div>-->
+  <!--    <h2>INGREDIENTS</h2>-->
+  <!--    <div th:each="ingredientRecipe : ${allIngredientRecipes}">-->
+  <!--      <div class="row">-->
+  <!--        <p class="col" th:text="${ingredientRecipe.quantity}"></p>-->
+  <!--        <p class="col" th:text="${ingredientRecipe.ingredientUnit}"></p>-->
+  <!--        <p class="col" th:text="${ingredientRecipe.notes}"></p>-->
+  <!--        <p class="col" th:text="${ingredientRecipe.ingredient.ingredientName}"></p>-->
+  <!--      </div>-->
+  <!--    </div>-->
+
+  <!--    <h2>STEPS</h2>-->
+  <!--    <div th:each="instruction : ${allInstructions}">-->
+  <!--      <img style="height: 250px" th:src="'/images/Examples/' + ${instruction.image.getImageName()}">-->
+  <!--      <p th:text="${instruction.description}"></p>-->
+  </div>
+</main>
 
   </div>
 </div>
