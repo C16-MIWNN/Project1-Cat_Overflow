@@ -11,9 +11,10 @@
 <main th:object="${recipe}">
   <div class="wrapper">
     <div class="two-column-layout">
-      <img class="rounded" th:src="'/images/Examples/' + ${recipe.image.getImageName()}">
-
-      <div class="rounded recipe-detail-box" >
+      <div class="image-wrapper">
+        <img class="rounded recipe-image" th:src="'/images/Examples/' + ${recipe.image.getImageName()}">
+      </div>
+      <div class="rounded recipe-detail-box">
         <h2 class="text-center" style="color: #883531; text-transform: uppercase; font-weight: bolder" th:text="*{title}"></h2>
         <p class="text-center" th:text="*{summary}"></p>
 
@@ -66,42 +67,40 @@
         <p class="text-center align-bottom">Uploaded by username</p>
         </div>
     </div>
+
+    <div class="two-column-layout bottom-section">
+      <div class="rounded ingredients-box">
+        <h3 style="font-weight: bolder; margin-bottom: 1.5rem">Ingredients</h3>
+        <div style="margin-bottom: 0.5rem" th:each="ingredientRecipe : ${allIngredientRecipes}">
+          <i class="bi-play-fill"></i>
+          <i>
+            <span style="font-weight: bolder">
+              <span th:text="${ingredientRecipe.quantity}"></span>
+              <span th:text="${ingredientRecipe.ingredientUnit}"></span>
+            </span>
+            <span th:text="${ingredientRecipe.ingredient.ingredientName}"></span>
+            <span th:text="${ingredientRecipe.notes}"></span>
+          </i>
+        </div>
+        <div style="margin-bottom: 1rem"></div>
+      </div>
+
+      <div>
+        <h2 class="instructions-box rounded"
+            style="font-weight: bolder; color: black">cooking <span style="color: #F2A756">instructions</span></h2>
+
+        <div class="step-box rounded" th:each="instruction, iterStat  : ${allInstructions}">
+          <div>
+            <h3 style="font-weight: bolder; color: black" th:text="'Step ' + ${iterStat.index + 1}"></h3>
+            <p th:text="${instruction.description}"></p>
+          </div>
+
+          <img style="height: 250px" th:src="'/images/Examples/' + ${instruction.image.getImageName()}" alt="step image">
+        </div>
+      </div>
+
+    </div>
   </div>
-
-
-  <!--  <div style="background-color: #A4AF32">-->
-  <!--    <div>-->
-  <!--      <div class="row">-->
-  <!--        <p class="col">Portion</p>-->
-  <!--        <p class="col"></p>-->
-  <!--        <p class="col">Total Cooking Time</p>-->
-  <!--      </div>-->
-  <!--      <div class="row">-->
-  <!--        <div class="col row">-->
-  <!--          <p class="col" th:text="${recipe.portionQuantity}"></p>-->
-  <!--          <p class="col" th:text="${recipe.portionUnit}"></p>-->
-  <!--        </div>-->
-
-  <!--        <p class="col" th:text="${recipe.totalCookingTime}"></p>-->
-  <!--      </div>-->
-  <!--    </div>-->
-  <!--  </div>-->
-  <!--  <div>-->
-  <!--    <h2>INGREDIENTS</h2>-->
-  <!--    <div th:each="ingredientRecipe : ${allIngredientRecipes}">-->
-  <!--      <div class="row">-->
-  <!--        <p class="col" th:text="${ingredientRecipe.quantity}"></p>-->
-  <!--        <p class="col" th:text="${ingredientRecipe.ingredientUnit}"></p>-->
-  <!--        <p class="col" th:text="${ingredientRecipe.notes}"></p>-->
-  <!--        <p class="col" th:text="${ingredientRecipe.ingredient.ingredientName}"></p>-->
-  <!--      </div>-->
-  <!--    </div>-->
-
-  <!--    <h2>STEPS</h2>-->
-  <!--    <div th:each="instruction : ${allInstructions}">-->
-  <!--      <img style="height: 250px" th:src="'/images/Examples/' + ${instruction.image.getImageName()}">-->
-  <!--      <p th:text="${instruction.description}"></p>-->
-<!--  </div>-->
 </main>
 
 <div th:replace="~{fragments/general :: footer}"></div>
