@@ -20,10 +20,19 @@
             <div class="card-header-title">
                 <span class="card-title" th:text="${recipe.title}"></span>
             </div>
-
             <div class="card-footer">
-                <span class="card-text-time" th:text="${recipe.totalCookingTime} + ' mins'"></span>
-                <span class="card-text-portion" th:text="${recipe.portionQuantity} + ' servings'"></span>
+                <div>
+                    <div class="icon-bg-card text-center">
+                        <i class="bi-clock-fill icon-img"></i>
+                    </div>
+                    <span class="card-text-time" th:text="${recipe.totalCookingTime} + ' mins'"></span>
+                </div>
+                <div>
+                    <div class="icon-bg-card text-center">
+                        <i class="bi-person-fill icon-img"></i>
+                    </div>
+                    <span class="card-text-portion" th:text="${recipe.portionQuantity} + ' servings'"></span>
+                </div>
             </div>
         </div>
     </div>

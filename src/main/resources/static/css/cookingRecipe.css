@@ -35,6 +35,7 @@
     background-color: black;
     align-items: center;
     padding-top: 0;
+
 }
 
 .nav-link {
@@ -120,26 +121,13 @@
     background-position: center;
     border-radius: 15px;
     overflow: hidden;
-    transition: transform 0.5s ease;
 }
 
 @media (max-width: 575px) {
     .recipe-card {
         max-width: 100%;
-        height: auto; /* of bv 300px */
+        height: auto;
     }
-}
-
-.recipe-card:hover {
-    box-shadow: 0 0 20px rgba(158, 185, 80, 0.8);
-}
-
-.recipe-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.2);
-    z-index: 1;
 }
 
 .overlay-text {
@@ -147,7 +135,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    max-height: 40%;
+    max-height: 100%;
     padding: 0.4rem;
     display: flex;
     flex-direction: column;
@@ -196,6 +184,17 @@
     font-size: 1.1rem;
     color: white;
     text-shadow: 0 0 3px rgba(0,0,0,0.7);
+}
+
+.icon-bg-card {
+    position: relative;
+    background-color: #F2A756;
+    height: 40px;
+    width: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .stretched-link {
