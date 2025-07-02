@@ -40,7 +40,7 @@ public class RecipeController {
 
     private String setupRecipeOverview(Model datamodel, Recipe formRecipe, boolean formModalHidden) {
         datamodel.addAttribute("allRecipes", recipeRepository.findAll());
-        datamodel.addAttribute("formRecipe", formRecipe);
+        datamodel.addAttribute("formRecipe", new Recipe());
         datamodel.addAttribute("formModalHidden", formModalHidden);
 
         return "recipeOverview";
@@ -58,11 +58,7 @@ public class RecipeController {
 
     @GetMapping({"/", "/recipe/overview"})
     private String showRecipeOverview(Model datamodel) {
-        datamodel.addAttribute("allRecipes", recipeRepository.findAll());
-        datamodel.addAttribute("allIngredientRecipes", ingredientRecipeRepository.findAll());
-        datamodel.addAttribute("allInstructions", instructionRepository.findAll());
-
-        return "recipeOverview";
+        return setupRecipeOverview(datamodel, new Recipe(), true);
     }
 
     @GetMapping("/recipe/detail/{recipeId}")
@@ -74,13 +70,6 @@ public class RecipeController {
         }
 
         return setupRecipeDetail(datamodel, recipeOptional.get(), recipeOptional.get(), true);
-    }
-
-    @GetMapping("/recipe/new")
-    private String showNewRecipeForm(Model datamodel) {
-        datamodel.addAttribute("formRecipe", new Recipe());
-
-        return "recipeForm";
     }
 
     @PostMapping("/recipe/save")

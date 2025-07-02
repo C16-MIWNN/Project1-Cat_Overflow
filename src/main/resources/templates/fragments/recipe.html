@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <body>
 
 <div th:fragment="recipeCards(recipes)" class="row row-cols-1 row-cols-md-6 g-4">
     <div th:each="recipe : ${recipes}" th:insert="~{:: recipeCard(recipe)}"></div>
+
+    <div class="col" sec:authorize="isAuthenticated()">
+        <div class="card">
+            <button type="button"
+                    class="btn btn-secondary btn-lg px-4 fw-bold"
+                    data-bs-toggle="modal" data-bs-target="#editForm">
+                <i class="bi bi-plus-square"></i><br>Add Recipe
+            </button>
+        </div>
+    </div>
 </div>
 
 <div th:fragment="recipeCard(recipe)" class="col">
@@ -29,5 +39,57 @@
     </div>
 </div>
 
+<div th:fragment="recipeForm(formRecipe, allIngredientRecipes, #fields)">
+    <form class="row g-3" th:action="@{/recipe/save}" method="post" th:object="${formRecipe}">
+        <input type="hidden" th:field="*{recipeId}">
+        <div class="row g-3 align-items-center">
+            <div class="col-5">
+                <label for="title" class="col-form-label">Title</label>
+            </div>
+            <div class="col-7">
+                <input type="text" id="title" class="form-control" aria-describedby="titleHelpInline" th:field="*{title}">
+            </div>
+            <div class="col-12">
+                    <span id="titleHelpInline" class="form-text" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
+                    </span>
+            </div>
+        </div>
+        <div class="row g-3 align-items-center">
+            <div class="col-5">
+                <label for="description" class="col-form-label">Description</label>
+            </div>
+            <div class="col-7">
+                <textarea id="description" class="form-control" aria-describedby="descriptionHelpInline" th:field="*{description}"></textarea>
+            </div>
+            <div class="col-12">
+                    <span id="descriptionHelpInline" class="form-text" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
+                    </span>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mb-3">Save recipe</button>
+    </form>
+</div>
+
+<div th:fragment="recipeFormModal(formRecipe, allIngredientRecipes, #fields)"
+                 class="modal fade" id="editForm"
+                 tabindex="-1"
+                 aria-labelledby="editFormModalLabel"
+                 aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <h1 class="modal-title text-center" id="editFormModalLabel">Recipe edit form</h1>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div th:replace="~{:: recipeForm(${formRecipe}, ${allIngredientRecipes}, ${#fields})}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:unless="${formModalHidden}">
+        new bootstrap.Modal(document.getElementById('editForm'), {}).toggle()
+    </script>
+</div>
 </body>
 </html>
