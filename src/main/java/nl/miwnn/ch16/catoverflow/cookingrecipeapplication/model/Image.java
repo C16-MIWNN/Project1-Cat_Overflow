@@ -3,6 +3,7 @@ package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 
 /**
  * @author Robyn Blignaut, Bas Folkers
@@ -16,6 +17,10 @@ public class Image {
     private int imageId;
 
     private String imageName;
+
+//    TODO Make images work with blobs!!!
+    @Lob
+    private byte[] imageData;
 
     public int getImageId() {
         return imageId;

@@ -15,7 +15,7 @@
 
 <body>
 <header th:fragment="navbar(pageTitle)" class="navbar-background">
-    <ul class="nav nav-item">
+    <ul class="nav d-flex nav-item">
         <li class="icon-link">
             <a class="nav-link nav-link-icon" th:href="@{/recipe/overview}">
             <img th:src="@{/images/company_images/push_to_plate_icon.png}"
@@ -24,12 +24,16 @@
         <li class="nav-home">
             <a class="nav-link nav-link-company" th:href="@{/recipe/overview}">Push to Plate</a>
         </li>
-        <li class="nav-recipe">
-            <a class="nav-link nav-link-recipe" th:href="@{/recipe/overview}">Recipes</a>
+
+        <li class="nav-center-group">
+            <div class="nav-recipe">
+                <a class="nav-link nav-link-recipe" th:href="@{/recipe/overview}">Recipes</a>
+            </div>
+            <div class="nav-user" sec:authorize="isAuthenticated()">
+                <a class="nav-link nav-link-user" th:href="@{/user/overview}">Users</a>
+            </div>
         </li>
-        <li class="nav-user" sec:authorize="isAuthenticated()">
-            <a class="nav-link nav-link-user" th:href="@{/user/overview}">Users</a>
-        </li>
+
         <li class="nav-login" sec:authorize="isAnonymous()">
             <a class="nav-link nav-link-login" th:href="@{/login}">Login</a>
         </li>
