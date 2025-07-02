@@ -23,19 +23,34 @@
     z-index: 1;
 }
 
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    padding-left: 0;
+}
+
 .nav-item {
+    background-color: black;
+    align-content: center;
     align-items: center;
     padding-top: 0;
+    height: 60px;
 }
 
 .nav-link {
-    font-family: 'Merriweather', serif;
+    font-family: 'Merriweather', sans-serif;
     color: #E8E5C7;
-    transition: transform 0.5s ease;
+}
+
+.nav-link:hover {
+    color: #E8E5C7;
 }
 
 .nav-link-icon {
     filter: invert(1);
+    color: #E8E5C7;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -47,107 +62,98 @@
     text-align: center;
     font-size: 40px;
     color: #E8E5C7;
-    padding-left: 0.2rem;
+    padding-left: 0.1rem;
 }
 
-.nav-link-recipe {
-    text-shadow: 0 0 5px black;
+.nav-center-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    order: 2;
+    margin: 0 auto;
+}
+
+.nav-link-recipe, .nav-link-user {
     text-align: center;
     font-size: 30px;
 }
 
-.nav-link-user, .nav-link-login, .nav-link-logout {
-    text-shadow: 0 0 5px black;
+.nav-link-login, .nav-link-logout {
     text-align: center;
     font-size: 20px;
 }
 
 .nav-link-logout {
-    text-shadow: 0 0 5px black;
     font-size: 20px;
     padding-right: 2rem;
 }
 
-.nav-link-icon:hover {
-    transform: scale(1.2);
-    text-shadow: 0 0 5px #E8E5C7;
-}
-
-.nav-link-company:hover {
-    color: #E8E5C7;
-    transform: scale(1.2);
-    text-shadow: 0 0 5px #E8E5C7;
-}
-
-.nav-link-recipe:hover, .nav-link-user:hover, .nav-link-login:hover, .nav-link-logout:hover {
-    color: #E8E5C7;
-    transform: scale(1.2);
-    text-shadow: 0 0 5px #E8E5C7;
-}
-
 .nav-allRecipesTitle h1 {
+    font-family: 'Merriweather', sans-serif;
     font-size: 75px;
     color: #E8E5C7;
     text-align: center;
     align-items: center;
-    padding-top: 0;
-    padding-bottom: 0;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .nav-home {
     order: 1;
 }
 
-.nav-recipe {
+.nav-user, .nav-recipe {
     order: 2;
     margin: 0 auto;
 }
 
-.nav-user, .nav-login, .nav-logout {
+.nav-login, .nav-logout {
     order: 3;
     margin-left: 1rem;
     display: flex;
     gap: 1rem;
 }
 
+
+
 .recipe-card {
-    margin-top: 100px;
     position: relative;
     height: 400px;
-    width: 275px;
+    width: 100%;
+    max-width: 275px;
+    margin: auto;
     background-size: cover;
     background-position: center;
     border-radius: 15px;
     overflow: hidden;
-    transition: transform 0.5s ease
 }
 
-.recipe-card:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(0,0,0, 0.8);
-}
-
-.recipe-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.2);
-    z-index: 1;
+@media (max-width: 575px) {
+    .recipe-card {
+        max-width: 100%;
+        height: auto;
+    }
 }
 
 .overlay-text {
     position: absolute;
-    top: 250px; left: 0; right: 0; bottom: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-height: 100%;
+    padding: 0.4rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 0.7rem;
     z-index: 2;
     box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.2);
+    overflow: hidden;
 }
 
 .recipe-creator {
-    font-family: 'Merriweather', serif;
+    font-family: 'Merriweather', sans-serif;
     font-size: 1rem;
     color: white;
     justify-content: left;
@@ -156,8 +162,8 @@
 }
 
 .card-title {
-    font-family: 'Merriweather', serif;
-    font-size: 1.5rem;
+    font-family: 'Merriweather', sans-serif;
+    font-size: 1.2rem;
     font-weight: bold;
     color: white;
     justify-content: left;
@@ -165,7 +171,14 @@
     text-shadow: 0 0 5px rgba(0,0,0,0.7);
 }
 
+@media (min-width: 768px) {
+    .card-title {
+        font-size: 1.5rem;
+    }
+}
+
 .card-footer {
+    margin-bottom: 0.2rem;
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -173,10 +186,22 @@
 }
 
 .card-text-time, .card-text-portion {
-    font-family: 'Merriweather', serif;
+    font-family: 'Merriweather', sans-serif;
     font-size: 1.1rem;
     color: white;
     text-shadow: 0 0 3px rgba(0,0,0,0.7);
+}
+
+.icon-bg-card {
+    font-size: 15px;
+    position: relative;
+    background-color: #F2A756;
+    height: 40px;
+    width: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .stretched-link {
@@ -185,9 +210,20 @@
     z-index: 3;
 }
 
-body {
-    background-color: floralwhite;
+
+
+html, body {
+    background-color: #9EB950;
     color: #363632;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.container{
+    margin-top: 0;
+    flex: 1;
 }
 
 .primary-bg {
@@ -196,12 +232,11 @@ body {
 }
 
 .page-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
     padding: 1rem 0;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 0.5rem;
+    border: none;
+    background-color: rgb(232, 229, 199);
+    box-shadow: none;
     z-index: 1000;
     text-align: center;
 }

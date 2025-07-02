@@ -26,6 +26,8 @@ public class CookingRecipeUser implements UserDetails {
     private String username;
 
     private String password;
+    private String email;
+    private String status;
 
     @Override
     public boolean isAccountNonExpired() {
@@ -76,5 +78,21 @@ public class CookingRecipeUser implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

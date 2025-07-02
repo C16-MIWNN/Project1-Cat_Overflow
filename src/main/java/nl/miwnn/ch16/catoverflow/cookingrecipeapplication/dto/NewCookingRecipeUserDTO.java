@@ -10,6 +10,8 @@ public class NewCookingRecipeUserDTO {
     private String username;
     private String password;
     private String confirmPassword;
+    private String email;
+    private String status;
 
     public String getUsername() {
         return username;
@@ -33,5 +35,21 @@ public class NewCookingRecipeUserDTO {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

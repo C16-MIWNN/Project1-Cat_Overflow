@@ -9,20 +9,20 @@
 
 <div class="container">
 
+    <button type="button" class="btn add-user-btn" data-bs-toggle="modal" data-bs-target="#newForm">
+        <i class="bi bi-person-plus-fill"></i> Add user
+    </button>
     <ul>
         <li th:each="user : ${allUsers}" th:text="${user.username}"></li>
     </ul>
 
-    <button type="button"
-            class="btn add-user-btn"
-            data-bs-toggle="modal" data-bs-target="#newForm">
-        <i class="bi bi-person-plus-fill"></i> Add user
-    </button>
+    <div th:replace="~{fragments/user :: userTable(${allUsers})}"></div>
+
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>
 
-<div th:replace="~{fragments/cookingRecipeUser :: userFormModal(${formUser}, ${#fields})}"></div>
+<div th:replace="~{fragments/newUserForm :: userFormModal(${formUser}, ${#fields})}"></div>
 </body>
 </html>

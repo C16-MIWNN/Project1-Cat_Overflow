@@ -34,7 +34,6 @@
                 <span id="passwordHelpInline" class="form-text" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
             </div>
         </div>
-
         <button type="submit" class="btn btn-primary mb-3">Save user</button>
     </form>
 </div>
@@ -43,7 +42,7 @@
 <div th:fragment="userFormModal(formUser, #fields)" class="modal fade" id="newForm" tabindex="-1" aria-labelledby="newFormModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <h1 class="modal-title text-center" id="editFormModalLabel">New Cooking Recipe user form</h1>
+            <h1 class="modal-title text-center" id="editFormModalLabel">New User Form</h1>
             <div class="modal-body">
                 <div class="container-fluid">
                     <div th:replace="~{:: newUserForm(${formUser}, ${#fields})}"></div>
