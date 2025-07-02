@@ -35,7 +35,6 @@
     background-color: black;
     align-items: center;
     padding-top: 0;
-
 }
 
 .nav-link {
@@ -43,8 +42,13 @@
     color: #E8E5C7;
 }
 
+.nav-link:hover {
+    color: #E8E5C7;
+}
+
 .nav-link-icon {
     filter: invert(1);
+    color: #E8E5C7;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -56,7 +60,7 @@
     text-align: center;
     font-size: 40px;
     color: #E8E5C7;
-    padding-left: 0.2rem;
+    padding-left: 0.1rem;
 }
 
 .nav-center-group {
@@ -187,6 +191,7 @@
 }
 
 .icon-bg-card {
+    font-size: 15px;
     position: relative;
     background-color: #F2A756;
     height: 40px;
