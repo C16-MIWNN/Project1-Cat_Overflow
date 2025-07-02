@@ -33,8 +33,10 @@
 
 .nav-item {
     background-color: black;
+    align-content: center;
     align-items: center;
     padding-top: 0;
+    height: 60px;
 }
 
 .nav-link {
