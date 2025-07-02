@@ -115,8 +115,6 @@
     gap: 1rem;
 }
 
-
-
 .recipe-card {
     position: relative;
     height: 400px;
@@ -210,8 +208,6 @@
     z-index: 3;
 }
 
-
-
 html, body {
     background-color: #9EB950;
     color: #363632;
@@ -221,14 +217,14 @@ html, body {
     flex-direction: column;
 }
 
+a {
+    cursor: pointer;
+    color: #883531;
+}
+
 .container{
     margin-top: 0;
     flex: 1;
-}
-
-.primary-bg {
-    background-color: #9EB950;
-    color: #363632;
 }
 
 .page-footer {
@@ -242,7 +238,7 @@ html, body {
 }
 
 .wrapper {
-    max-inline-size: 1900px;
+    max-inline-size: 1200px;
     margin-inline: auto;
     padding: 20px;
 }
@@ -286,16 +282,7 @@ html, body {
     padding: 20px 30px;
     display: flex;
     flex-direction: column;
-}
-
-.bottom-section {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    align-items: start;
-
-    @media (width > 1000px) {
-        grid-template-columns: 1fr 3fr;
-    }
+    margin-bottom: 20px;
 }
 
 .ingredients-box,
@@ -303,12 +290,13 @@ html, body {
     background-color: #FEFDF1;
     box-shadow: rgba(50, 50, 93, 0.25) 0 2px 5px -1px, rgba(0, 0, 0, 0.3) 0 1px 3px -1px;
     padding: 20px;
+    margin-bottom: 20px;
 }
 
 .step-box {
     background-color: #FEFDF1;
     padding: 16px;
-    margin-bottom: 12px;
+    margin-bottom: 20px;
     display: flex;
     gap: 16px;
     justify-content: space-between;
