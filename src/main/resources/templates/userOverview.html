@@ -16,6 +16,8 @@
         <li th:each="user : ${allUsers}" th:text="${user.username}"></li>
     </ul>
 
+    <div th:replace="~{fragments/user :: userTable(${allUsers})}"></div>
+
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>
