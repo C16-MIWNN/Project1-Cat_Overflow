@@ -59,6 +59,8 @@ public class InitializeController {
             CookingRecipeUser cookingRecipeUser = new CookingRecipeUser();
             cookingRecipeUser.setUsername("Test");
             cookingRecipeUser.setPassword("TestPW");
+            cookingRecipeUser.setEmail("email@email.org");
+            cookingRecipeUser.setStatus("Admin");
             cookingRecipeService.saveUser(cookingRecipeUser);
 
             loadImage();

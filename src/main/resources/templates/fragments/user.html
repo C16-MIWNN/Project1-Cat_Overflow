@@ -2,41 +2,30 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <body>
 
-<div th:fragment="userTable(users)" class="table table-striped">
-    <div th:each="user : ${users}" th:insert="~{:: user(user)}"></div>
-</div>
-
 <div th:fragment="user(user)" class="table">
-    <table class="table table-striped table-dark">
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>email@email.com</td>
-            <td>User</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Otto</td>
-            <td>email@email.com</td>
-            <td>User</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Ina</td>
-            <td>email@email.com</td>
-            <td>Admin</td>
-        </tr>
-        </tbody>
-    </table>
+
+    <div th:fragment="userTable(users)">
+        <table class="table table-striped table-dark table-bordered table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user, iterStat : ${users}">
+                <th scope="row" th:text="${iterStat.index + 1}">1</th>
+                <td th:text="${user.username}">Username</td>
+                <td th:text="${user.email}">Email</td>
+                <td th:text="${user.status}">Status</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
 </div>
 
 </body>
