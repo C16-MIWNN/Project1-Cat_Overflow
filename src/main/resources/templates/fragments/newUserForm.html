@@ -34,6 +34,22 @@
                 <span id="passwordHelpInline" class="form-text" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
             </div>
         </div>
+        <div class="row g-3 align-items-center">
+            <div class="col-5">
+                <label for="email" class="col-form-label">Email</label>
+            </div>
+            <div class="col-7">
+                <input type="text" id="email" class="form-control" aria-describedby="emailHelpInline" th:field="*{email}">
+            </div>
+        </div>
+        <div class="row g-3 align-items-center">
+            <div class="col-5">
+                <label for="status" class="col-form-label">Status</label>
+            </div>
+            <div class="col-7">
+                <input type="text" id="status" class="form-control" aria-describedby="statusHelpInline" th:field="*{status}">
+            </div>
+        </div>
         <button type="submit" class="btn btn-primary mb-3">Save user</button>
     </form>
 </div>
