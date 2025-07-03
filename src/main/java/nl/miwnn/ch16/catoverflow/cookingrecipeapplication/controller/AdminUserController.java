@@ -36,7 +36,7 @@ public class AdminUserController {
 
     @PostMapping("/save")
     private String saveNewUser(@ModelAttribute("formUser")
-                                        NewCookingRecipeUserDTO userDtoToBeSaved,
+                               NewCookingRecipeUserDTO userDtoToBeSaved,
                                BindingResult result,
                                Model datamodel) {
         if (adminUserService.usernameInUse(userDtoToBeSaved.getUsername())) {
@@ -67,7 +67,7 @@ public class AdminUserController {
         dto.setEmail(userToEdit.getEmail());
         dto.setStatus(userToEdit.getStatus());
 
-        model.addAttribute("editFormUser", dto);
+        model.addAttribute("formUser", dto);
         model.addAttribute("allUsers", adminUserService.getAllUsers());
         model.addAttribute("formModalHidden", false);
 
