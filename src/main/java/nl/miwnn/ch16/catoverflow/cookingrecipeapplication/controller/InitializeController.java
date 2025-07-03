@@ -4,7 +4,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model.*;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.*;
-import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.service.CookingRecipeService;
+import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.service.AdminUserService;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.io.ClassPathResource;
@@ -26,7 +26,7 @@ public class InitializeController {
     private final InstructionRepository instructionRepository;
     private final ImageRepository imageRepository;
     private final IngredientRepository ingredientRepository;
-    private final CookingRecipeService cookingRecipeService;
+    private final AdminUserService adminUserService;
 
     private final Map<String, Ingredient> ingredientCache = new HashMap<>();
     private final Map<String, IngredientRecipe> ingredientRecipeCache = new HashMap<>();
@@ -38,13 +38,13 @@ public class InitializeController {
                                 InstructionRepository instructionRepository,
                                 ImageRepository imageRepository,
                                 IngredientRepository ingredientRepository,
-                                CookingRecipeService cookingRecipeService) {
+                                AdminUserService adminUserService) {
         this.recipeRepository = recipeRepository;
         this.ingredientRecipeRepository = ingredientRecipeRepository;
         this.instructionRepository = instructionRepository;
         this.imageRepository = imageRepository;
         this.ingredientRepository = ingredientRepository;
-        this.cookingRecipeService = cookingRecipeService;
+        this.adminUserService = adminUserService;
     }
 
     @EventListener
@@ -56,12 +56,12 @@ public class InitializeController {
 
     private void initializeDB() {
         try {
-            CookingRecipeUser cookingRecipeUser = new CookingRecipeUser();
-            cookingRecipeUser.setUsername("Test");
-            cookingRecipeUser.setPassword("TestPW");
-            cookingRecipeUser.setEmail("email@email.org");
-            cookingRecipeUser.setStatus("Admin");
-            cookingRecipeService.saveUser(cookingRecipeUser);
+            AdminUser adminUser = new AdminUser();
+            adminUser.setUsername("Test");
+            adminUser.setPassword("TestPW");
+            adminUser.setEmail("email@email.org");
+            adminUser.setStatus("Admin");
+            adminUserService.saveUser(adminUser);
 
             loadImage();
             loadIngredient();
