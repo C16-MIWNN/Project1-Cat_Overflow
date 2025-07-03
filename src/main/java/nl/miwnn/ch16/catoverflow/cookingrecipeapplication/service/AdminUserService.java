@@ -46,6 +46,16 @@ public class AdminUserService implements UserDetailsService {
         return adminUserRepository.existsByUsername(username);
     }
 
+    public void saveEmail(AdminUser adminUser, String email) {
+        adminUser.setEmail(email);
+        adminUserRepository.save(adminUser);
+    }
+
+    public void saveStatus(AdminUser adminUser, String status) {
+        adminUser.setStatus(status);
+        adminUserRepository.save(adminUser);
+    }
+
     public void save(NewCookingRecipeUserDTO userDtoToBeSaved) {
         saveUser(AdminUserMapper.fromDTO(userDtoToBeSaved));
     }

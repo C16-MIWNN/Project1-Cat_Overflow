@@ -15,6 +15,8 @@ public class AdminUserMapper {
 
         adminUser.setUsername(newCookingRecipeUserDTO.getUsername());
         adminUser.setPassword(newCookingRecipeUserDTO.getPassword());
+        adminUser.setEmail(newCookingRecipeUserDTO.getEmail());
+        adminUser.setStatus(newCookingRecipeUserDTO.getStatus());
 
         return adminUser;
     }

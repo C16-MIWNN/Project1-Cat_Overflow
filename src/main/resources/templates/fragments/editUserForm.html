@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
 <body>
 
-<div th:fragment="newUserForm(formUser, #fields)">
-    <form class="row g-3" th:action="@{/user/save}" method="post" th:object="${formUser}">
+<div th:fragment="editUserForm(editFormUser, #fields)">
+    <form class="row g-3" th:action="@{/user/edit}" method="post" th:object="${editFormUser}">
         <div class="row g-3 align-items-center">
             <div class="col-5">
                 <label for="username" class="col-form-label">Username</label>
@@ -50,18 +51,18 @@
                 <input type="text" id="status" class="form-control" aria-describedby="statusHelpInline" th:field="*{status}">
             </div>
         </div>
-        <button type="submit" class="btn btn-primary mb-3">Save user</button>
+        <button type="submit" class="btn btn-primary mb-3">Edit user</button>
     </form>
 </div>
 
 <!-- Modal -->
-<div th:fragment="userFormModal(formUser, #fields)" class="modal fade" id="newForm" tabindex="-1" aria-labelledby="newFormModalLabel" aria-hidden="true">
+<div th:fragment="userFormModal(formUser, #fields)" class="modal fade" id="editForm" tabindex="-1" aria-labelledby="newFormModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <h1 class="modal-title text-center" id="editFormModalLabel">New User Form</h1>
+            <h1 class="modal-title text-center" id="editFormModalLabel">Edit User Form</h1>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <div th:replace="~{:: newUserForm(${formUser}, ${#fields})}"></div>
+                    <div th:replace="~{:: editUserForm(${formUser}, ${#fields})}"></div>
                 </div>
             </div>
         </div>
@@ -69,7 +70,7 @@
 </div>
 
 <script th:unless="${formModalHidden}">
-    new bootstrap.Modal(document.getElementById('newForm')).toggle();
+    new bootstrap.Modal(document.getElementById('editForm')).toggle();
 </script>
 
 </body>
