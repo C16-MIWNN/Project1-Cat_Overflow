@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 @Entity
-public class CookingRecipeUser implements UserDetails {
+public class AdminUser implements UserDetails {
 
     @Id @GeneratedValue
     private long userId;

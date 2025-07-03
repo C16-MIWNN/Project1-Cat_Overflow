@@ -1,7 +1,7 @@
 package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.controller;
 
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.dto.NewCookingRecipeUserDTO;
-import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.service.CookingRecipeService;
+import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.service.AdminUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,16 +17,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/user")
-public class CookingRecipeUserController {
-    private final CookingRecipeService cookingRecipeService;
+public class AdminUserController {
+    private final AdminUserService adminUserService;
 
-    public CookingRecipeUserController(CookingRecipeService cookingRecipeService) {
-        this.cookingRecipeService = cookingRecipeService;
+    public AdminUserController(AdminUserService adminUserService) {
+        this.adminUserService = adminUserService;
     }
 
     @GetMapping("/overview")
     private String showUserOverview(Model datamodel) {
-        datamodel.addAttribute("allUsers", cookingRecipeService.getAllUsers());
+        datamodel.addAttribute("allUsers", adminUserService.getAllUsers());
         datamodel.addAttribute("formUser", new NewCookingRecipeUserDTO());
         datamodel.addAttribute("formModalHidden", true);
 
@@ -38,7 +38,7 @@ public class CookingRecipeUserController {
                                         NewCookingRecipeUserDTO userDtoToBeSaved,
                                         BindingResult result,
                                         Model datamodel) {
-        if (cookingRecipeService.usernameInUse(userDtoToBeSaved.getUsername())) {
+        if (adminUserService.usernameInUse(userDtoToBeSaved.getUsername())) {
             result.rejectValue("username", "duplicate", "This username is not available");
         }
 
@@ -47,12 +47,12 @@ public class CookingRecipeUserController {
         }
 
         if (result.hasErrors()) {
-            datamodel.addAttribute("allUsers", cookingRecipeService.getAllUsers());
+            datamodel.addAttribute("allUsers", adminUserService.getAllUsers());
             datamodel.addAttribute("formModalHidden", false);
             return "userOverview";
         }
 
-        cookingRecipeService.save(userDtoToBeSaved);
+        adminUserService.save(userDtoToBeSaved);
         return "redirect:/user/overview";
     }
 }
