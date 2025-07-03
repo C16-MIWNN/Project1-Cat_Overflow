@@ -17,7 +17,8 @@
             <tbody>
             <tr th:each="user, iterStat : ${users}">
                 <th scope="row" th:text="${iterStat.index + 1}">1</th>
-                <td th:text="${user.username}">Username</td>
+                <td><a data-bs-toggle="modal" data-bs-target="#editForm"
+                       th:href="@{/user/edit(username=${user.username})}" th:text="${user.username}">Username </a></td>
                 <td th:text="${user.email}">Email</td>
                 <td th:text="${user.status}">Status</td>
             </tr>
