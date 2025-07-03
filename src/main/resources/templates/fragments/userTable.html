@@ -17,7 +17,9 @@
             <tbody>
             <tr th:each="user, iterStat : ${users}">
                 <th scope="row" th:text="${iterStat.index + 1}">1</th>
-                <td><a th:href="@{/user/edit(username=${user.username})}" th:text="${user.username}">Username</a></td>
+                <td>
+                    <a th:href="@{/user/edit/{username}(username=${user.username})}" th:text="${user.username}">Username</a>
+                </td>
                 <td th:text="${user.email}">Email</td>
                 <td th:text="${user.status}">Status</td>
             </tr>

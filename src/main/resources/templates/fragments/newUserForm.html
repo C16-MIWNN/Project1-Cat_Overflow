@@ -54,7 +54,6 @@
     </form>
 </div>
 
-<!-- Modal -->
 <div th:fragment="userFormModal(formUser, #fields)" class="modal fade" id="newForm" tabindex="-1" aria-labelledby="newFormModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -69,7 +68,7 @@
 </div>
 
 <script th:unless="${formModalHidden}">
-    new bootstrap.Modal(document.getElementById('newForm')).show();
+    new bootstrap.Modal(document.getElementById('newForm')).toggle();
 </script>
 
 </body>

@@ -59,4 +59,17 @@ public class AdminUserService implements UserDetailsService {
     public void save(NewCookingRecipeUserDTO userDtoToBeSaved) {
         saveUser(AdminUserMapper.fromDTO(userDtoToBeSaved));
     }
+
+    public NewCookingRecipeUserDTO getUserDTOByUsername(String username) {
+        AdminUser user = adminUserRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+
+        NewCookingRecipeUserDTO dto = new NewCookingRecipeUserDTO();
+        dto.setUsername(user.getUsername());
+        dto.setEmail(user.getEmail());
+        dto.setStatus(user.getStatus());
+        dto.setPassword("");
+        dto.setConfirmPassword("");
+        return dto;
+    }
 }

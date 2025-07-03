@@ -57,20 +57,13 @@ public class AdminUserController {
         return "redirect:/user/overview";
     }
 
-    @GetMapping("/edit")
-    private String editUser(@RequestParam("username") String username, Model model) {
-        AdminUser userToEdit = adminUserRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
-
-        NewCookingRecipeUserDTO dto = new NewCookingRecipeUserDTO();
-        dto.setUsername(userToEdit.getUsername());
-        dto.setEmail(userToEdit.getEmail());
-        dto.setStatus(userToEdit.getStatus());
-
-        model.addAttribute("formUser", dto);
-        model.addAttribute("allUsers", adminUserService.getAllUsers());
-        model.addAttribute("formModalHidden", false);
-
+    @GetMapping("/edit/{username}")
+    private String editUser(@PathVariable String username, Model datamodel) {
+        NewCookingRecipeUserDTO existingUser = adminUserService.getUserDTOByUsername(username);
+        datamodel.addAttribute("allUsers", adminUserService.getAllUsers());
+        datamodel.addAttribute("formUser", existingUser);
+        datamodel.addAttribute("formModalHidden", false);
         return "userOverview";
     }
+
 }
