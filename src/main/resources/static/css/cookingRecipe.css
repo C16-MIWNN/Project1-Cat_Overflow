@@ -10,11 +10,6 @@
     content: "";
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background-image: url('/images/company_images/the_stack_header2.png');
-    background-size: cover;
-    background-position: 0 30%;
-    background-repeat: no-repeat;
-    filter: brightness(0.4);
     z-index: 0;
 }
 
@@ -32,7 +27,7 @@
 }
 
 .nav-item {
-    background-color: black;
+    background-color: #FEFDF1;
     align-content: center;
     align-items: center;
     padding-top: 0;
@@ -40,16 +35,14 @@
 }
 
 .nav-link {
-    font-family: 'Merriweather', sans-serif;
-    color: #E8E5C7;
+    color: #9EB950;
 }
 
 .nav-link:hover {
-    color: #E8E5C7;
+    color: #6CAA49;
 }
 
 .nav-link-icon {
-    filter: invert(1);
     color: #E8E5C7;
     display: flex;
     align-items: center;
@@ -58,10 +51,8 @@
 }
 
 .nav-link-company{
-    text-shadow: 0 0 5px black;
     text-align: center;
     font-size: 40px;
-    color: #E8E5C7;
     padding-left: 0.1rem;
 }
 
@@ -90,13 +81,10 @@
 }
 
 .nav-allRecipesTitle h1 {
-    font-family: 'Merriweather', sans-serif;
-    font-size: 75px;
-    color: #E8E5C7;
+    /*color: #FEFDF1;*/
     text-align: center;
     align-items: center;
     margin-top: 1rem;
-    margin-bottom: 1rem;
 }
 
 .nav-home {

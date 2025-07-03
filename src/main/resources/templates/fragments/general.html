@@ -41,9 +41,12 @@
             <a class="nav-link nav-link-logout" th:href="@{/logout}">Logout <span sec:authentication="name"></span></a>
         </li>
     </ul>
-    <div class="nav-allRecipesTitle">
-        <h1 th:text="${pageTitle}"></h1>
+    <div class="wrapper">
+        <div class="instructions-box rounded">
+            <h1 class="text-center" style="color: #883531; text-transform: uppercase; font-weight: bolder" th:text="${pageTitle}"></h1>
+        </div>
     </div>
+
 </header>
 
 <div th:fragment="footer">
