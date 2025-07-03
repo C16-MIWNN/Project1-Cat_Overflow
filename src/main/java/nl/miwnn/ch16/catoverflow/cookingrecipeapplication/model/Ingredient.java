@@ -1,5 +1,6 @@
 package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -13,15 +14,16 @@ import jakarta.persistence.Id;
 public class Ingredient {
 
     @Id @GeneratedValue
-    private int ingredientId;
+    private Long ingredientId;
 
+    @Column(unique=true)
     private String ingredientName;
 
-    public Integer getIngredientId() {
+    public Long getIngredientId() {
         return ingredientId;
     }
 
-    public void setIngredientId(Integer idIngredient) {
+    public void setIngredientId(Long idIngredient) {
         this.ingredientId = idIngredient;
     }
 
