@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * @author Robyn Blignaut & Bas Folkers
@@ -26,31 +27,37 @@ public class AdminUserController {
     }
 
     @GetMapping("/overview")
-    private String showUserOverview(Model datamodel) {
-        datamodel.addAttribute("allUsers", adminUserService.getAllUsers());
-        datamodel.addAttribute("formUser", new NewCookingRecipeUserDTO());
-        datamodel.addAttribute("formModalHidden", true);
-
+    public String showUserOverview(Model model) {
+        if (!model.containsAttribute("formUser")) {
+            model.addAttribute("formUser", new NewCookingRecipeUserDTO());
+            model.addAttribute("formModalHidden", true);
+        }
+        model.addAttribute("allUsers", adminUserService.getAllUsers());
         return "userOverview";
     }
 
     @PostMapping("/save")
-    private String saveNewUser(@ModelAttribute("formUser")
-                               NewCookingRecipeUserDTO userDtoToBeSaved,
-                               BindingResult result,
-                               Model datamodel) {
-        if (adminUserService.usernameInUse(userDtoToBeSaved.getUsername())) {
-            result.rejectValue("username", "duplicate", "This username is not available");
+    public String saveNewUser(@ModelAttribute("formUser") NewCookingRecipeUserDTO userDtoToBeSaved,
+                              BindingResult result,
+                              RedirectAttributes redirectAttributes) {
+
+        if (userDtoToBeSaved.getUsername() == null || userDtoToBeSaved.getUsername().isBlank()) {
+            result.rejectValue("username", "empty", "Username mag niet leeg zijn");
         }
 
-        if (!userDtoToBeSaved.getPassword().equals(userDtoToBeSaved.getConfirmPassword())) {
-            result.rejectValue("password", "no.match", "The passwords do not match");
+        if (adminUserService.usernameInUse(userDtoToBeSaved.getUsername())) {
+            result.rejectValue("username", "duplicate", "Deze gebruikersnaam is al in gebruik");
+        }
+
+        if (userDtoToBeSaved.getPassword() == null || !userDtoToBeSaved.getPassword().equals(userDtoToBeSaved.getConfirmPassword())) {
+            result.rejectValue("password", "no.match", "Wachtwoorden komen niet overeen");
         }
 
         if (result.hasErrors()) {
-            datamodel.addAttribute("allUsers", adminUserService.getAllUsers());
-            datamodel.addAttribute("formModalHidden", false);
-            return "userOverview";
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.formUser", result);
+            redirectAttributes.addFlashAttribute("formUser", userDtoToBeSaved);
+            redirectAttributes.addFlashAttribute("formModalHidden", false);
+            return "redirect:/user/overview";
         }
 
         adminUserService.save(userDtoToBeSaved);

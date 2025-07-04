@@ -19,5 +19,13 @@
 <div th:replace="~{fragments/general :: bottomScripts}"></div>
 
 <div th:replace="~{fragments/newUserForm :: userFormModal(${formUser}, ${#fields})}"></div>
+
+<script th:if="${formModalHidden != null and !formModalHidden}">
+    document.addEventListener("DOMContentLoaded", function() {
+        let modal = new bootstrap.Modal(document.getElementById('newForm'));
+        modal.show();
+    });
+</script>
+
 </body>
 </html>
