@@ -3,6 +3,7 @@ package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.service;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.dto.NewUserDTO;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model.AdminUser;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.AdminUserRepository;
+import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.service.mappers.AdminUserMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -60,12 +61,10 @@ public class AdminUserService implements UserDetailsService {
                 .findByUsername(dto.getOriginalUsername())
                 .orElse(new AdminUser());
 
-        user.setUsername(dto.getUsername());
-        user.setEmail(dto.getEmail());
-        user.setPassword(dto.getPassword());
-        user.setStatus(dto.getStatus());
+        AdminUser mapped = AdminUserMapper.fromDTO(dto);
+        mapped.setUserId(user.getUserId());
 
-        adminUserRepository.save(user);
+        adminUserRepository.save(mapped);
     }
 
     public NewUserDTO getUserDTOByUsername(String username) {
