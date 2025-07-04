@@ -4,6 +4,7 @@
 
 <div th:fragment="newUserForm(formUser, #fields)">
     <form class="row g-3" th:action="@{/user/save}" method="post" th:object="${formUser}">
+        <input type="hidden" th:field="*{originalUsername}" />
         <div class="row g-3 align-items-center">
             <div class="col-5">
                 <label for="username" class="col-form-label">Username</label>

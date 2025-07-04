@@ -45,7 +45,8 @@ public class AdminUserController {
             result.rejectValue("username", "empty", "Username mag niet leeg zijn");
         }
 
-        if (adminUserService.usernameInUse(userDtoToBeSaved.getUsername())) {
+        if (!userDtoToBeSaved.getUsername().equals(userDtoToBeSaved.getOriginalUsername()) &&
+                adminUserService.usernameInUse(userDtoToBeSaved.getUsername())) {
             result.rejectValue("username", "duplicate", "Deze gebruikersnaam is al in gebruik");
         }
 
@@ -67,6 +68,7 @@ public class AdminUserController {
     @GetMapping("/edit/{username}")
     private String editUser(@PathVariable String username, Model datamodel) {
         NewCookingRecipeUserDTO existingUser = adminUserService.getUserDTOByUsername(username);
+        existingUser.setOriginalUsername(username);
         datamodel.addAttribute("allUsers", adminUserService.getAllUsers());
         datamodel.addAttribute("formUser", existingUser);
         datamodel.addAttribute("formModalHidden", false);

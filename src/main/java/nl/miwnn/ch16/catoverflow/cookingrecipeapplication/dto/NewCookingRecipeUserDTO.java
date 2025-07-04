@@ -8,6 +8,7 @@ package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.dto;
 public class NewCookingRecipeUserDTO {
 
     private String username;
+    private String originalUsername;
     private String password;
     private String confirmPassword;
     private String email;
@@ -19,6 +20,14 @@ public class NewCookingRecipeUserDTO {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getOriginalUsername() {
+        return originalUsername != null ? originalUsername : username;
+    }
+
+    public void setOriginalUsername(String originalUsername) {
+        this.originalUsername = originalUsername;
     }
 
     public String getPassword() {

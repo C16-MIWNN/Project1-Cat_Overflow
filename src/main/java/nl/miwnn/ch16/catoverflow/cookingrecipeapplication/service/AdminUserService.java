@@ -56,8 +56,21 @@ public class AdminUserService implements UserDetailsService {
         adminUserRepository.save(adminUser);
     }
 
-    public void save(NewCookingRecipeUserDTO userDtoToBeSaved) {
-        saveUser(AdminUserMapper.fromDTO(userDtoToBeSaved));
+    public void save(NewCookingRecipeUserDTO dto) {
+        AdminUser user;
+
+        if (dto.getOriginalUsername() != null && adminUserRepository.findByUsername(dto.getOriginalUsername()).isPresent()) {
+            user = adminUserRepository.findByUsername(dto.getOriginalUsername()).get();
+        } else {
+            user = new AdminUser();
+        }
+
+        user.setUsername(dto.getUsername());
+        user.setEmail(dto.getEmail());
+        user.setPassword(dto.getPassword());
+        user.setStatus(dto.getStatus());
+
+        adminUserRepository.save(user);
     }
 
     public NewCookingRecipeUserDTO getUserDTOByUsername(String username) {
@@ -66,6 +79,7 @@ public class AdminUserService implements UserDetailsService {
 
         NewCookingRecipeUserDTO dto = new NewCookingRecipeUserDTO();
         dto.setUsername(user.getUsername());
+        dto.setOriginalUsername(dto.getOriginalUsername());
         dto.setEmail(user.getEmail());
         dto.setStatus(user.getStatus());
         dto.setPassword("");
