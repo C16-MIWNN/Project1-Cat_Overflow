@@ -1,7 +1,6 @@
 package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.controller;
 
-import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.dto.NewCookingRecipeUserDTO;
-import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model.AdminUser;
+import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.dto.NewUserDTO;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.AdminUserRepository;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.service.AdminUserService;
 import org.springframework.stereotype.Controller;
@@ -29,7 +28,7 @@ public class AdminUserController {
     @GetMapping("/overview")
     public String showUserOverview(Model model) {
         if (!model.containsAttribute("formUser")) {
-            model.addAttribute("formUser", new NewCookingRecipeUserDTO());
+            model.addAttribute("formUser", new NewUserDTO());
             model.addAttribute("formModalHidden", true);
         }
         model.addAttribute("allUsers", adminUserService.getAllUsers());
@@ -37,7 +36,7 @@ public class AdminUserController {
     }
 
     @PostMapping("/save")
-    public String saveNewUser(@ModelAttribute("formUser") NewCookingRecipeUserDTO userDtoToBeSaved,
+    public String saveNewUser(@ModelAttribute("formUser") NewUserDTO userDtoToBeSaved,
                               BindingResult result,
                               RedirectAttributes redirectAttributes) {
 
@@ -67,7 +66,7 @@ public class AdminUserController {
 
     @GetMapping("/edit/{username}")
     private String editUser(@PathVariable String username, Model datamodel) {
-        NewCookingRecipeUserDTO existingUser = adminUserService.getUserDTOByUsername(username);
+        NewUserDTO existingUser = adminUserService.getUserDTOByUsername(username);
         existingUser.setOriginalUsername(username);
         datamodel.addAttribute("allUsers", adminUserService.getAllUsers());
         datamodel.addAttribute("formUser", existingUser);

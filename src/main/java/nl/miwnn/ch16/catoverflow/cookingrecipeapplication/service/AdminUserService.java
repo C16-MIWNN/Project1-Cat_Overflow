@@ -1,9 +1,8 @@
 package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.service;
 
-import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.dto.NewCookingRecipeUserDTO;
+import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.dto.NewUserDTO;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model.AdminUser;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.AdminUserRepository;
-import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.service.mappers.AdminUserMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -56,14 +55,10 @@ public class AdminUserService implements UserDetailsService {
         adminUserRepository.save(adminUser);
     }
 
-    public void save(NewCookingRecipeUserDTO dto) {
-        AdminUser user;
-
-        if (dto.getOriginalUsername() != null && adminUserRepository.findByUsername(dto.getOriginalUsername()).isPresent()) {
-            user = adminUserRepository.findByUsername(dto.getOriginalUsername()).get();
-        } else {
-            user = new AdminUser();
-        }
+    public void save(NewUserDTO dto) {
+        AdminUser user = adminUserRepository
+                .findByUsername(dto.getOriginalUsername())
+                .orElse(new AdminUser());
 
         user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
@@ -73,11 +68,11 @@ public class AdminUserService implements UserDetailsService {
         adminUserRepository.save(user);
     }
 
-    public NewCookingRecipeUserDTO getUserDTOByUsername(String username) {
+    public NewUserDTO getUserDTOByUsername(String username) {
         AdminUser user = adminUserRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
 
-        NewCookingRecipeUserDTO dto = new NewCookingRecipeUserDTO();
+        NewUserDTO dto = new NewUserDTO();
         dto.setUsername(user.getUsername());
         dto.setOriginalUsername(dto.getOriginalUsername());
         dto.setEmail(user.getEmail());

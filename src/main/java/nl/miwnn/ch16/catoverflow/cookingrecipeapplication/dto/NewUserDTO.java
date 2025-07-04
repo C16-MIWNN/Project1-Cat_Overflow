@@ -5,7 +5,7 @@ package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.dto;
  * Have the 'create user form' have a 'confirm password' field
  */
 
-public class NewCookingRecipeUserDTO {
+public class NewUserDTO {
 
     private String username;
     private String originalUsername;
