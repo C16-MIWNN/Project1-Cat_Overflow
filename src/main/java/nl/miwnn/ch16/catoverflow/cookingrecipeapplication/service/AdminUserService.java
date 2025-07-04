@@ -64,6 +64,13 @@ public class AdminUserService implements UserDetailsService {
         AdminUser mapped = AdminUserMapper.fromDTO(dto);
         mapped.setUserId(user.getUserId());
 
+        String plainPassword = dto.getPassword();
+        if (plainPassword != null && !plainPassword.isBlank()) {
+            mapped.setPassword(passwordEncoder.encode(plainPassword));
+        } else {
+            mapped.setPassword(user.getPassword());
+        }
+
         adminUserRepository.save(mapped);
     }
 
