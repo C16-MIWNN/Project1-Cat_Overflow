@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<body>
+
+<div th:fragment="ingredientCards(ingredients, recipeCounts)" class="">
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="table-header table-dark">
+        <tr>
+            <th>Ingredient</th>
+            <th>Recipes used in</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ingredient : ${ingredients}"
+            th:insert="~{::ingredientCard(${ingredient}, ${recipeCounts[ingredient.ingredientId]})}"></tr>
+        </tbody>
+    </table>
+</div>
+
+<tr th:fragment="ingredientCard(ingredient, recipeCount)">
+    <td>
+        <a th:href="@{/ingredient/detail/{ingredientName}(ingredientName = ${ingredient.ingredientName})}"
+           th:text="${ingredient.ingredientName}">Ingredient name</a>
+    </td>
+    <td class="text-end">
+        <span th:text="${recipeCount}"></span>
+    </td>
+</tr>
+
+<div th:fragment="ingredientForm(formIngredient, #fields)">
+    <form class="row g-3" th:action="@{/ingredient/save}" method="post" th:object="${formIngredient}">
+        <input type="hidden" th:field="*{ingredientId}">
+        <div class="row g-3 align-items-center">
+            <div class="col-5">
+                <label for="ingredientName" class="col-form-label">Name</label>
+            </div>
+            <div class="col-7">
+                <input type="text" id="ingredientName" class="form-control" aria-describedby="ingredientNameHelpInline" th:field="*{ingredientName}">
+            </div>
+            <div class="col-12">
+                    <span id="ingredientNameHelpInline" class="form-text" th:if="${#fields.hasErrors('ingredientName')}" th:errors="*{ingredientName}">
+                    </span>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary mb-3">Save ingredient</button>
+    </form>
+</div>
+
+<div th:fragment="recipesWithIngredient(ingredient)" class="recipe-detail-box rounded">
+    <h2 class="text-center" style="font-weight: bolder">Used in <span th:text="${recipesCount}"></span> recipes</h2>
+    <div th:replace="~{fragments/recipe :: recipeCards(${recipes})}"></div>
+</div>
+
+<!-- Modal -->
+<div th:fragment="ingredientFormModal(formIngredient, #fields)" class="modal fade" id="editForm" tabindex="-1" aria-labelledby="editFormModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <h1 class="modal-title text-center" id="editFormModalLabel">Ingredient edit form</h1>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div th:replace="~{:: ingredientForm(${formIngredient}, ${#fields})}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:unless="${formModalHidden}">
+        new bootstrap.Modal(document.getElementById('editForm')).show();
+    </script>
+</div>
+
+</body>
+</html>
