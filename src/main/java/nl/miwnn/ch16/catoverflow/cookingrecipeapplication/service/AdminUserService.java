@@ -1,6 +1,6 @@
 package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.service;
 
-import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.dto.NewCookingRecipeUserDTO;
+import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.dto.NewUserDTO;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model.AdminUser;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.AdminUserRepository;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.service.mappers.AdminUserMapper;
@@ -56,7 +56,35 @@ public class AdminUserService implements UserDetailsService {
         adminUserRepository.save(adminUser);
     }
 
-    public void save(NewCookingRecipeUserDTO userDtoToBeSaved) {
-        saveUser(AdminUserMapper.fromDTO(userDtoToBeSaved));
+    public void save(NewUserDTO dto) {
+        AdminUser user = adminUserRepository
+                .findByUsername(dto.getOriginalUsername())
+                .orElse(new AdminUser());
+
+        AdminUser mapped = AdminUserMapper.fromDTO(dto);
+        mapped.setUserId(user.getUserId());
+
+        String plainPassword = dto.getPassword();
+        if (plainPassword != null && !plainPassword.isBlank()) {
+            mapped.setPassword(passwordEncoder.encode(plainPassword));
+        } else {
+            mapped.setPassword(user.getPassword());
+        }
+
+        adminUserRepository.save(mapped);
+    }
+
+    public NewUserDTO getUserDTOByUsername(String username) {
+        AdminUser user = adminUserRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+
+        NewUserDTO dto = new NewUserDTO();
+        dto.setUsername(user.getUsername());
+        dto.setOriginalUsername(dto.getOriginalUsername());
+        dto.setEmail(user.getEmail());
+        dto.setStatus(user.getStatus());
+        dto.setPassword("");
+        dto.setConfirmPassword("");
+        return dto;
     }
 }

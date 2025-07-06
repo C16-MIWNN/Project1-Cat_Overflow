@@ -7,17 +7,25 @@
 
 <div th:replace="~{fragments/general :: navbar('All Users')}"></div>
 
-<div class="container">
+<div class="container wrapper user-table-wrapper">
     <button type="button" class="btn add-user-btn" data-bs-toggle="modal" data-bs-target="#newForm">
         <i class="bi bi-person-plus-fill"></i> Add user
     </button>
 
-    <div th:replace="~{fragments/user :: userTable(${allUsers})}"></div>
+    <div th:replace="~{fragments/userTable :: userTable(${allUsers})}"></div>
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>
 
 <div th:replace="~{fragments/newUserForm :: userFormModal(${formUser}, ${#fields})}"></div>
+
+<script th:if="${formModalHidden != null and !formModalHidden}">
+    document.addEventListener("DOMContentLoaded", function() {
+        let modal = new bootstrap.Modal(document.getElementById('newForm'));
+        modal.show();
+    });
+</script>
+
 </body>
 </html>

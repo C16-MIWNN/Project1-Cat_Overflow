@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <body>
 
 <div th:fragment="newUserForm(formUser, #fields)">
     <form class="row g-3" th:action="@{/user/save}" method="post" th:object="${formUser}">
+        <input type="hidden" th:field="*{originalUsername}" />
         <div class="row g-3 align-items-center">
             <div class="col-5">
                 <label for="username" class="col-form-label">Username</label>
@@ -13,6 +14,22 @@
             </div>
             <div class="col-12">
                 <span id="usernameHelpInline" class="form-text" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+            </div>
+        </div>
+        <div class="row g-3 align-items-center">
+            <div class="col-5">
+                <label for="email" class="col-form-label">Email</label>
+            </div>
+            <div class="col-7">
+                <input type="text" id="email" class="form-control" aria-describedby="emailHelpInline" th:field="*{email}">
+            </div>
+        </div>
+        <div class="row g-3 align-items-center">
+            <div class="col-5">
+                <label for="status" class="col-form-label">Status</label>
+            </div>
+            <div class="col-7">
+                <input type="text" id="status" class="form-control" aria-describedby="statusHelpInline" th:field="*{status}">
             </div>
         </div>
         <div class="row g-3 align-items-center">
@@ -34,31 +51,15 @@
                 <span id="passwordHelpInline" class="form-text" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
             </div>
         </div>
-        <div class="row g-3 align-items-center">
-            <div class="col-5">
-                <label for="email" class="col-form-label">Email</label>
-            </div>
-            <div class="col-7">
-                <input type="text" id="email" class="form-control" aria-describedby="emailHelpInline" th:field="*{email}">
-            </div>
-        </div>
-        <div class="row g-3 align-items-center">
-            <div class="col-5">
-                <label for="status" class="col-form-label">Status</label>
-            </div>
-            <div class="col-7">
-                <input type="text" id="status" class="form-control" aria-describedby="statusHelpInline" th:field="*{status}">
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary mb-3">Save user</button>
+        <button type="reset" class="btn btn-warning btn-sm text-black">Clear</button>
+        <button type="submit" class="btn btn-primary btn-sm text-black">Save User</button>
     </form>
 </div>
 
-<!-- Modal -->
 <div th:fragment="userFormModal(formUser, #fields)" class="modal fade" id="newForm" tabindex="-1" aria-labelledby="newFormModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <h1 class="modal-title text-center" id="editFormModalLabel">New User Form</h1>
+            <h1 class="modal-title text-center" id="editFormModalLabel">User Form</h1>
             <div class="modal-body">
                 <div class="container-fluid">
                     <div th:replace="~{:: newUserForm(${formUser}, ${#fields})}"></div>
@@ -67,10 +68,6 @@
         </div>
     </div>
 </div>
-
-<script th:unless="${formModalHidden}">
-    new bootstrap.Modal(document.getElementById('newForm')).toggle();
-</script>
 
 </body>
 </html>

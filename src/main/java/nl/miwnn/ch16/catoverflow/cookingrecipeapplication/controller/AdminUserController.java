@@ -1,13 +1,13 @@
 package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.controller;
 
-import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.dto.NewCookingRecipeUserDTO;
-import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model.AdminUser;
+import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.dto.NewUserDTO;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.repositories.AdminUserRepository;
 import nl.miwnn.ch16.catoverflow.cookingrecipeapplication.service.AdminUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * @author Robyn Blignaut & Bas Folkers
@@ -26,51 +26,52 @@ public class AdminUserController {
     }
 
     @GetMapping("/overview")
-    private String showUserOverview(Model datamodel) {
-        datamodel.addAttribute("allUsers", adminUserService.getAllUsers());
-        datamodel.addAttribute("formUser", new NewCookingRecipeUserDTO());
-        datamodel.addAttribute("formModalHidden", true);
-
+    public String showUserOverview(Model model) {
+        if (!model.containsAttribute("formUser")) {
+            model.addAttribute("formUser", new NewUserDTO());
+            model.addAttribute("formModalHidden", true);
+        }
+        model.addAttribute("allUsers", adminUserService.getAllUsers());
         return "userOverview";
     }
 
     @PostMapping("/save")
-    private String saveNewUser(@ModelAttribute("formUser")
-                                        NewCookingRecipeUserDTO userDtoToBeSaved,
-                               BindingResult result,
-                               Model datamodel) {
-        if (adminUserService.usernameInUse(userDtoToBeSaved.getUsername())) {
-            result.rejectValue("username", "duplicate", "This username is not available");
+    public String saveNewUser(@ModelAttribute("formUser") NewUserDTO userDtoToBeSaved,
+                              BindingResult result,
+                              RedirectAttributes redirectAttributes) {
+
+        if (userDtoToBeSaved.getUsername() == null || userDtoToBeSaved.getUsername().isBlank()) {
+            result.rejectValue("username", "empty", "Username mag niet leeg zijn");
         }
 
-        if (!userDtoToBeSaved.getPassword().equals(userDtoToBeSaved.getConfirmPassword())) {
-            result.rejectValue("password", "no.match", "The passwords do not match");
+        if (!userDtoToBeSaved.getUsername().equals(userDtoToBeSaved.getOriginalUsername()) &&
+                adminUserService.usernameInUse(userDtoToBeSaved.getUsername())) {
+            result.rejectValue("username", "duplicate", "Deze gebruikersnaam is al in gebruik");
+        }
+
+        if (userDtoToBeSaved.getPassword() == null || !userDtoToBeSaved.getPassword().equals(userDtoToBeSaved.getConfirmPassword())) {
+            result.rejectValue("password", "no.match", "Wachtwoorden komen niet overeen");
         }
 
         if (result.hasErrors()) {
-            datamodel.addAttribute("allUsers", adminUserService.getAllUsers());
-            datamodel.addAttribute("formModalHidden", false);
-            return "userOverview";
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.formUser", result);
+            redirectAttributes.addFlashAttribute("formUser", userDtoToBeSaved);
+            redirectAttributes.addFlashAttribute("formModalHidden", false);
+            return "redirect:/user/overview";
         }
 
         adminUserService.save(userDtoToBeSaved);
         return "redirect:/user/overview";
     }
 
-    @GetMapping("/edit")
-    private String editUser(@RequestParam("username") String username, Model model) {
-        AdminUser userToEdit = adminUserRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
-
-        NewCookingRecipeUserDTO dto = new NewCookingRecipeUserDTO();
-        dto.setUsername(userToEdit.getUsername());
-        dto.setEmail(userToEdit.getEmail());
-        dto.setStatus(userToEdit.getStatus());
-
-        model.addAttribute("editFormUser", dto);
-        model.addAttribute("allUsers", adminUserService.getAllUsers());
-        model.addAttribute("formModalHidden", false);
-
+    @GetMapping("/edit/{username}")
+    private String editUser(@PathVariable String username, Model datamodel) {
+        NewUserDTO existingUser = adminUserService.getUserDTOByUsername(username);
+        existingUser.setOriginalUsername(username);
+        datamodel.addAttribute("allUsers", adminUserService.getAllUsers());
+        datamodel.addAttribute("formUser", existingUser);
+        datamodel.addAttribute("formModalHidden", false);
         return "userOverview";
     }
+
 }

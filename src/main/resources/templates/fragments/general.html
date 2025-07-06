@@ -59,6 +59,14 @@
 <div th:fragment="bottomScripts">
     <script th:src="@{/webjars/bootstrap/5.3.6/js/bootstrap.min.js}"></script>
 </div>
+
+<script th:if="${!formModalHidden}">
+    document.addEventListener("DOMContentLoaded", function() {
+        let modal = new bootstrap.Modal(document.getElementById('newForm'));
+        modal.show();
+    });
+</script>
+
 </body>
 
 </html>

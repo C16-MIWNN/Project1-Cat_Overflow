@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 
 <body>
 <div th:fragment="recipeCards(recipes)" class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3 g-md-3 mt-1">
@@ -13,25 +13,16 @@
         <a th:href="@{/recipe/detail/{recipeId}(recipeId = ${recipe.recipeId})}" class="stretched-link"></a>
 
         <div class="overlay-text">
-            <div class="recipe-creator">
-                <span class="recipe-creator" th:text='User'></span>
-            </div>
-            <div class="card-header-title">
-                <span class="card-title" th:text="${recipe.title}"></span>
-            </div>
             <div class="card-footer">
-                <div>
+                <div class="card-time-group">
                     <div class="icon-bg-card text-center">
-                        <i class="bi-clock-fill icon-img"></i>
+                        <i class="bi-clock-fill icon-img card-icon-img"></i>
                     </div>
                     <span class="card-text-time" th:text="${recipe.totalCookingTime} + ' mins'"></span>
                 </div>
-                <div>
-                    <div class="icon-bg-card text-center">
-                        <i class="bi-person-fill icon-img"></i>
-                    </div>
-                    <span class="card-text-portion" th:text="${recipe.portionQuantity} + ' servings'"></span>
-                </div>
+            </div>
+            <div class="card-header-title">
+                <span class="card-title" th:text="${recipe.title}"></span>
             </div>
         </div>
     </div>
@@ -162,7 +153,8 @@
                     </span>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary mb-3">Save recipe</button>
+        <button type="reset" class="btn btn-warning btn-sm text-black">Clear</button>
+        <button type="submit" class="btn btn-primary btn-sm text-black">Save recipe</button>
     </form>
 </div>
 
