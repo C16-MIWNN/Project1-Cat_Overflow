@@ -65,8 +65,8 @@ public class InitializeController {
 
             loadImage();
             loadIngredient();
-            loadIngredientRecipes();
             loadInstruction();
+            loadIngredientRecipes();
             loadRecipe();
         } catch (IOException | CsvValidationException csvValidationException) {
             throw new RuntimeException("Failed to initialize database from CSV files", csvValidationException);
@@ -92,38 +92,49 @@ public class InitializeController {
                 Image imageRecipe = imageRepository.findByImageId(Integer.parseInt(recipeLine[6]));
                 recipe.setImage(imageRecipe);
 
-                List<IngredientRecipe> ingredientRecipes = new ArrayList<>();
-                String[] ingredientRecipeIds = recipeLine[7].split(",");
-                for (String ingredientRecipeId : ingredientRecipeIds) {
-                    IngredientRecipe ingredientRecipe = ingredientRecipeCache.get(ingredientRecipeId.trim());
+                recipeRepository.save(recipe);
 
-                    if (ingredientRecipe == null) {
-                        throw new RuntimeException("IngredientRecipe not found in cache for ID: " +
-                                ingredientRecipeId.trim());
-                    }
+                List<IngredientRecipe> ingredientRecipes = getIngredientRecipes(recipeLine[7], recipe);
+                List<Instruction> instructions = getInstructions(recipeLine[8], recipe);
 
-                    ingredientRecipe.setRecipe(recipe);
-                    ingredientRecipes.add(ingredientRecipe);
-                }
                 recipe.setIngredients(ingredientRecipes);
-
-                List<Instruction> instructions = new ArrayList<>();
-                for (String instructionId : recipeLine[8].split(",")) {
-                    Instruction instruction = instructionCache.get(instructionId.trim());
-
-                    if (instruction == null) {
-                        throw new RuntimeException("Instruction not found in cache for ID: " +
-                                instructionId.trim());
-                    }
-
-                    instruction.setRecipe(recipe);
-                    instructions.add(instruction);
-                }
                 recipe.setInstructions(instructions);
 
                 recipeRepository.save(recipe);
             }
         }
+    }
+
+    private List<IngredientRecipe> getIngredientRecipes(String idsStr, Recipe recipe) {
+        String[] ids = idsStr.split(",");
+        List<IngredientRecipe> ingredientRecipes = new ArrayList<>();
+
+        for (String id : ids) {
+            IngredientRecipe ir = ingredientRecipeCache.get(id.trim());
+            if (ir == null) {
+                throw new RuntimeException("IngredientRecipe not found in cache for ID: " + id.trim());
+            }
+            ir.setRecipe(recipe);
+            ingredientRecipes.add(ir);
+        }
+
+        return ingredientRecipes;
+    }
+
+    private List<Instruction> getInstructions(String idsStr, Recipe recipe) {
+        String[] ids = idsStr.split(",");
+        List<Instruction> instructions = new ArrayList<>();
+
+        for (String id : ids) {
+            Instruction instruction = instructionCache.get(id.trim());
+            if (instruction == null) {
+                throw new RuntimeException("Instruction not found in cache for ID: " + id.trim());
+            }
+            instruction.setRecipe(recipe);
+            instructions.add(instruction);
+        }
+
+        return instructions;
     }
 
     private void loadIngredientRecipes() throws IOException, CsvValidationException {
@@ -133,15 +144,15 @@ public class InitializeController {
             reader.skip(1);
 
             for (String[] ingredientRecipeLine : reader) {
-                Long ingredientId = Long.valueOf((ingredientRecipeLine[0]));
+                Long ingredientId = Long.valueOf(ingredientRecipeLine[0]);
 
-                Optional<Ingredient> ingredients = ingredientRepository.findByIngredientId(ingredientId);
+                Optional<Ingredient> optionalIngredient = ingredientRepository.findByIngredientId(ingredientId);
 
-                if (ingredients.isEmpty()) {
-                    throw new RuntimeException("Ingredient not found: " +
-                            ingredientId);
+                if (optionalIngredient.isEmpty()) {
+                    throw new RuntimeException("Ingredient not found: " + ingredientId);
                 }
-                Ingredient ingredient = ingredients.get();
+
+                Ingredient ingredient = optionalIngredient.get();
 
                 IngredientRecipe ingredientRecipe = new IngredientRecipe();
                 ingredientRecipe.setIngredient(ingredient);
@@ -149,7 +160,8 @@ public class InitializeController {
                 ingredientRecipe.setIngredientUnit(ingredientRecipeLine[2]);
                 ingredientRecipe.setNotes(ingredientRecipeLine[3]);
 
-                ingredientRecipeCache.put(ingredientRecipeLine[0], ingredientRecipe);
+                String ingredientRecipeId = ingredientRecipeLine[4].trim();
+                ingredientRecipeCache.put(ingredientRecipeId, ingredientRecipe);
             }
         }
     }

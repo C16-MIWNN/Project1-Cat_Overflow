@@ -1,25 +1,25 @@
-ingredientId,quantity,unit,notes
-1,1,tablespoon,unsalted
-2,2,tablespoons,divided
-3,2,pounds,cut into 8 pieces
-4,0,,kosher
-5,0,,freshly ground
-6,1,cup,finely chopped
-7,1,tablespoon,finely chopped
-8,1,tablespoon,
-9,750,milliliter,
-10,2,leaves,
-11,1,spring,
-12,5,ounce,
-13,2,1/4 cups,divided
-14,15,,peeld
-15,15,,
-16,15,,peeld
-17,0,,
-18,0,,"chopped, for garnish"
-19,8,slices,
-20,100,gram,sliced
-21,4,tablespoons,softened
-22,8,thick slices,
-23,75,gram,
-24,1,tablespoon,or as much as you like
+ingredientId,quantity,unit,notes,Id
+1,1,tablespoon,unsalted,1
+250,2,tablespoons,divided,2
+2,2,pounds,cut into 8 pieces,3
+364,0,,kosher,4
+44,0,,freshly ground,5
+252,1,cup,finely chopped,6
+169,1,tablespoon,finely chopped,7
+12,1,tablespoon,,8
+3,750,milliliter,,9
+32,2,leaves,,10
+396,1,spring,,11
+259,5,ounce,,12
+5,2,1/4 cups,divided,13
+6,15,,peeld,14
+7,15,,,15
+8,15,,peeld,16
+383,0,,,17
+9,0,,"chopped, for garnish",18
+54,8,slices,,19
+438,100,gram,sliced,20
+1,4,tablespoons,softened,21
+90,8,thick slices,,22
+91,75,gram,,23
+230,1,tablespoon,or as much as you like,24
