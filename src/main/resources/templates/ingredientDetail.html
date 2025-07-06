@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="~{fragments/general :: baseheader(~{:: title})}">
+  <title th:text="*{ingredientName}"></title>
+</head>
+
+<body>
+<div th:replace="~{fragments/general :: navbar(*{ingredientName})}"></div>
+
+<div class="wrapper" th:object="${ingredientToBeShown}">
+  <p class="text-center">
+    <button type="button"
+            class="btn add-user-btn"
+            data-bs-toggle="modal" data-bs-target="#editForm">
+      <i class="bi bi-pencil-square"></i> Edit
+    </button>
+    <a role="button"
+       class="btn add-user-btn"
+       th:href="@{/ingredient/delete/{ingredientName}(ingredientName = *{ingredientName})}">
+      <i class="bi bi-trash"></i> Delete
+    </a>
+  </p>
+  <div th:if="${errorMessage}" class="alert alert-danger">
+    <p th:text="${errorMessage}"></p>
+  </div>
+  <div th:replace="~{fragments/ingredient :: recipesWithIngredient(*{ingredientId})}"></div>
+</div>
+
+<div th:replace="~{fragments/general :: footer}"></div>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
+
+<div th:replace="~{fragments/ingredient :: ingredientFormModal(${formIngredients}, ${#fields})}"></div>
+</body>
+</html>
