@@ -29,6 +29,9 @@
             <div class="nav-recipe">
                 <a class="nav-link nav-link-recipe" th:href="@{/recipe/overview}">Recipes</a>
             </div>
+            <div class="nav-recipe"  sec:authorize="isAuthenticated()">
+                <a class="nav-link nav-link-recipe" th:href="@{/ingredient/overview}">Ingredients</a>
+            </div>
             <div class="nav-user" sec:authorize="isAuthenticated()">
                 <a class="nav-link nav-link-user" th:href="@{/user/overview}">Users</a>
             </div>
