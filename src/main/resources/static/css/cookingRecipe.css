@@ -319,6 +319,13 @@ a {
     grid-template-columns: 1fr 1fr 1fr;
 }
 
+.grid-layout {
+    display: grid;
+    gap: 30px;
+    margin-block-end: 30px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
 .recipe-detail-box {
     background-color: #FEFDF1;
     color: #6F624F;
@@ -334,7 +341,7 @@ a {
     background-color: #FEFDF1;
     box-shadow: rgba(50, 50, 93, 0.25) 0 2px 5px -1px, rgba(0, 0, 0, 0.3) 0 1px 3px -1px;
     padding: 20px;
-    margin-bottom: 0;
+    margin-bottom: 20Px;
 }
 
 .step-box {

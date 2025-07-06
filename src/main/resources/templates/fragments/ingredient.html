@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <body>
 
-<div th:fragment="ingredientCards(ingredients, recipeCounts)" class="">
+<div th:fragment="ingredientCards(ingredients, recipeCounts)" class="table">
     <table class="table table-striped table-bordered table-hover">
         <thead class="table-header table-dark">
         <tr>
@@ -17,15 +17,17 @@
     </table>
 </div>
 
-<tr th:fragment="ingredientCard(ingredient, recipeCount)">
-    <td>
-        <a th:href="@{/ingredient/detail/{ingredientName}(ingredientName = ${ingredient.ingredientName})}"
-           th:text="${ingredient.ingredientName}">Ingredient name</a>
-    </td>
-    <td class="text-end">
-        <span th:text="${recipeCount}"></span>
-    </td>
-</tr>
+<table>
+    <tr th:fragment="ingredientCard(ingredient, recipeCount)">
+        <td>
+            <a th:href="@{/ingredient/detail/{ingredientName}(ingredientName = ${ingredient.ingredientName})}"
+               th:text="${ingredient.ingredientName}">Ingredient name</a>
+        </td>
+        <td class="text-end">
+            <span th:text="${recipeCount}"></span>
+        </td>
+    </tr>
+</table>
 
 <div th:fragment="ingredientForm(formIngredient, #fields)">
     <form class="row g-3" th:action="@{/ingredient/save}" method="post" th:object="${formIngredient}">
