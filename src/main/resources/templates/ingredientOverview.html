@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head th:replace="~{fragments/general :: baseheader(~{:: title})}">
+    <title>ingredientOverview.html</title>
+</head>
+
+<body>
+<div th:replace="~{fragments/general :: navbar('All Ingredients')}"></div>
+
+<div class="wrapper">
+    <button type="button"
+            class="btn add-user-btn"
+            data-bs-toggle="modal" data-bs-target="#editForm">
+        <i class="bi bi-plus-square" style="margin-right: 8px"></i><i>Add Ingredient</i>
+    </button>
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="table-header table-dark">
+        <tr>
+            <th>Ingredient</th>
+            <th>Recipes used in</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="ingredient : ${allIngredients}">
+            <th:block th:replace="fragments/ingredient :: ingredientCard(${ingredient}, ${recipeCounts[ingredient.ingredientId]})" />
+        </th:block>
+        </tbody>
+    </table>
+</div>
+
+<div th:replace="~{fragments/general :: footer}"></div>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
+
+<div th:replace="~{fragments/ingredient :: ingredientFormModal(${formIngredient}, ${#fields})}"></div>
+
+</body>
+</html>
