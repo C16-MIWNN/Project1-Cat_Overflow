@@ -57,9 +57,9 @@ public class InitializeController {
     private void initializeDB() {
         try {
             AdminUser adminUser = new AdminUser();
-            adminUser.setUsername("Test");
-            adminUser.setPassword("TestPW");
-            adminUser.setEmail("email@email.org");
+            adminUser.setUsername("Piet");
+            adminUser.setPassword("PietPW");
+            adminUser.setEmail("Piet@email.org");
             adminUser.setStatus("Admin");
             adminUserService.saveUser(adminUser);
 
