@@ -12,11 +12,13 @@
 
 </div>
 <div class="container wrapper">
-    <button type="button" class="btn add-recipe-btn" data-bs-toggle="modal" data-bs-target="#editForm">
-        <i class="bi bi-plus-square"></i> Add Recipe
-    </button>
-
+<!--    <button type="button" class="btn add-recipe-btn" data-bs-toggle="modal" data-bs-target="#editForm">-->
+<!--        <i class="bi bi-plus-square"></i> Add Recipe-->
+<!--    </button>-->
+<div class="recipe-detail-box rounded">
     <div th:replace="~{fragments/recipe :: recipeCards(${allRecipes})}"></div>
+</div>
+
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>

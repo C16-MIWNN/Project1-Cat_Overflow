@@ -1,7 +1,5 @@
 .navbar-background {
     position: relative;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
     padding-bottom: 0px;
     background: none;
     object-position: center;
@@ -26,6 +24,7 @@
     justify-content: space-between;
     list-style: none;
     padding-left: 0;
+    box-shadow: rgba(50, 50, 93, 0.25) 0 2px 5px -1px, rgba(0, 0, 0, 0.3) 0 1px 3px -1px;
 }
 
 .nav-item {
@@ -105,9 +104,6 @@
 }
 
 .add-recipe-btn {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
     background-color: #E8E5C7;
     color: #883531;
     border: 4px solid #883531;
@@ -119,8 +115,6 @@
 
 .add-recipe-btn span {
     cursor: pointer;
-    display: inline-block;
-    position: relative;
     transition: 0.5s;
 }
 
@@ -135,8 +129,6 @@
 
 .recipe-card {
     position: relative;
-    top: 4rem;
-    left: 1rem;
     height: 400px;
     width: 100%;
     max-width: 275px;
@@ -384,9 +376,6 @@ a {
 }
 
 .add-user-btn {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
     background-color: #E8E5C7;
     color: #883531;
     border: 4px solid #883531;
@@ -398,13 +387,10 @@ a {
 
 .table-user {
     position: relative;
-    top: 4rem;
 }
 
 .add-user-btn span {
     cursor: pointer;
-    display: inline-block;
-    position: relative;
     transition: 0.2s;
 }
 
