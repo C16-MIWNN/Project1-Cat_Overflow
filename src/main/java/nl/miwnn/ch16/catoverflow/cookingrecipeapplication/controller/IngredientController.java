@@ -54,13 +54,13 @@ public class IngredientController {
 
     @GetMapping("/detail/{ingredientName}")
     private String showIngredientDetailPage(@PathVariable("ingredientName") String ingredientName, Model datamodel) {
-        Optional<Ingredient> ingredientOpt = findIngredientByName(ingredientName);
+        Optional<Ingredient> optionalIngredient = findIngredientByName(ingredientName);
 
-        if (ingredientOpt.isEmpty()) {
+        if (optionalIngredient.isEmpty()) {
             return "redirect:/ingredient";
         }
 
-        Ingredient ingredient = ingredientOpt.get();
+        Ingredient ingredient = optionalIngredient.get();
         List<Recipe> recipes = findRecipesForIngredient(ingredient);
 
         loadDetailData(datamodel, ingredient, recipes);
@@ -84,7 +84,6 @@ public class IngredientController {
         showIngredientDetailPage(ingredient.getIngredientName(), datamodel);
         return "redirect:/ingredient/detail/" + ingredient.getIngredientName();
     }
-
 
     @GetMapping("/delete/{ingredientName}")
     private String deleteIngredient(@PathVariable("ingredientName") String name, Model model) {
