@@ -39,7 +39,7 @@
 <div th:fragment="recipeDetailIngredientBox" class="rounded ingredients-box">
     <h3 style="font-weight: bolder; margin-bottom: 1.5rem">Ingredients</h3>
     <div style="margin-bottom: 0.5rem" th:each="ingredientRecipe : ${allIngredientRecipes}">
-        <i class="bi-play-fill"></i>
+        <input type="checkbox" style="margin-right: 8px">
         <i>
           <span style="font-weight: bolder">
             <span th:text="${ingredientRecipe.quantity}"></span>
