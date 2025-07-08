@@ -1,6 +1,7 @@
 package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 /**
   * @author Robyn Blignaut, Bas Folkers
@@ -14,6 +15,7 @@ public class IngredientRecipe {
     private Long ingredientRecipeId;
 
     @ManyToOne
+    @NotNull(message = "Ingredient may not be null")
     private Ingredient ingredient;
 
     @ManyToOne
@@ -74,18 +76,21 @@ public class IngredientRecipe {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
+
         if (quantity != 0) {
             stringBuilder.append(quantity).append(" ");
         }
+
         if (ingredientUnit != null && !ingredientUnit.isBlank()) {
             stringBuilder.append(ingredientUnit).append(" ");
         }
-        if (ingredient != null && ingredient.getIngredientName() != null) {
-            stringBuilder.append(ingredient.getIngredientName());
-        }
+
+        stringBuilder.append(ingredient.getIngredientName());
+
         if (notes != null && !notes.isBlank()) {
             stringBuilder.append(" (").append(notes).append(")");
         }
-        return stringBuilder.toString();
+
+        return stringBuilder.toString().trim();
     }
 }

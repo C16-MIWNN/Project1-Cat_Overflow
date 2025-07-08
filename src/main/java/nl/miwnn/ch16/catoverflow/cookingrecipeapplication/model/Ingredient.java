@@ -1,6 +1,7 @@
 package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * @author Robyn Blignaut, Bas Folkers
@@ -14,6 +15,7 @@ public class Ingredient {
     private Long ingredientId;
 
     @Column(unique=true)
+    @NotBlank(message = "Ingredient name may not be empty")
     private String ingredientName;
 
     public Long getIngredientId() {

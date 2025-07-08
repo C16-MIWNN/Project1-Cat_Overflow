@@ -62,7 +62,7 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<!--		These dependencies are for loading bootstrap-->
+		<!--	These dependencies are for loading bootstrap-->
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap</artifactId>
@@ -94,6 +94,18 @@
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
+		</dependency>
+
+        <!--	These dependencies are for validation-->
+		<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>7.0.5.Final</version>
 		</dependency>
 	</dependencies>
 
