@@ -336,6 +336,23 @@ a {
     margin-bottom: 20Px;
 }
 
+.ingredient-line-container {
+    position: relative;
+}
+
+.ingredient-line-container label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 0.2rem;
+}
+
+.ingredient-line {
+    font-family: 'Merriweather', sans-serif;
+    color: #3e3e3e;
+    line-height: 1.6;
+}
+
 .step-box {
     background-color: #FEFDF1;
     padding: 16px;

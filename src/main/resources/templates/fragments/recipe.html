@@ -38,16 +38,14 @@
 
 <div th:fragment="recipeDetailIngredientBox" class="rounded ingredients-box">
     <h3 style="font-weight: bolder; margin-bottom: 1.5rem">Ingredients</h3>
-    <div style="margin-bottom: 0.5rem" th:each="ingredientRecipe : ${allIngredientRecipes}">
-        <input type="checkbox" style="margin-right: 8px">
-        <i>
-          <span style="font-weight: bolder">
-            <span th:text="${ingredientRecipe.quantity}"></span>
-            <span th:text="${ingredientRecipe.ingredientUnit}"></span>
-          </span>
-            <span th:text="${ingredientRecipe.ingredient.ingredientName}"></span>
-            <span th:text="${ingredientRecipe.notes}"></span>
-        </i>
+    <div th:each="ingredientRecipe : ${allIngredientRecipes}" class="ingredient-line-container">
+        <label th:for="'ingredient-' + ${ingredientRecipe.ingredientRecipeId}"
+               style="display: flex; align-items: center; cursor: pointer;">
+            <input type="checkbox"
+                   th:id="'ingredient-' + ${ingredientRecipe.ingredientRecipeId}"
+                   style="margin-right: 8px;">
+            <span class="ingredient-line" th:text="${ingredientRecipe}"></span>
+        </label>
     </div>
     <div style="margin-bottom: 1rem"></div>
 </div>

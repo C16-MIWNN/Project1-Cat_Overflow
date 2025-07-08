@@ -70,4 +70,22 @@ public class IngredientRecipe {
     public void setNotes(String notes) {
         this.notes = notes;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (quantity != 0) {
+            stringBuilder.append(quantity).append(" ");
+        }
+        if (ingredientUnit != null && !ingredientUnit.isBlank()) {
+            stringBuilder.append(ingredientUnit).append(" ");
+        }
+        if (ingredient != null && ingredient.getIngredientName() != null) {
+            stringBuilder.append(ingredient.getIngredientName());
+        }
+        if (notes != null && !notes.isBlank()) {
+            stringBuilder.append(" (").append(notes).append(")");
+        }
+        return stringBuilder.toString();
+    }
 }
