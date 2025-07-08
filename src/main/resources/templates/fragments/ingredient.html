@@ -2,23 +2,11 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <body>
 
-<div th:fragment="ingredientCards(ingredients, recipeCounts)" class="table">
-    <table class="table table-striped table-bordered table-hover">
-        <thead class="table-header table-dark">
-        <tr>
-            <th>Ingredient</th>
-            <th>Recipes used in</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="ingredient : ${ingredients}"
-            th:insert="~{::ingredientCard(${ingredient}, ${recipeCounts[ingredient.ingredientId]})}"></tr>
-        </tbody>
-    </table>
-</div>
-
 <table>
-    <tr th:fragment="ingredientCard(ingredient, recipeCount)">
+    <tr th:fragment="ingredientCard(ingredient, iter, recipeCount)">
+        <td>
+            <span th:text="${iter.index + 1}"></span>
+        </td>
         <td>
             <a th:href="@{/ingredient/detail/{ingredientName}(ingredientName = ${ingredient.ingredientName})}"
                th:text="${ingredient.ingredientName}">Ingredient name</a>

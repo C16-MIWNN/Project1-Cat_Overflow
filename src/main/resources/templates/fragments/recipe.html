@@ -98,7 +98,7 @@
 
     <h2 class="text-center" style="color: #883531; text-transform: uppercase; font-weight: bolder" th:text="*{recipe.title}"></h2>
     <p class="text-center" style="margin-bottom: 5px" th:text="*{recipe.summary}"></p>
-    <a class="text-center" style="margin-bottom: 1rem">More about <i class="bi bi-caret-down-fill"></i></a>
+    <a href="#description" class="text-center" style="margin-bottom: 1rem">Read more</a>
     <p class="text-center align-bottom">Uploaded by username</p>
 </div>
 
@@ -116,7 +116,7 @@
 </div>
 
 <div th:fragment="recipeDetailDescriptionBox">
-    <div class="rounded recipe-detail-box">
+    <div id="description" class="rounded recipe-detail-box">
         <h2 style="font-weight: bolder">Description</h2>
         <p th:text="*{recipe.description}"></p>
     </div>
