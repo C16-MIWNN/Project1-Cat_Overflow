@@ -99,6 +99,23 @@ public class Recipe {
         return (count - min) / (max - min);
     }
 
+    public int getDifficultyNumber() {
+        switch (getDifficulty()) {
+            case VERY_EASY:
+                return 1;
+            case EASY:
+                return 2;
+            case MEDIUM:
+                return 3;
+            case HARD:
+                return 4;
+            case VERY_HARD:
+                return 5;
+            default:
+                return 0;
+        }
+    }
+
     public Long getRecipeId() {
         return recipeId;
     }
