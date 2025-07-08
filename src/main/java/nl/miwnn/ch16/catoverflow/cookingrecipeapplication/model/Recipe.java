@@ -12,6 +12,12 @@ import java.util.List;
 @Entity
 public class Recipe {
 
+    public static final double MIN_ING_DIFF = 3.0;
+    public static final double MAX_ING_DIFF = 15.0;
+    public static final double MIN_STEP_DIFF = 1.0;
+    public static final double MAX_STEP_DIFF = 20.0;
+    public static final double WEIGHT_ING_DIFF = 0.5;
+    public static final double WEIGHT_STEP_DIFF = 0.5;
     @Id @GeneratedValue
     private Long recipeId;
 
@@ -59,6 +65,37 @@ public class Recipe {
     }
 
     public Recipe() {
+    }
+
+    public int getIngredientCount() {
+        return ingredients.size();
+    }
+
+    public int getStepCount() {
+        return instructions.size();
+    }
+
+    public int getDifficulty() {
+        double normIngredient = normalize(getIngredientCount(), MIN_ING_DIFF, MAX_ING_DIFF);
+        double normStep = normalize(getStepCount(), MIN_STEP_DIFF, MAX_STEP_DIFF);
+        double score = WEIGHT_ING_DIFF * normIngredient + WEIGHT_STEP_DIFF * normStep;
+
+        if (score <= 0.2) {
+            return 1;
+        } else if (score <= 0.4) {
+            return 2;
+        } else if (score <= 0.6) {
+            return 3;
+        } else if (score <= 0.8) {
+            return 4;
+        }
+        return 5;
+    }
+
+    private double normalize(int count, double min, double max) {
+        if (count <= min) return 0.0;
+        if (count >= max) return 1.0;
+        return (count - min) / (max - min);
     }
 
     public Long getRecipeId() {
