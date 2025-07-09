@@ -127,32 +127,97 @@
 <div th:fragment="recipeForm(formRecipe, allIngredientRecipes, #fields)">
     <form class="row g-3" th:action="@{/recipe/save}" method="post" th:object="${formRecipe}">
         <input type="hidden" th:field="*{recipeId}">
-        <div class="row g-3 align-items-center">
-            <div class="col-5">
-                <label for="title" class="col-form-label">Title</label>
+        <h4 class="mt-4">Basic Info</h4>
+            <div class="row g-3 align-items-center">
+                <div class="col-3">
+                    <label for="title" class="col-form-label">Title</label>
+                </div>
+                <div class="col-9">
+                    <input type="text" id="title" class="form-control" aria-describedby="titleHelpInline" th:field="*{title}">
+                </div>
+                <div class="col-12">
+                    <span id="titleHelpInline" class="form-text" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                </div>
             </div>
-            <div class="col-7">
-                <input type="text" id="title" class="form-control" aria-describedby="titleHelpInline" th:field="*{title}">
+            <div class="row g-3 align-items-center">
+                <div class="col-3">
+                    <label for="summary" class="col-form-label">Summary</label>
+                </div>
+                <div class="col-9">
+                    <textarea id="summary" class="form-control" aria-describedby="summaryHelpInline" th:field="*{summary}"></textarea>
+                </div>
+                <div class="col-12">
+                    <span id="summaryHelpInline" class="form-text" th:if="${#fields.hasErrors('summary')}" th:errors="*{summary}"></span>
+                </div>
             </div>
-            <div class="col-12">
-                    <span id="titleHelpInline" class="form-text" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
-                    </span>
+        <h4 class="mt-4">Portion & Timing</h4>
+            <div class="row g-3 align-items-center">
+                <div class="col-3">
+                    <label for="portionQuantity" class="col-form-label">Portion</label>
+                </div>
+                <div class="col-3 ">
+                    <div class="row">
+                        <div class="col-6">
+                            <input id="portionQuantity" class="form-control" aria-describedby="portionQuantityHelpInline" th:field="*{portionQuantity}"></input>
+                        </div>
+                        <div class="col-6">
+                            <input id="portionUnit" class="form-control" aria-describedby="portionUnitHelpInline" th:field="*{portionUnit}" placeholder="servings"></input>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <span id="portionQuantityHelpInline" class="form-text" th:if="${#fields.hasErrors('portionQuantity')}" th:errors="*{portionQuantity}"></span>
+                </div>
             </div>
+            <div class="row g-3 align-items-center">
+                <div class="col-3">
+                    <label for="totalCookingTime" class="col-form-label">Total cooking time (minutes)</label>
+                </div>
+                <div class="col-3">
+                    <input id="totalCookingTime" class="form-control" aria-describedby="totalCookingTimeHelpInline" th:field="*{totalCookingTime}"></input>
+                </div>
+                <div class="col-12">
+                    <span id="totalCookingTimeHelpInline" class="form-text" th:if="${#fields.hasErrors('totalCookingTime')}" th:errors="*{totalCookingTime}"></span>
+                </div>
+            </div>
+        <h4 class="mt-4">Content</h4>
+            <div class="row g-3 align-items-center">
+                <div class="col-3">
+                    <label for="ingredients" class="col-form-label">Ingredients</label>
+                </div>
+                <div class="col-3">
+                    <input id="ingredients" class="form-control" aria-describedby="ingredientsHelpInline" th:field="*{ingredients}"></input>
+                </div>
+                <div class="col-12">
+                    <span id="ingredientsHelpInline" class="form-text" th:if="${#fields.hasErrors('ingredients')}" th:errors="*{ingredients}"></span>
+                </div>
+            </div>
+            <div class="row g-3 align-items-center">
+                <div class="col-3">
+                    <label for="instructions" class="col-form-label">Instructions</label>
+                </div>
+                <div class="col-9">
+                    <textarea id="instructions" class="form-control" aria-describedby="instructionsHelpInline" th:field="*{instructions}"></textarea>
+                </div>
+                <div class="col-12">
+                    <span id="instructionsHelpInline" class="form-text" th:if="${#fields.hasErrors('instructions')}" th:errors="*{instructions}"></span>
+                </div>
+            </div>
+            <div class="row g-3 align-items-center">
+                <div class="col-3">
+                    <label for="description" class="col-form-label">Description</label>
+                </div>
+                <div class="col-9">
+                    <textarea id="description" class="form-control" aria-describedby="descriptionHelpInline" th:field="*{description}"></textarea>
+                </div>
+                <div class="col-12">
+                    <span id="descriptionHelpInline" class="form-text" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+                </div>
+            </div>
+        <div class="modal-button-group">
+            <button type="button" class="clear-text-btn btn btn-warning">Clear text</button>
+            <button type="submit" class="save-text-btn btn btn-primary">Save recipe</button>
         </div>
-        <div class="row g-3 align-items-center">
-            <div class="col-5">
-                <label for="description" class="col-form-label">Description</label>
-            </div>
-            <div class="col-7">
-                <textarea id="description" class="form-control" aria-describedby="descriptionHelpInline" th:field="*{description}"></textarea>
-            </div>
-            <div class="col-12">
-                    <span id="descriptionHelpInline" class="form-text" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
-                    </span>
-            </div>
-        </div>
-        <button type="reset" class="btn btn-warning btn-sm text-black">Clear</button>
-        <button type="submit" class="btn btn-primary btn-sm text-black">Save recipe</button>
     </form>
 </div>
 
@@ -162,9 +227,9 @@
                  aria-labelledby="editFormModalLabel"
                  aria-hidden="true">
 
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <h1 class="modal-title text-center" id="editFormModalLabel">Recipe edit form</h1>
+            <h1 class="modal-title text-center" id="editFormModalLabel">New Recipe</h1>
             <div class="modal-body">
                 <div class="container-fluid">
                     <div th:replace="~{:: recipeForm(${formRecipe}, ${allIngredientRecipes}, ${#fields})}"></div>
@@ -172,10 +237,11 @@
             </div>
         </div>
     </div>
-
-    <script th:unless="${formModalHidden}">
-        new bootstrap.Modal(document.getElementById('editForm'), {}).toggle()
-    </script>
 </div>
+
+<script th:unless="${formModalHidden}">
+    new bootstrap.Modal(document.getElementById('editForm'), {}).toggle()
+</script>
+
 </body>
 </html>

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 
 /**
  * @author Bas Folkers
- * Schrijf hier wat je programma doet
+ * Handle all requests related to ingredients and recipes
  */
 
 @Controller

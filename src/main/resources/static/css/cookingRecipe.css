@@ -125,7 +125,20 @@
     box-shadow: 0 0 16px 0 rgba(0,0,0,0.24), 0 0 50px 0 rgba(0,0,0,0.19);
 }
 
-.row {}
+.modal-button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.modal-button-group button {
+    width: 350px;
+}
+
+.clear-text-btn, .save-text-btn {
+    object-position: center;
+}
 
 .recipe-card {
     position: relative;
