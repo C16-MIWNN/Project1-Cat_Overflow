@@ -40,7 +40,9 @@ public class RecipeController {
 
     private String setupRecipeOverview(Model datamodel, Recipe formRecipe, boolean formModalHidden) {
         datamodel.addAttribute("allRecipes", recipeRepository.findAll());
-        datamodel.addAttribute("formRecipe", new Recipe());
+        Recipe newRecipe = new Recipe();
+        newRecipe.setPortionUnit("servings");
+        datamodel.addAttribute("formRecipe", newRecipe);
         datamodel.addAttribute("formModalHidden", formModalHidden);
 
         return "recipeOverview";
