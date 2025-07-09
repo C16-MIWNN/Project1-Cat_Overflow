@@ -18,12 +18,20 @@ public class Ingredient {
     @NotBlank(message = "Ingredient name may not be empty")
     private String ingredientName;
 
-    public Long getIngredientId() {
-        return ingredientId;
+    public Ingredient(Long ingredientId, String ingredientName) {
+        this.ingredientId = ingredientId;
+        this.ingredientName = ingredientName;
     }
 
-    public void setIngredientId(Long idIngredient) {
-        this.ingredientId = idIngredient;
+    public Ingredient(String ingredientName) {
+        this.ingredientName = ingredientName;
+    }
+
+    public Ingredient() {
+    }
+
+    public Long getIngredientId() {
+        return ingredientId;
     }
 
     public String getIngredientName() {
