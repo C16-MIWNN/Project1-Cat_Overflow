@@ -64,14 +64,14 @@ public class RecipeDifficultyTests {
     @Test
     @DisplayName("Should show all recipe difficulties")
     void shouldShowAllRecipeDifficulties() {
-//        Arrange
+    //  Arrange
         Recipe recipeVeryEasy = createRecipeWithCounts(2, 2);
         Recipe recipeEasy = createRecipeWithCounts(10, 5);
         Recipe recipeMedium = createRecipeWithCounts(10, 10); // same ingredients, more steps
         Recipe recipeHard = createRecipeWithCounts(15, 10);
         Recipe recipeVeryHard = createRecipeWithCounts(15, 20);
 
-    // Act + Assert
+    //  Act + Assert
         assertAll("Difficulty levels",
                 () -> assertEquals("Very Easy", recipeVeryEasy.getDifficulty().getLabel()),
                 () -> assertEquals("Easy", recipeEasy.getDifficulty().getLabel()),
@@ -84,10 +84,12 @@ public class RecipeDifficultyTests {
     @Test
     @DisplayName("Should handle null ingredients and steps gracefully")
     void shouldHandleNullIngredientsAndStepsGracefully() {
+    //  Arrange
         Recipe recipe = new Recipe();
         recipe.setIngredients(null);
         recipe.setInstructions(null);
 
+    //  Act + Assert
         assertDoesNotThrow(() -> recipe.getDifficulty());
     }
 
@@ -114,6 +116,7 @@ public class RecipeDifficultyTests {
     @Test
     @DisplayName("Should handle ingredientRecipe with null ingredient")
     void shouldHandleNullIngredient() {
+    //  Arrange
         IngredientRecipe ingrRecipe = new IngredientRecipe();
         ingrRecipe.setIngredient(null);
         ingrRecipe.setQuantity(2);
@@ -123,13 +126,14 @@ public class RecipeDifficultyTests {
         recipe.setIngredients(List.of(ingrRecipe));
         recipe.setInstructions(createInstructions(5));
 
-        // Act + Assert
+    //  Act + Assert
         assertDoesNotThrow(() -> recipe.getDifficulty(), "Recipe should handle null Ingredient safely");
     }
 
     @Test
     @DisplayName("Should handle instruction with empty description")
     void shouldHandleEmptyInstructionDescription() {
+    //  Arrange
         Instruction instruction = new Instruction();
         instruction.setDescription("");
 
@@ -137,8 +141,7 @@ public class RecipeDifficultyTests {
         recipe.setIngredients(createIngredients(5));
         recipe.setInstructions(List.of(instruction));
 
+    //  Act + Assert
         assertDoesNotThrow(() -> recipe.getDifficulty(), "Recipe should handle instruction with empty description");
     }
-
-
 }
