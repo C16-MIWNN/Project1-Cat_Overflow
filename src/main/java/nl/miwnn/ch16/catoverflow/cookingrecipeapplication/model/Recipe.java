@@ -74,10 +74,16 @@ public class Recipe {
     }
 
     public int getIngredientCount() {
+        if (ingredients == null) {
+            return 0;
+        }
         return ingredients.size();
     }
 
     public int getStepCount() {
+        if (ingredients == null) {
+            return 0;
+        }
         return instructions.size();
     }
 
