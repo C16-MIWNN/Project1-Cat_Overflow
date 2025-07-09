@@ -1,5 +1,6 @@
 package nl.miwnn.ch16.catoverflow.cookingrecipeapplication.model;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,7 @@ public class Recipe {
     private int totalCookingTime;
 
     @OneToOne
+    @Nullable
     private Image image;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -55,7 +57,7 @@ public class Recipe {
                   int portionQuantity,
                   String portionUnit,
                   int totalCookingTime,
-                  Image image,
+                  @Nullable Image image,
                   List<IngredientRecipe> ingredients,
                   List<Instruction> instructions) {
         this.recipeId = recipeId;

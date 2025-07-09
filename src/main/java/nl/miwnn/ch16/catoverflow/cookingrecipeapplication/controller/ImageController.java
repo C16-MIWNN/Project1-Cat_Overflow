@@ -32,7 +32,6 @@ public class ImageController {
     @GetMapping("/images/{imageId}")
     @ResponseBody
     public ResponseEntity<Resource> serveImage(@PathVariable int imageId) {
-        // Hier laad je de afbeelding vanuit de database of een directory
         Path imagePath = Path.of("src/main/resources/static/uploads", imageId + ".jpg");
 
         try {
