@@ -107,6 +107,10 @@ public class Recipe {
         return (count - min) / (max - min);
     }
 
+    public String getDifficultyLabel() {
+        return getDifficulty().getLabel();
+    }
+
     public int getDifficultyNumber() {
         switch (getDifficulty()) {
             case VERY_EASY:
