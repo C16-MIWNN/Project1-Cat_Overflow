@@ -74,4 +74,15 @@ public class AdminUserController {
         return "userOverview";
     }
 
+    @GetMapping("/delete/{username}")
+    public String deleteUser(@PathVariable String username, RedirectAttributes redirectAttributes) {
+        try {
+            adminUserService.deleteUserByUsername(username);
+            redirectAttributes.addFlashAttribute("message", "Gebruiker succesvol verwijderd.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Gebruiker kon niet worden verwijderd.");
+        }
+        return "redirect:/user/overview";
+    }
+
 }
