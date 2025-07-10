@@ -87,4 +87,9 @@ public class AdminUserService implements UserDetailsService {
         dto.setConfirmPassword("");
         return dto;
     }
+
+    public void deleteUserByUsername(String username) {
+        adminUserRepository.findByUsername(username)
+                .ifPresent(adminUserRepository::delete);
+    }
 }
