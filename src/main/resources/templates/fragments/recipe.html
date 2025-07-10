@@ -67,8 +67,7 @@
                 <p style="margin-bottom: 0">
                     Cuisine
                 </p>
-                <p class="header-bolder-accent">
-                    French
+                <p class="header-bolder-accent" th:text="${recipe.getCuisine}">
                 </p>
             </div>
         </div>
@@ -81,8 +80,7 @@
                 <p style="margin-bottom: 0">
                     Servings
                 </p>
-                <p class="header-bolder-accent text-nowrap">
-                    4 People
+                <p class="header-bolder-accent text-nowrap" th:text="${recipe.getPortionQuantity} + ' ' + ${recipe.getPortionUnit}">
                 </p>
             </div>
         </div>
@@ -95,8 +93,7 @@
                 <p class="text-nowrap" style="margin-bottom: 0">
                     Cook Time
                 </p>
-                <p class="header-bolder-accent text-nowrap">
-                    160 Minutes
+                <p class="header-bolder-accent text-nowrap" th:text="${recipe.getTotalCookingTime + ' Minutes'}">
                 </p>
             </div>
         </div>
