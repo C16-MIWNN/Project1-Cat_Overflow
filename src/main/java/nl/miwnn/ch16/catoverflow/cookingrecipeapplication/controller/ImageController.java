@@ -29,10 +29,10 @@ public class ImageController {
         this.imageRepository = imageRepository;
     }
 
-    @GetMapping("/images/{imageId}")
+    @GetMapping("/{imageId}")
     @ResponseBody
     public ResponseEntity<Resource> serveImage(@PathVariable int imageId) {
-        Path imagePath = Path.of("src/main/resources/static/uploads", imageId + ".jpg");
+        Path imagePath = Path.of("src/main/resources/static/uploads", imageId + ".png");
 
         try {
             Resource resource = new UrlResource(imagePath.toUri());

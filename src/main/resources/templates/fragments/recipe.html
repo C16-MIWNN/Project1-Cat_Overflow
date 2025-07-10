@@ -8,7 +8,7 @@
 
 <div th:fragment="recipeCard(recipe)" class="col">
     <div class="card recipe-card"
-         th:style="'background-image: url(/images/Examples/' + ${recipe.image.imageName} + ');'">
+         th:style="'background-image: url(/images/Examples/' + (${recipe.image} != null ? ${recipe.image.imageName} : 'placeholder.png') + ');'">
 
         <a th:href="@{/recipe/detail/{recipeId}(recipeId = ${recipe.recipeId})}" class="stretched-link"></a>
 
@@ -32,7 +32,7 @@
 
 <div th:fragment="recipeDetailImage" class="image-wrapper">
     <div>
-        <img class="rounded recipe-image" th:src="'/images/Examples/' + ${recipe.image.getImageName()}">
+        <img class="rounded recipe-image" th:src="'/images/Examples/' + (${recipe.image} != null ? ${recipe.image.imageName} : 'placeholder.png')">>
     </div>
 </div>
 
