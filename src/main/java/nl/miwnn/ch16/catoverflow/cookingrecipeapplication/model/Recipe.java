@@ -25,6 +25,7 @@ public class Recipe {
     public static final double MIN_SCORE_HARD = 0.8;
     public static final double MIN_NORMALIZE = 0.0;
     public static final double MAX_NORMALIZE = 1.0;
+
     @Id @GeneratedValue
     private Long recipeId;
 
@@ -39,6 +40,7 @@ public class Recipe {
     private int portionQuantity;
     private String portionUnit;
     private int totalCookingTime;
+    private String cuisine;
 
     @OneToOne
     @Nullable
@@ -206,6 +208,14 @@ public class Recipe {
 
     public void setInstructions(List<Instruction> instructions) {
         this.instructions = instructions;
+    }
+
+    public String getCuisine() {
+        return cuisine;
+    }
+
+    public void setCuisine(String cuisine) {
+        this.cuisine = cuisine;
     }
 }
 
