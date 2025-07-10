@@ -13,12 +13,18 @@
         <a th:href="@{/recipe/detail/{recipeId}(recipeId = ${recipe.recipeId})}" class="stretched-link"></a>
 
         <div class="overlay-text">
-            <div class="card-footer">
+            <div>
                 <div class="card-time-group">
-                    <div class="icon-bg-card text-center">
+                    <div class="icon-bg-card text-center" style="scale: 60%">
                         <i class="bi-clock-fill icon-img card-icon-img"></i>
                     </div>
                     <span class="card-text-time" th:text="${recipe.totalCookingTime} + ' mins'"></span>
+                </div>
+                <div class="card-time-group">
+                    <div class="icon-bg-card text-center" style="scale: 60%">
+                        <i class="bi-clock-fill icon-img card-icon-img"></i>
+                    </div>
+                    <span class="card-text-time" th:text="${recipe.getDifficultyLabel}"></span>
                 </div>
             </div>
             <div class="card-header-title">
