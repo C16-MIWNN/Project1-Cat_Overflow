@@ -214,7 +214,6 @@
 }
 
 .card-time-group {
-    position: absolute;
     display: flex;
     align-items: center;
     z-index: 2;
